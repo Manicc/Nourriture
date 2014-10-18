@@ -8,12 +8,12 @@
     left: 0;
     background: url(../img/indexbg.jpg) no-repeat;
     background-size: cover;
-    opacity: 0.4;
+    opacity: 0.5;
 }
 
 .jumbotron .container {
     position: relative;
-    z-index: 2
+    z-index: 2;
 }
 
 .jumbotron {
