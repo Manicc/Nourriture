@@ -8,14 +8,8 @@ class Food(models.Model):
     grade = models.IntegerField(default = 0)
     grad_count = models.IntegerField(default=0)
     count = models.IntegerField()
-    suppliers = models.ManyToManyField(Supplier)
-
-
-class Supplier(models.Model):
-    grade = models.IntegerField(default = 0)
-    grad_count = models.IntegerField(default=0)
-    commentId = models.IntegerField()
-    foodId = models.IntegerField()
+    suppliers = models.ManyToManyField(User, related_name='supplier')
+    sellers = models.ManyToManyField(User, related_name='seller')
 
 
 class Recipe(models.Model):
@@ -26,14 +20,14 @@ class Recipe(models.Model):
 
 class Comment(models.Model):
     user = models.ForeignKey(User)
-    comment_type = models.CharField(max_length=50)
+    comment_type = models.IntegerField()
+    # The target comment is on
+    target_id = models.IntegerField()
+    ref_comment_id = models.IntegerField()
+    content = models.CharField(max_length=200)
 
 
 class Collect(models.Model):
-    userID = models.ForeignKey(User)
+    user = models.ForeignKey(User)
     collect_type = models.CharField(max_length=50)
-
-
-class FoodUserMap(models.Model):
-    userID = models.ForeignKey(User)
-    foodId = models.ForeignKey(Food)
+    target_id = models.IntegerField()
