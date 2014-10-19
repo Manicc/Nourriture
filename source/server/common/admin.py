@@ -1,7 +1,11 @@
 from django.contrib import admin
-from common.models import Food, Recipe, Comment, Collect
+from common.models import *
 
-admin.site.register(Food)
+admin.site.register(Ingredient)
+admin.site.register(Product)
+admin.site.register(ProductTag)
 admin.site.register(Recipe)
+admin.site.register(Favorite)
+admin.site.register(Like)
+admin.site.register(Moment)
 admin.site.register(Comment)
-admin.site.register(Collect)
