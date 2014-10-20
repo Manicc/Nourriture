@@ -17,7 +17,7 @@ class Ingredient(models.Model):
     origin = models.CharField(max_length=30)
     # detail description of ingredient
     nutrition = models.CharField(max_length=100)
-    supplier = models.ManyToManyField(Supplier)
+    supplier = models.ManyToManyField(Supplier, blank=True)
 
 
 class Product(models.Model):
