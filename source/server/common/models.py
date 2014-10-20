@@ -2,6 +2,14 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
+class Supplier(models.Model):
+    user = models.OneToOneField(User)
+
+
+class Gastronomist(models.Model):
+    user = models.OneToOneField(User)
+
+
 class Ingredient(models.Model):
     name = models.CharField(max_length=20)
     alias = models.CharField(max_length=20)
@@ -9,7 +17,7 @@ class Ingredient(models.Model):
     origin = models.CharField(max_length=30)
     # detail description of ingredient
     nutrition = models.CharField(max_length=100)
-    supplier = models.ManyToManyField(User)
+    supplier = models.ManyToManyField(Supplier)
 
 
 class Product(models.Model):
@@ -28,7 +36,7 @@ class Recipe(models.Model):
     ingredients = models.ManyToManyField(Ingredient)
     processing = models.TextField()
     nutrition = models.CharField(max_length=100)
-    gastronomist = models.ForeignKey(User)
+    gastronomist = models.ForeignKey(Gastronomist)
 
 
 class Favorite(models.Model):
