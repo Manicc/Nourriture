@@ -1,2 +1,3 @@
 *.py[co]
 /source/server/.idea
+/source/server/*.sqlite3

@@ -1,4 +1,6 @@
 # Django settings for server project.
+from os import path
+PROJECT_ROOT = path.dirname(path.abspath(path.dirname(__file__)))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -15,24 +17,26 @@ if 'SERVER_SOFTWARE' in os.environ:
     from sae.const import (
         MYSQL_HOST, MYSQL_PORT, MYSQL_USER, MYSQL_PASS, MYSQL_DB
     )
-else:
-    # Make `python manage.py syncdb` works happy!
-    MYSQL_HOST = 'localhost'
-    MYSQL_PORT = '3306'
-    MYSQL_USER = 'root'
-    MYSQL_PASS = '123456'
-    MYSQL_DB   = 'app_nourriture'
 
-DATABASES = {
+    DATABASES = {
     'default': {
-        'ENGINE':   'django.db.backends.mysql',
-        'NAME':     MYSQL_DB,
-        'USER':     MYSQL_USER,
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': MYSQL_DB,
+        'USER': MYSQL_USER,
         'PASSWORD': MYSQL_PASS,
-        'HOST':     MYSQL_HOST,
-        'PORT':     MYSQL_PORT,
+        'HOST': MYSQL_HOST,
+        'PORT': MYSQL_PORT,
     }
 }
+else:
+    DATABASES = {
+	    'default': {
+	        'ENGINE': 'django.db.backends.sqlite3',
+	        'NAME': path.join(PROJECT_ROOT, 'db.sqlite3'),
+		}
+	}
+
+
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
@@ -70,13 +74,11 @@ MEDIA_ROOT = ''
 # Examples: "http://example.com/media/", "http://media.example.com/"
 MEDIA_URL = ''
 
-
-SITE_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 STATIC_ROOT = ''
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(SITE_ROOT,'static'),
+    os.path.join(PROJECT_ROOT,'static'),
 )
 
 # List of finder classes that know how to find static files in
