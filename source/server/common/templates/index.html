@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-    <link href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ STATIC_URL }}css/index.css" rel="stylesheet">
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}Nourriture{% endblock %}
+
+{% block content %}
 <div class="jumbotron masthead">
   <div class="container">
     <h1>Nourriture</h1>
@@ -14,12 +10,9 @@
     <p class="masthead-button-links">
       <a class="btn btn-lg btn-success btn-shadow" href="/admin/" role="button">Enter Admin Page</a>
     </p>
+    <p class="masthead-button-links">
+      <a class="btn btn-lg btn-success btn-shadow" href="/api/" role="button">Show APIs list</a>
+    </p>
   </div>
 </div>
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
-<script src="http://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-</body>
-</html>
+{% endblock %}

@@ -1,6 +1,9 @@
 from django.contrib import admin
 from common.models import *
 
+
+admin.site.register(Supplier)
+admin.site.register(Gastronomist)
 admin.site.register(Ingredient)
 admin.site.register(Product)
 admin.site.register(ProductTag)

@@ -5,9 +5,15 @@ from django.db import models
 class Supplier(models.Model):
     user = models.OneToOneField(User)
 
+    def __unicode__(self):
+        return self.user.username
+
 
 class Gastronomist(models.Model):
     user = models.OneToOneField(User)
+
+    def __unicode__(self):
+        return self.user.username
 
 
 class Ingredient(models.Model):
@@ -19,6 +25,9 @@ class Ingredient(models.Model):
     nutrition = models.CharField(max_length=100)
     supplier = models.ManyToManyField(Supplier, blank=True)
 
+    def __unicode__(self):
+        return self.name
+
 
 class Product(models.Model):
     name = models.CharField(max_length=20)
@@ -26,17 +35,27 @@ class Product(models.Model):
     nutrition = models.CharField(max_length=100)
     certification = models.CharField(max_length=20)
 
+    def __unicode__(self):
+        return self.name
+
 
 class ProductTag(models.Model):
     name = models.CharField(max_length=20)
     product = models.ManyToManyField(Product)
 
+    def __unicode__(self):
+        return self.name
+
 
 class Recipe(models.Model):
+    name = models.CharField(max_length=20)
     ingredients = models.ManyToManyField(Ingredient)
     processing = models.TextField()
     nutrition = models.CharField(max_length=100)
     gastronomist = models.ForeignKey(Gastronomist)
+
+    def __unicode__(self):
+        return self.name
 
 
 class Favorite(models.Model):
@@ -44,17 +63,26 @@ class Favorite(models.Model):
     collect_type = models.CharField(max_length=50)
     target_id = models.IntegerField()
 
+    def __unicode__(self):
+        return self.user.username
+
 
 class Like(models.Model):
     user = models.ForeignKey(User)
     like_type = models.CharField(max_length=50)
     like_id = models.IntegerField()
 
+    def __unicode__(self):
+        return self.user.username
+
 
 class Moment(models.Model):
     user = models.ForeignKey(User)
     description = models.CharField(max_length=200)
     media = models.CharField(max_length=100)
+
+    def __unicode__(self):
+        return self.user.username
 
 
 class Comment(models.Model):
@@ -65,3 +93,6 @@ class Comment(models.Model):
     target_id = models.IntegerField()
     replay_comment_id = models.IntegerField()
     content = models.CharField(max_length=200)
+
+    def __unicode__(self):
+        return self.user.username

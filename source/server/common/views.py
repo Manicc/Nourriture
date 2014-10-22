@@ -12,5 +12,8 @@ def show_urls(urllist, depth=0):
 
 
 def index(request):
-    show_urls(urls.urlpatterns)
     return render(request, 'index.html');
+
+
+def api(request):
+    return render(request, 'api.html');
