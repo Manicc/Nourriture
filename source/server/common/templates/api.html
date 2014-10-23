@@ -5,21 +5,30 @@
 {% block content %}
     <div class="container">
         <h1>APIs list</h1>
-        <h3>Ingredient</h3>
-        <ul class="list-group">
-          <li class="list-group-item"><a href="/ingredient/">Get all ingredients '/ingredient/'</a></li>
-          <li class="list-group-item">Dapibus ac facilisis in</li>
-          <li class="list-group-item">Morbi leo risus</li>
-          <li class="list-group-item">Porta ac consectetur ac</li>
-          <li class="list-group-item">Vestibulum at eros</li>
-        </ul>
-        <h3>Ingredient</h3>
-        <ul class="list-group">
-          <li class="list-group-item">Cras justo odio</li>
-          <li class="list-group-item">Dapibus ac facilisis in</li>
-          <li class="list-group-item">Morbi leo risus</li>
-          <li class="list-group-item">Porta ac consectetur ac</li>
-          <li class="list-group-item">Vestibulum at eros</li>
-        </ul>
+        {% for single in api %}
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading"><h4>{{ single.0 }}</h4></div>
+                <!-- Table -->
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>url</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in single.1 %}
+                        <tr>
+                            <td>{{ item.id }}</td>
+                            <td><a href="{{ item.example }}">{{ item.url }}</a></td>
+                            <td>{{ item.desc }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}
