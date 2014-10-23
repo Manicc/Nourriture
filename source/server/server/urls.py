@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     url(r'^ingredient/', include('ingredient.urls')),
     url(r'^product/', include('product.urls')),
     url(r'^recipe/', include('recipe.urls')),
+    url(r'^supplier/', include('supplier.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
