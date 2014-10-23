@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from server import urls
+from manage.models import Api, ApiGroup
 
 
 def show_urls(urllist, depth=0):
@@ -12,8 +12,14 @@ def show_urls(urllist, depth=0):
 
 
 def index(request):
-    return render(request, 'index.html');
+    return render(request, 'index.html')
 
 
 def api(request):
-    return render(request, 'api.html');
+    group = ApiGroup.objects.all().order_by('id')
+    api_group = list()
+    for item in group:
+        api_group.append((item.name, Api.objects.filter(group=item).order_by('id')))
+
+    context = {'api': api_group}
+    return render(request, 'api.html', context)
