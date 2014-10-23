@@ -11,6 +11,11 @@ class Supplier(models.Model):
 
 class Gastronomist(models.Model):
     user = models.OneToOneField(User)
+    openid = models.CharField(max_length=20)
+    name = models.CharField(max_length=20)
+    address = models.CharField(max_length=100)
+    contact = models.CharField(max_length=20)
+    health = models.CharField(max_length=20)
 
     def __unicode__(self):
         return self.user.username
@@ -32,7 +37,6 @@ class Ingredient(models.Model):
         return self.name
 
 
-
 class Recipe(models.Model):
     name = models.CharField(max_length=20)
     ingredients = models.ManyToManyField(Ingredient)
@@ -51,6 +55,8 @@ class Product(models.Model):
     certification = models.CharField(max_length=20)
     stock = models.IntegerField()
     recipe = models.ManyToManyField(Recipe)
+
+
     def __unicode__(self):
         return self.name
 
