@@ -29,23 +29,6 @@ class Ingredient(models.Model):
         return self.name
 
 
-class Product(models.Model):
-    name = models.CharField(max_length=20)
-    ingredients = models.ManyToManyField(Ingredient)
-    nutrition = models.CharField(max_length=100)
-    certification = models.CharField(max_length=20)
-
-    def __unicode__(self):
-        return self.name
-
-
-class ProductTag(models.Model):
-    name = models.CharField(max_length=20)
-    product = models.ManyToManyField(Product)
-
-    def __unicode__(self):
-        return self.name
-
 
 class Recipe(models.Model):
     name = models.CharField(max_length=20)
@@ -53,6 +36,25 @@ class Recipe(models.Model):
     processing = models.TextField()
     nutrition = models.CharField(max_length=100)
     gastronomist = models.ForeignKey(Gastronomist)
+
+    def __unicode__(self):
+        return self.name
+
+
+class Product(models.Model):
+    name = models.CharField(max_length=20)
+    ingredients = models.ManyToManyField(Ingredient)
+    nutrition = models.CharField(max_length=100)
+    certification = models.CharField(max_length=20)
+    stock = models.IntegerField()
+    recipe = models.ManyToManyField(Recipe)
+    def __unicode__(self):
+        return self.name
+
+
+class ProductTag(models.Model):
+    name = models.CharField(max_length=20)
+    product = models.ManyToManyField(Product)
 
     def __unicode__(self):
         return self.name
