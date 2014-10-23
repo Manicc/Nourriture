@@ -24,6 +24,9 @@ class Ingredient(models.Model):
     # detail description of ingredient
     nutrition = models.CharField(max_length=100)
     supplier = models.ManyToManyField(Supplier, blank=True)
+    colour = models.CharField(max_length=20)
+    flavour = models.CharField(max_length=60)
+    shape = models.CharField(max_length=30)
 
     def __unicode__(self):
         return self.name
