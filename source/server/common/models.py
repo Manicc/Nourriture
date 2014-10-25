@@ -56,7 +56,6 @@ class Product(models.Model):
     stock = models.IntegerField()
     recipe = models.ManyToManyField(Recipe)
 
-
     def __unicode__(self):
         return self.name
 
