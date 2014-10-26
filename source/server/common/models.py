@@ -60,13 +60,12 @@ class Product(models.Model):
     stock = models.IntegerField()
     recipe = models.ManyToManyField(Recipe)
 
-
     def __unicode__(self):
         return self.name
 
 
 class ProductTag(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=20, unique=True)
     product = models.ManyToManyField(Product)
 
     def __unicode__(self):
