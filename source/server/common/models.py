@@ -4,6 +4,10 @@ from django.db import models
 
 class Supplier(models.Model):
     user = models.OneToOneField(User)
+    name = models.CharField(max_length=20)
+    country = models.CharField(max_length= 20)
+    ingredients = models.CharField(max_length=100)
+
 
     def __unicode__(self):
         return self.user.username
