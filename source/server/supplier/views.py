@@ -21,7 +21,11 @@ def detail(request, id):
     response_kwargs['content_type'] = 'application/json'
     return HttpResponse(data, **response_kwargs)
 
+"""
+  According to the names and the  country and types of certain items of a supplier's
+  to search to the supplier
 
+"""
 
 def search(request):
     avaiable_field = {'country','ingredients','name'}
