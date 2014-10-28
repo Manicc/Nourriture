@@ -34,17 +34,22 @@ def search(request):
     """
 
     recipes = Recipe.objects.all()
-    ingrname = request.GET.get('ingredientname')
-    if ingrname !='':
+
+    recipename=request.GET.get('name')
+    if recipename !=None:
+        recipes=recipes.filter(name__contains=recipename)
+
+    ingrname = request.GET.get('ingredient')
+    if ingrname != None:
         ingredientnamelist  = ingrname.split(',')
         for ingredientname in ingredientnamelist:
-            ingredient = Ingredient.objects.get(name=ingredientname)
+            ingredient = Ingredient.objects.get(name__contains=ingredientname)
             ingredientid = ingredient.id
             recipes = recipes.filter(ingredients=ingredientid)
 
-    gastronomistname = request.GET.get('gastronomistname')
-    if gastronomistname != '':
-        gastronomist = User.objects.get(username=gastronomistname)
+    gastronomistname = request.GET.get('gname')
+    if gastronomistname != None:
+        gastronomist = User.objects.get(username__contains=gastronomistname)
         gastronomistid = gastronomist.id
         recipes = recipes.filter(gastronomist=gastronomistid)
 
