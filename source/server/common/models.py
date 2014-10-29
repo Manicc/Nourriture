@@ -48,6 +48,17 @@ class Recipe(models.Model):
     nutrition = models.CharField(max_length=100)
     gastronomist = models.ForeignKey(Gastronomist)
 
+    # added by linan --10.29
+    # how many users have browsed this recipe
+    browsecount = models.IntegerField()
+    # how many users have collected this recipe
+    collectcount=models.IntegerField()
+    # this recipe is belong to which type of food,such as spicy or breakfast or other
+    foodtype = models.CharField(max_length=20)
+    # how long will it take to make this food
+    makingtime = models.CharField(max_length=20)
+    # some tips to make this food
+    makingtip = models.TextField()
     def __unicode__(self):
         return self.name
 
