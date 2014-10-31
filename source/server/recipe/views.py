@@ -34,6 +34,7 @@ def search(request):
     """
 
     recipes = Recipe.objects.all()
+    ingredient = Ingredient.objects.all()
 
     recipename=request.GET.get('name')
     if recipename !=None:
@@ -41,17 +42,32 @@ def search(request):
 
     ingrname = request.GET.get('ingredient')
     if ingrname != None:
+
         ingredientnamelist  = ingrname.split(',')
+
         for ingredientname in ingredientnamelist:
-            ingredient = Ingredient.objects.get(name__contains=ingredientname)
-            ingredientid = ingredient.id
-            recipes = recipes.filter(ingredients=ingredientid)
+            newingredient = ingredient.filter(name__contains=ingredientname)
+            # ingredient = Ingredient.objects.get(name__contains=ingredientname)
+            newrecipe = Recipe.objects.none()
+            if newingredient!=None:
+                
+                for ingredientObj in newingredient:
+                    ingredientid = ingredientObj.id
+                    recipes1 = recipes.filter(ingredients=ingredientid)
+                    newrecipe = newrecipe|recipes1
+                recipes = newrecipe   
 
     gastronomistname = request.GET.get('gname')
     if gastronomistname != None:
-        gastronomist = User.objects.get(username__contains=gastronomistname)
-        gastronomistid = gastronomist.id
-        recipes = recipes.filter(gastronomist=gastronomistid)
+        try:
+            gastro =User.objects.get(username__contains=gastronomistname)
+            if gastro!=None:
+                gastronomistid = gastro.id
+                recipes = recipes.filter(gastronomist=gastronomistid)
+        except Exception, e:
+            recipes = Recipe.objects.none()
+        
+ 
 
     data = serializers.serialize("json", recipes)
     response_kwargs = dict()
