@@ -30,6 +30,12 @@ class Ingredient(models.Model):
     alias = models.CharField(max_length=20)
     # place of production
     origin = models.CharField(max_length=30)
+    # the category of the ingredient
+    category=models.CharField(max_length=50)
+    # the function of the ingredient
+    function=models.CharField(max_length=100)
+    # the retain freshness of the ingredient
+    freshness=models.DateField(max_length=20)
     # detail description of ingredient
     nutrition = models.CharField(max_length=100)
     supplier = models.ManyToManyField(Supplier, blank=True)
