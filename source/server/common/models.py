@@ -19,7 +19,6 @@ class Gastronomist(models.Model):
     name = models.CharField(max_length=20)
     address = models.CharField(max_length=100)
     contact = models.CharField(max_length=20)
-    health = models.CharField(max_length=20)
 
     def __unicode__(self):
         return self.user.username

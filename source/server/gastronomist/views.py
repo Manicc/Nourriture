@@ -22,24 +22,16 @@ def detail(request, id):
 
 def search(request):
     """
-        search: using ingredient name and  recipe
-        form: http://127.0.0.1:8000/gastronomist/searchgastronomist?ingredientname=ljm&recipename=1
+        search: using  name
+        http://127.0.0.1:8000/gastronomist/search?name=xiaoxiaomeishijia
     """
-    ingredientname = request.GET.get('ingredientname')
-    recipename = request.GET.get('recipename')
+    gastronomist = Gastronomist.objects.all()
 
-    ingredient = Ingredient.objects.get(name=ingredientname)
-    ingredientid = ingredient.id
-    recipe = Recipe.objects.get(name=recipename)
-    recipeid = recipe.id
+    gastronomistname=request.GET.get('name')
+    if gastronomistname !=None:
+        gastronomist=gastronomist.filter(name__contains=gastronomistname)
 
-#    g = Recipe.objects.get(id=1).gastronomist
-    if(ingredientid!=''):
-        gastronomist = Recipe.objects.get(ingredients=ingredientid).gastronomist
-    if(recipeid!=''):
-        gastronomist = Recipe.objects.get(id=recipeid).gastronomist
-
-    data = serializers.serialize("json", [gastronomist])
+    data = serializers.serialize("json", gastronomist)
     response_kwargs = dict()
     response_kwargs['content_type'] = 'application/json'
     return HttpResponse(data, **response_kwargs)
