@@ -18,21 +18,21 @@ def detail(request, id):
     response_kwargs['content_type'] = 'application/json'
     return HttpResponse(data, **response_kwargs)
 
-
 def search(request):
-    available_field = ['name', 'region']
-
-    arguments = dict()
-    for k, v in request.GET.iteritems():
-        if k in available_field:
-            arguments[k] = v
-
-        if k == 'region':
-            arguments[k+'__in'] = str.split(v, ',')
-
-    ingredient = Ingredient.objects.filter(**arguments)
+    ingredient = Ingredient.objects.all()
+    ingredient_name = request.GET.get('ingredient','')
+    if ingredient_name != '':
+        ingredient_name_list = ingredient_name.split(',')
+        for ingredient_name in ingredient_name_list:
+            ingredient = ingredient.filter(name__contains=ingredient_name)
+    ingredient_alias = request.GET.get('alias','')
+    if ingredient_alias != '':
+        ingredient_alias_list = ingredient_alias.split(',')
+        for ingredient_alias in ingredient_alias_list:
+            ingredient = ingredient.filter(alias__contains=ingredient_alias)
     data = serializers.serialize("json", ingredient)
     response_kwargs = dict()
     response_kwargs['content_type'] = 'application/json'
     return HttpResponse(data, **response_kwargs)
+
 
