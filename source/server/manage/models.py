@@ -9,8 +9,8 @@ class ApiGroup(models.Model):
 
 
 class Api(models.Model):
-    url = models.CharField(max_length=20)
-    example = models.CharField(max_length=20)
+    url = models.CharField(max_length=100)
+    example = models.TextField()
     desc = models.CharField(max_length=100)
     group = models.ForeignKey(ApiGroup)
 

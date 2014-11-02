@@ -2,12 +2,57 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
+class Nutrition(models.Model):
+    name = models.CharField(max_length=30, unique=True)
+    alias = models.CharField(max_length=50, blank=True)
+    desc = models.TextField(default='', blank=True)
+
+    def __unicode__(self):
+        return self.name
+
+
+class NutritionValue(models.Model):
+    nutrition = models.ForeignKey(Nutrition)
+    value = models.FloatField()
+
+    def __unicode__(self):
+        return self.nutrition.name + ' ' + str(self.value) + 'mg'
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=20, unique=True)
+
+    def __unicode__(self):
+        return self.name
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=30, unique=True)
+
+    def __unicode__(self):
+        return self.name
+
+
+class Ingredient(models.Model):
+    name = models.CharField(max_length=30, unique=True)
+    alias = models.CharField(max_length=50, blank=True)
+    # the category of the ingredient
+    category = models.ForeignKey(Category)
+    # detail description of ingredient
+    desc = models.TextField(blank=True)
+    function = models.TextField(blank=True)
+    nutrition = models.ManyToManyField(NutritionValue)
+    tags = models.ManyToManyField(Tag)
+
+    def __unicode__(self):
+        return self.name
+
+
 class Supplier(models.Model):
     user = models.OneToOneField(User)
-    name = models.CharField(max_length=20)
-    country = models.CharField(max_length= 20)
-    ingredients = models.CharField(max_length=100)
-
+    name = models.CharField(max_length=30, unique=True)
+    location = models.CharField(max_length=30)
+    ingredients = models.ManyToManyField(Ingredient)
 
     def __unicode__(self):
         return self.user.username
@@ -15,74 +60,44 @@ class Supplier(models.Model):
 
 class Gastronomist(models.Model):
     user = models.OneToOneField(User)
-    openid = models.CharField(max_length=20)
-    name = models.CharField(max_length=20)
-    address = models.CharField(max_length=100)
-    contact = models.CharField(max_length=20)
-
-    def __unicode__(self):
-        return self.user.username
-
-
-class Ingredient(models.Model):
-    name = models.CharField(max_length=20)
-    alias = models.CharField(max_length=20)
-    # place of production
-    origin = models.CharField(max_length=30)
-    # the category of the ingredient
-    category=models.CharField(max_length=50)
-    # the function of the ingredient
-    function=models.CharField(max_length=100)
-    # the retain freshness of the ingredient
-    freshness=models.DateField(max_length=20)
-    # detail description of ingredient
-    nutrition = models.CharField(max_length=100)
-    supplier = models.ManyToManyField(Supplier, blank=True)
-    colour = models.CharField(max_length=20)
-    flavour = models.CharField(max_length=60)
-    shape = models.CharField(max_length=30)
+    openid = models.CharField(max_length=40, unique=True)
+    name = models.CharField(max_length=30, unique=True)
+    desc = models.CharField(max_length=200, blank=True)
 
     def __unicode__(self):
         return self.name
 
 
 class Recipe(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=40, unique=True)
+    gastronomist = models.ForeignKey(Gastronomist)
     ingredients = models.ManyToManyField(Ingredient)
     processing = models.TextField()
-    nutrition = models.CharField(max_length=100)
-    gastronomist = models.ForeignKey(Gastronomist)
+    nutrition = models.ManyToManyField(NutritionValue)
+    tags = models.ManyToManyField(Tag)
 
     # added by linan --10.29
     # how many users have browsed this recipe
-    browsecount = models.IntegerField()
+    browse_count = models.IntegerField(default=0)
     # how many users have collected this recipe
-    collectcount=models.IntegerField()
+    collect_count = models.IntegerField(default=0)
     # this recipe is belong to which type of food,such as spicy or breakfast or other
-    foodtype = models.CharField(max_length=20)
+    food_type = models.CharField(max_length=20)
     # how long will it take to make this food
-    makingtime = models.CharField(max_length=20)
+    making_time = models.IntegerField(default=60)
     # some tips to make this food
-    makingtip = models.TextField()
+    making_tip = models.TextField(blank=True)
+
     def __unicode__(self):
         return self.name
 
 
 class Product(models.Model):
     name = models.CharField(max_length=20)
+    desc = models.TextField(blank=True)
     ingredients = models.ManyToManyField(Ingredient)
-    nutrition = models.CharField(max_length=100)
-    certification = models.CharField(max_length=20)
-    stock = models.IntegerField()
-    recipe = models.ManyToManyField(Recipe)
-
-    def __unicode__(self):
-        return self.name
-
-
-class ProductTag(models.Model):
-    name = models.CharField(max_length=20, unique=True)
-    product = models.ManyToManyField(Product)
+    nutrition = models.ManyToManyField(NutritionValue)
+    tags = models.ManyToManyField(Tag)
 
     def __unicode__(self):
         return self.name
@@ -108,7 +123,7 @@ class Like(models.Model):
 
 class Moment(models.Model):
     user = models.ForeignKey(User)
-    description = models.CharField(max_length=200)
+    desc = models.CharField(max_length=200)
     media = models.CharField(max_length=100)
 
     def __unicode__(self):

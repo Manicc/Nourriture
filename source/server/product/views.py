@@ -1,8 +1,6 @@
 from django.core import serializers
 from django.http import HttpResponse
-from common.models import Ingredient
-from common.models import Product
-from common.models import ProductTag
+from common.models import Ingredient, Tag, Product
 
 
 def _list(request):
@@ -40,7 +38,7 @@ def search(request):
     elif tag_param != '':
         tag_param_list = tag_param.split(',')
         for tag_param_list_name in tag_param_list:
-            product_tags = ProductTag.objects.filter(name=tag_param_list_name)
+            product_tags = Tag.objects.filter(name=tag_param_list_name)
             ingredient_param = request.GET.get('ingredient', '')
             if ingredient_param != '':
                 ingredient_param_list = ingredient_param.split(',')
@@ -50,10 +48,9 @@ def search(request):
                     product_tags = product_tags.filter(product_ingredients=ingredient_id)
 
         for product_tag in product_tags:
-            products = product_tag.product.all();
+            products = product_tag.product.all()
 
         data = serializers.serialize("json", products)
 
     response_kwargs = {'content_type': 'application/json'}
     return HttpResponse(data, **response_kwargs)
-
