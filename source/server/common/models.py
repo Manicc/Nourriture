@@ -41,8 +41,8 @@ class Ingredient(models.Model):
     # detail description of ingredient
     desc = models.TextField(blank=True)
     function = models.TextField(blank=True)
-    nutrition = models.ManyToManyField(NutritionValue)
-    tags = models.ManyToManyField(Tag)
+    nutrition = models.ManyToManyField(NutritionValue, blank=True)
+    tags = models.ManyToManyField(Tag, blank=True)
 
     def __unicode__(self):
         return self.name

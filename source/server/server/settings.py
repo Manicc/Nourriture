@@ -1,5 +1,6 @@
 # Django settings for server project.
 from os import path
+
 PROJECT_ROOT = path.dirname(path.abspath(path.dirname(__file__)))
 
 DEBUG = True
@@ -19,22 +20,22 @@ if 'SERVER_SOFTWARE' in os.environ:
     )
 
     DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': MYSQL_DB,
-        'USER': MYSQL_USER,
-        'PASSWORD': MYSQL_PASS,
-        'HOST': MYSQL_HOST,
-        'PORT': MYSQL_PORT,
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': MYSQL_DB,
+            'USER': MYSQL_USER,
+            'PASSWORD': MYSQL_PASS,
+            'HOST': MYSQL_HOST,
+            'PORT': MYSQL_PORT,
+        }
     }
-}
 else:
     DATABASES = {
-	    'default': {
-	        'ENGINE': 'django.db.backends.sqlite3',
-	        'NAME': path.join(PROJECT_ROOT, 'db.sqlite3'),
-		}
-	}
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': path.join(PROJECT_ROOT, 'db.sqlite3'),
+        }
+    }
 
 
 
@@ -78,7 +79,7 @@ STATIC_ROOT = ''
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(PROJECT_ROOT,'static'),
+    os.path.join(PROJECT_ROOT, 'static'),
 )
 
 # List of finder classes that know how to find static files in
@@ -86,7 +87,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -96,11 +97,13 @@ SECRET_KEY = 'g0@q%p_hojramz(6@zo9-z-o6gjaun+^^ld&y=%y0amwivv0_f'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    # 'django.template.loaders.eggs.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -167,3 +170,20 @@ LOGGING = {
         },
     }
 }
+
+if 'SERVER_SOFTWARE' in os.environ:
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
+            'LOCATION': '127.0.0.1:11211',
+        }
+    }
+else:
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+            'LOCATION': 'unique-snowflake',
+        }
+    }
+
+CACHE_MIDDLEWARE_SECONDS = 60
