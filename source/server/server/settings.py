@@ -178,12 +178,5 @@ if 'SERVER_SOFTWARE' in os.environ:
             'LOCATION': '127.0.0.1:11211',
         }
     }
-else:
-    CACHES = {
-        'default': {
-            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-            'LOCATION': 'unique-snowflake',
-        }
-    }
 
 CACHE_MIDDLEWARE_SECONDS = 60
