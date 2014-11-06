@@ -1,7 +1,6 @@
 from django.core import serializers
 from django.http import HttpResponse
 from common.models import Ingredient
-from django.db.models import Q
 
 
 def _list(request):
@@ -21,17 +20,22 @@ def detail(request, id):
 
 def search(request):
     ingredient = Ingredient.objects.all()
-    name = request.GET.get('name')
-    ingredient = None
+    ingredient_name = request.GET.get('name','')
 
-    if name:
-        # search the name and alias at the same time
-        ingredient = Ingredient.objects.filter(Q(name__contains=name) | Q(alias__contains=name))
+    if ingredient_name != '':
+        ingredient_name_list = ingredient_name.split(',')
+        for ingredient_name in ingredient_name_list:
+            ingredient = ingredient.filter(name__contains=ingredient_name)
 
-    if not ingredient:
-        ingredient = []
+    ingredient_alias = request.GET.get('name','')
+    if ingredient_alias != '':
+        ingredient_alias_list = ingredient_alias.split(',')
+        for ingredient_alias in ingredient_alias_list:
+            ingredient = ingredient.filter(alias__contains=ingredient_alias)
 
     data = serializers.serialize("json", ingredient)
     response_kwargs = dict()
     response_kwargs['content_type'] = 'application/json'
     return HttpResponse(data, **response_kwargs)
+
+

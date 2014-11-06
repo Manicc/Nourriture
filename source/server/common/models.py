@@ -73,8 +73,8 @@ class Recipe(models.Model):
     gastronomist = models.ForeignKey(Gastronomist)
     ingredients = models.ManyToManyField(Ingredient)
     processing = models.TextField()
-    nutrition = models.ManyToManyField(NutritionValue)
-    tags = models.ManyToManyField(Tag)
+    nutrition = models.ManyToManyField(NutritionValue, blank=True)
+    tags = models.ManyToManyField(Tag, blank=True)
 
     # added by linan --10.29
     # how many users have browsed this recipe
@@ -83,7 +83,7 @@ class Recipe(models.Model):
     collect_count = models.IntegerField(default=0)
     # this recipe is belong to which type of food,such as spicy or breakfast or other
     food_type = models.CharField(max_length=20)
-    # how long will it take to make this food
+    # how long will it take to make this food, in minutes
     making_time = models.IntegerField(default=60)
     # some tips to make this food
     making_tip = models.TextField(blank=True)
