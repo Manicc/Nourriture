@@ -20,6 +20,7 @@ def detail(request, id):
     return HttpResponse(data, **response_kwargs)
 
 def search(request):
+    ingredient = Ingredient.objects.all()
     name = request.GET.get('name')
     ingredient = None
 
