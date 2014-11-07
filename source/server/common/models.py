@@ -96,8 +96,8 @@ class Product(models.Model):
     name = models.CharField(max_length=20)
     desc = models.TextField(blank=True)
     ingredients = models.ManyToManyField(Ingredient)
-    nutrition = models.ManyToManyField(NutritionValue)
-    tags = models.ManyToManyField(Tag)
+    nutrition = models.ManyToManyField(NutritionValue, blank=True)
+    tags = models.ManyToManyField(Tag, blank=True)
 
     def __unicode__(self):
         return self.name
