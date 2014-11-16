@@ -1,20 +1,25 @@
 ### [Windows Development Environment Settigns](https://github.com/zhenghongzhi/Nourriture/wiki/Window%E4%B8%8B%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE)
 
 ### RESTful API
+
+#### ingredient
 - [/ingredient/](http://nourriture.sinaapp.com/ingredient/)
 - [/ingredient/**ID**](http://nourriture.sinaapp.com/ingredient/1/)
-- [/ingredient/search?name=**NAME**](http://nourriture.sinaapp.com/ingredient/search?name=tomato)  
-  
+- [/ingredient/search?name=**NAME**](http://nourriture.sinaapp.com/ingredient/search?name=tomato)
+
+#### product
 - [/product/](http://nourriture.sinaapp.com/product/)
 - [/product/**ID**](http://nourriture.sinaapp.com/product/1/)
 - [/product/search?name=**NAME**](http://nourriture.sinaapp.com/product/search?name=gongbao)
 - [/product/search?ingredient=**NAME**](http://nourriture.sinaapp.com/product/search?ingredient=egg)
-  
+
+#### recipe
 - [/recipe/](http://nourriture.sinaapp.com/recipe/)
 - [/recipe/**ID**](http://nourriture.sinaapp.com/recipe/1/)
 - [/recipe/search?name=**NAME**](http://nourriture.sinaapp.com/recipe/search?name=gongbao)
 - [/recipe/search?ingredient=**NAME**](http://nourriture.sinaapp.com/recipe/search?ingredient=egg)
   
+#### nutrition
 - [/nutrition/](http://nourriture.sinaapp.com/nutrition/)
 - [/nutrition/**ID**](http://nourriture.sinaapp.com/nutrition/1/)
 - [/nutrition/search?name=**NAME**](http://nourriture.sinaapp.com/nutrition/search?name=ca)
