@@ -1,5 +1,28 @@
 ### [Windows Development Environment Settigns](https://github.com/zhenghongzhi/Nourriture/wiki/Window%E4%B8%8B%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE)
 
+### RESTful API
+- [/ingredient/](http://nourriture.sinaapp.com/ingredient/)
+- [/ingredient/<id>](http://nourriture.sinaapp.com/ingredient/1/)
+- [/ingredient/search?name=<name>](http://nourriture.sinaapp.com/ingredient/search?name=tomato)  
+  
+- [/product/](http://nourriture.sinaapp.com/product/)
+- [/product/<id>](http://nourriture.sinaapp.com/product/1/)
+- [/product/search?name=<name>](http://nourriture.sinaapp.com/product/search?name=gongbao)
+- [/product/search?ingredient=<name>](http://nourriture.sinaapp.com/product/search?ingredient=egg)
+  
+- [/recipe/](http://nourriture.sinaapp.com/recipe/)
+- [/recipe/<id>](http://nourriture.sinaapp.com/recipe/1/)
+- [/recipe/search?name=<name>](http://nourriture.sinaapp.com/recipe/search?name=gongbao)
+- [/recipe/search?ingredient=<name>](http://nourriture.sinaapp.com/recipe/search?ingredient=egg)
+  
+- [/nutrition/](http://nourriture.sinaapp.com/nutrition/)
+- [/nutrition/<id>](http://nourriture.sinaapp.com/nutrition/1/)
+- [/nutrition/search?name=<name>](http://nourriture.sinaapp.com/nutrition/search?name=ca)
+- [/nutrition/search?ingredient=<name>](http://nourriture.sinaapp.com/recipe/search?ingredient=egg)
+- [/nutrition/<id>/rank/ingredient](http://nourriture.sinaapp.com/nutrition/1/rank/ingredient/)
+- [/nutrition/<id>/rank/product](http://nourriture.sinaapp.com/nutrition/1/rank/product/)
+- [/nutrition/<id>/rank/recipe](http://nourriture.sinaapp.com/nutrition/1/rank/recipe/)
+
 Nourriture
 ==========
 With Nourriture, innovative food suppliers and app developers have the most comprehensive platform from which they can quickly and accurately create relevant tools for consumers to make informed decisions about food.
