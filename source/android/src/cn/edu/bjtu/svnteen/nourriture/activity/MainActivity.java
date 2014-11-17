@@ -32,10 +32,10 @@ public class MainActivity extends FragmentActivity implements IAppObserver {
 		init();
 
 		MessageManager.getInstance()
-				.attachMessage(MessageID.OBSERVER_APP, this);// Àı×Ó£ºÔõÃ´Ê¹ÓÃattachMessage·½·¨
+				.attachMessage(MessageID.OBSERVER_APP, this);// ä¾‹å­ï¼šæ€ä¹ˆä½¿ç”¨attachMessageæ–¹æ³•
 	}
 
-	// Ò»Ğ©ĞèÒª³õÊ¼»¯µÄÀàºÍ·½·¨
+	// åˆå§‹åŒ–ç›¸å…³æ•°æ®
 	private void init() {
 		DeviceInfo.initScreenInfo(this);
 		initMainFragment();
@@ -63,7 +63,7 @@ public class MainActivity extends FragmentActivity implements IAppObserver {
 	};
 
 	/**
-	 * ³õÊ¼»¯Ö÷Fragment
+	 * åˆå§‹åŒ–ä¸»Fragment
 	 */
 	private void initMainFragment() {
 		FragmentManager fragmentManager = getSupportFragmentManager();

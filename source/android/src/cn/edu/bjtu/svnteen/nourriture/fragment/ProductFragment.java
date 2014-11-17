@@ -45,7 +45,7 @@ public class ProductFragment extends BaseFragment implements IProductJsonObserve
 
 	@Override
 	public void IProductJsonObserver_Failed() {
-		mTextView.setText("json»ñÈ¡Ê§°Ü£¡");
+		mTextView.setText("jsonè¯·æ±‚å¤±è´¥");
 	}
 
 }

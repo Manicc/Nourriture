@@ -1,10 +1,7 @@
 package cn.edu.bjtu.svnteen.nourriture.utils;
 
-import java.io.IOException;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -13,12 +10,11 @@ import org.apache.http.util.EntityUtils;
 import cn.edu.bjtu.svnteen.nourriture.core.MessageID;
 import cn.edu.bjtu.svnteen.nourriture.core.MessageManager;
 import cn.edu.bjtu.svnteen.nourriture.core.MessageManager.Caller;
-import cn.edu.bjtu.svnteen.nourriture.observer.IAppObserver;
 import cn.edu.bjtu.svnteen.nourriture.observer.IProductJsonObserver;
 import cn.edu.bjtu.svnteen.nourriture.utils.StThreadPool.JobType;
 
 /**
- * 获取API的Json数据 
+ * Product鐨勫伐鍏风被
  * @author Tans
  */
 public class ProductUtils {

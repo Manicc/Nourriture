@@ -1,8 +1,8 @@
 package cn.edu.bjtu.svnteen.nourriture.utils;
 /**
- * @warn ½ûÖ¹ĞŞ¸Ä
+ * @warn ç¦æ­¢ä¿®æ”¹
  * @author Tans
- * µ¥ÀıÄ£Ê½µÄSevenTeen×éµÄÏß³Ì³Ø
+ * å•ä¾‹æ¨¡å¼çš„SevenTeenç»„çš„çº¿ç¨‹æ± 
  */
 public final class StThreadPool {
 

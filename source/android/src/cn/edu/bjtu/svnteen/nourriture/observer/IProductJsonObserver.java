@@ -2,12 +2,12 @@ package cn.edu.bjtu.svnteen.nourriture.observer;
 
 public interface IProductJsonObserver extends IObserverBase {
 
-	void IProductJsonObserver_All(String json); // »ñÈ¡È«²¿ProductÊı¾İ
+	void IProductJsonObserver_All(String json); // è·å–å…¨éƒ¨Productçš„å›è°ƒæ–¹æ³•
 
-	void IProductJsonObserver_ID(String json); // »ñÈ¡Ö¸¶¨IDµÄProductÊı¾İ
+	void IProductJsonObserver_ID(String json); // æ ¹æ®æŒ‡å®šIDè·å–productçš„å›è°ƒæ–¹æ³•
 
-	void IProductJsonObserver_TagAndIngredient(String json); // ¸ù¾İTagºÍIngredient»ñÈ¡µÄProductÊı¾İ
+	void IProductJsonObserver_TagAndIngredient(String json); // æ ¹æ®Tagå’ŒIngredientè·å–çš„productçš„å›è°ƒæ–¹æ³•
 
-	void IProductJsonObserver_Failed(); // »ñÈ¡JSONÊı¾İÊ§°Ü
+	void IProductJsonObserver_Failed(); // è·å–jsonå¤±è´¥çš„å›è°ƒæ–¹æ³•
 
 }
