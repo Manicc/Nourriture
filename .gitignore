@@ -1,5 +1,5 @@
 *.py[co]
 .idea
 /source/server/*.sqlite3
-/gen
-/bin
+/source/android/gen
+/source/android/bin
