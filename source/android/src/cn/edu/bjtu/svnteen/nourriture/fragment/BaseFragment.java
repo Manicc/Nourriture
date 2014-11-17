@@ -36,12 +36,6 @@ public class BaseFragment extends SwipeBackFragment {
 
 	boolean bActive = false;
 
-	public void Resume() {
-	}
-
-	public void Pause() {
-	}
-
 	@Override
 	final public void onResume() {
 		super.onResume();
@@ -50,7 +44,6 @@ public class BaseFragment extends SwipeBackFragment {
 				&& ((FragmentControl.getInstance().getTopFragment() == this) || (FragmentControl
 						.getInstance().isMainLayerShow()))) {
 			bActive = true;
-			Resume();
 		}
 
 	}
@@ -60,7 +53,6 @@ public class BaseFragment extends SwipeBackFragment {
 		super.onPause();
 		if (bActive) {
 			bActive = false;
-			Pause();
 		}
 	}
 
