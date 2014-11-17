@@ -11,9 +11,10 @@
         android:orientation="vertical" >
 
         <Button
+            android:id="@+id/product_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="美食家登录" />
+            android:text="Product" />
 
         <Button
             android:layout_width="wrap_content"

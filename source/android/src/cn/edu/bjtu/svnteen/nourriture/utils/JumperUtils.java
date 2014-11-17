@@ -3,6 +3,7 @@ package cn.edu.bjtu.svnteen.nourriture.utils;
 import android.support.v4.app.Fragment;
 import cn.edu.bjtu.svnteen.nourriture.fragment.FragmentControl;
 import cn.edu.bjtu.svnteen.nourriture.fragment.MyFirstFragment;
+import cn.edu.bjtu.svnteen.nourriture.fragment.ProductFragment;
 
 /**
  * @author Tans
@@ -23,6 +24,22 @@ public class JumperUtils {
 		} else {
 			MyFirstFragment f = new MyFirstFragment();
 			JumpToMain(f, MyFirstFragment.class.getName());
+		}
+	}
+
+	// 跳转到ProductFragment
+	public static void JumpToProduct() {
+		Fragment topF = FragmentControl.getInstance().getTopFragment();
+		if (topF != null && topF instanceof ProductFragment) {
+			return;
+		}
+		if (FragmentControl.getInstance().getFragment(
+				ProductFragment.class.getName()) != null) {
+			FragmentControl.getInstance().naviFragment(
+					ProductFragment.class.getName());
+		} else {
+			ProductFragment f = new ProductFragment();
+			JumpToMain(f, ProductFragment.class.getName());
 		}
 	}
 

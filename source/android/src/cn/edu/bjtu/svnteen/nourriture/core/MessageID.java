@@ -2,6 +2,7 @@ package cn.edu.bjtu.svnteen.nourriture.core;
 
 import cn.edu.bjtu.svnteen.nourriture.observer.IAppObserver;
 import cn.edu.bjtu.svnteen.nourriture.observer.IObserverBase;
+import cn.edu.bjtu.svnteen.nourriture.observer.IProductJsonObserver;
 
 /**
  * @warn 禁止修改
@@ -13,11 +14,15 @@ public enum MessageID {
 		public Class<? extends IObserverBase> getObserverClass() {
 			return null;
 		}
-	}
-	,
+	},
 	OBSERVER_APP {
 		public Class<? extends IObserverBase> getObserverClass() {
 			return IAppObserver.class;
+		}
+	},
+	OBSERVER_PRODUCT_JSON {
+		public Class<? extends IProductJsonObserver> getObserverClass() {
+			return IProductJsonObserver.class;
 		}
 	};
 
