@@ -1,3 +1,5 @@
 *.py[co]
 .idea
 /source/server/*.sqlite3
+.gen
+.bin

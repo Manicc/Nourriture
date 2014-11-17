@@ -1,0 +1,9 @@
+eclipse.preferences.version=1
+encoding//src/cn/edu/bjtu/svnteen/nourriture/core=UTF-8
+encoding//src/cn/edu/bjtu/svnteen/nourriture/fragment/BaseFragment.java=UTF-8
+encoding//src/cn/edu/bjtu/svnteen/nourriture/fragment/FragmentControl.java=UTF-8
+encoding//src/cn/edu/bjtu/svnteen/nourriture/observer/IAppObserver.java=UTF-8
+encoding//src/cn/edu/bjtu/svnteen/nourriture/uilib/SwipeBackLayout.java=UTF-8
+encoding//src/cn/edu/bjtu/svnteen/nourriture/uilib/ViewDragHelper.java=UTF-8
+encoding//src/cn/edu/bjtu/svnteen/nourriture/utils/DeviceInfo.java=UTF-8
+encoding//src/cn/edu/bjtu/svnteen/nourriture/utils/JumperUtils.java=UTF-8
