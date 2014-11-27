@@ -4,29 +4,29 @@
 
 #### ingredient
 - [/ingredient/](http://nourriture.sinaapp.com/ingredient/)
-- [/ingredient/**ID**](http://nourriture.sinaapp.com/ingredient/1/)
+- [/ingredient/**ID**](http://nourriture.sinaapp.com/ingredient/1)
 - [/ingredient/search?name=**NAME**](http://nourriture.sinaapp.com/ingredient/search?name=tomato)
 
 #### product
 - [/product/](http://nourriture.sinaapp.com/product/)
-- [/product/**ID**](http://nourriture.sinaapp.com/product/1/)
+- [/product/**ID**](http://nourriture.sinaapp.com/product/1)
 - [/product/search?name=**NAME**](http://nourriture.sinaapp.com/product/search?name=gongbao)
 - [/product/search?ingredient=**NAME**](http://nourriture.sinaapp.com/product/search?ingredient=egg)
 
 #### recipe
 - [/recipe/](http://nourriture.sinaapp.com/recipe/)
-- [/recipe/**ID**](http://nourriture.sinaapp.com/recipe/1/)
+- [/recipe/**ID**](http://nourriture.sinaapp.com/recipe/1)
 - [/recipe/search?name=**NAME**](http://nourriture.sinaapp.com/recipe/search?name=gongbao)
 - [/recipe/search?ingredient=**NAME**](http://nourriture.sinaapp.com/recipe/search?ingredient=egg)
   
 #### nutrition
 - [/nutrition/](http://nourriture.sinaapp.com/nutrition/)
-- [/nutrition/**ID**](http://nourriture.sinaapp.com/nutrition/1/)
+- [/nutrition/**ID**](http://nourriture.sinaapp.com/nutrition/1)
 - [/nutrition/search?name=**NAME**](http://nourriture.sinaapp.com/nutrition/search?name=ca)
 - [/nutrition/search?ingredient=**NAME**](http://nourriture.sinaapp.com/recipe/search?ingredient=egg)
-- [/nutrition/**ID**/rank/ingredient](http://nourriture.sinaapp.com/nutrition/1/rank/ingredient/)
-- [/nutrition/**ID**/rank/product](http://nourriture.sinaapp.com/nutrition/1/rank/product/)
-- [/nutrition/**ID**/rank/recipe](http://nourriture.sinaapp.com/nutrition/1/rank/recipe/)
+- [/nutrition/**ID**/rank/ingredient](http://nourriture.sinaapp.com/nutrition/1/rank/ingredient)
+- [/nutrition/**ID**/rank/product](http://nourriture.sinaapp.com/nutrition/1/rank/product)
+- [/nutrition/**ID**/rank/recipe](http://nourriture.sinaapp.com/nutrition/1/rank/recipe)
 
 Nourriture
 ==========
