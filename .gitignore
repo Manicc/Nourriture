@@ -3,3 +3,4 @@
 /source/server/*.sqlite3
 /source/android/gen
 /source/android/bin
+/source/web/app/bower_components
