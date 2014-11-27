@@ -100,6 +100,7 @@ TEMPLATE_LOADERS = (
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.cache.UpdateCacheMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -132,6 +133,7 @@ INSTALLED_APPS = (
     'django_admin_bootstrapped.bootstrap3',
     'django_admin_bootstrapped',
     'django.contrib.admin',
+    'corsheaders',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'common',
@@ -179,3 +181,5 @@ if 'SERVER_SOFTWARE' in os.environ:
     CACHE_MIDDLEWARE_SECONDS = 60
 else:
     CACHE_MIDDLEWARE_SECONDS = 1
+
+CORS_ORIGIN_ALLOW_ALL = True
