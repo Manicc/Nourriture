@@ -1,0 +1,28 @@
+.item-list
+{
+	list-style: none;
+}
+
+.item-list li
+{
+	float: left;
+	background-color: #f9f9f9;
+	border: 1px solid #fff;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.item-list li img
+{
+	margin-top: 2px;
+	width: 100%;
+}
+
+@media (min-width: 768px) {
+    .item-list li
+	{
+		float: left;
+		background-color: #f9f9f9;
+		border: 3px solid #fff;
+	}
+}
