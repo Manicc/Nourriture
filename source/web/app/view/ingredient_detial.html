@@ -1,1 +1,19 @@
-<p>{{ingredient.fields}}</p>
+<div class="container">
+	<h1>{{ingredient.name}}</h1>	
+	<ul>
+		<li>
+			<p ng-repeat="t in ingredient.tags">
+				{{t.name}} 
+			</p>
+		</li>
+		<li>{{ingredient.alias}}</li>
+		<li>{{ingredient.category}}</li>
+		<li>{{ingredient.desc}}</li>
+		<li>
+			<p ng-repeat="n in ingredient.nutrition">
+				{{n.name}}:{{n.value}}
+			</p>
+		</li>
+		<li>{{ingredient.function}}</li>
+	</ul>
+</div>

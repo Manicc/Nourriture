@@ -3,8 +3,8 @@ var app = angular.module('app', [
   'appControllers'
 ]);
 
-app.config(['$routeProvider','$locationProvider',
-  function($routeProvider, $locationProvider) {
+app.config(['$routeProvider'
+  function($routeProvider) {
     $routeProvider.
       when('/', {
         templateUrl: 'view/root.html',
