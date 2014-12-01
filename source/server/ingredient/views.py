@@ -1,6 +1,7 @@
 from django.core import serializers
 from django.http import HttpResponse
 from common.models import Ingredient
+import json
 
 
 def _list(request):
@@ -13,10 +14,27 @@ def _list(request):
 
 def detail(request, id):
     ingredient = Ingredient.objects.get(id=id)
-    data = serializers.serialize("json", [ingredient])
+    data = dict()
+    data['name'] = ingredient.name
+    data['tags'] = [t.name for t in ingredient.tags.all()]
+    data['alias'] = ingredient.alias
+    data['category'] = ingredient.category.name
+    data['desc'] = ingredient.desc
+
+    nutrition = []
+
+    for n in ingredient.nutrition.all():
+        nutrition.append({'name':n.nutrition.name, 'value':n.value})
+
+    data['nutrition'] = nutrition
+    data['function'] = ingredient.function
+
+    json_data = json.dumps(data)
+
     response_kwargs = dict()
     response_kwargs['content_type'] = 'application/json'
-    return HttpResponse(data, **response_kwargs)
+    return HttpResponse(json_data, **response_kwargs)
+
 
 def search(request):
     ingredient = Ingredient.objects.all()
