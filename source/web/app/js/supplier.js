@@ -1,0 +1,1 @@
+var supplier = angular.module('supplier', ['config'])

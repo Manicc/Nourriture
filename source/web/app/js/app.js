@@ -1,34 +1,22 @@
+//the main module
 var app = angular.module('app', [
   'ngRoute',
-  'appControllers'
+  'gastronomist',
+  'ingredient',
+  'nutrition',
+  'product',
+  'recipe',
+  'supplier',
 ]);
 
-app.config(['$routeProvider'
+//url configuration
+app.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
-      when('/', {
-        templateUrl: 'view/root.html',
-        controller: 'RootCtrl'
-      }).
-      when('/ingredient/', {
-        templateUrl: 'view/ingredients.html',
-        controller: 'IngredientListCtrl'
-      }).
-      when('/ingredient/:id', {
-        templateUrl: 'view/ingredient_detial.html',
-        controller: 'IngredientDetialCtrl'
-      }).
-      when('/product/', {
-        templateUrl: 'view/products.html',
-        controller: 'ProductListCtrl'
-      }).
-      when('/recipe/', {
-        templateUrl: 'view/recipes.html',
-        controller: 'RecipeListCtrl'
-      }).
-      otherwise({
-        redirectTo: '/'
-      });
-
-      //$locationProvider.html5Mode(true);
-  }]);
+    when('/', {
+      templateUrl: 'view/root.html'
+    }).
+    otherwise({
+      redirectTo: '/'
+    });
+}]);
