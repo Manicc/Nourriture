@@ -1,4 +1,3 @@
-var serverRoot = "http://127.0.0.1:8000"
 var appControllers = angular.module('appControllers', []);
 
 appControllers.controller('RootCtrl', function ($scope, $http) {
