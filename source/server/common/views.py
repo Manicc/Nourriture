@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from manage.models import Api, ApiGroup
+from management.models import Api, ApiGroup
 
 
 def show_urls(urllist, depth=0):
