@@ -65,6 +65,7 @@ WSGI_APPLICATION = 'server.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
+# sae production environment
 if 'SERVER_SOFTWARE' in os.environ:
     from sae.const import (
         MYSQL_HOST, MYSQL_PORT, MYSQL_USER, MYSQL_PASS, MYSQL_DB
@@ -79,6 +80,18 @@ if 'SERVER_SOFTWARE' in os.environ:
             'PORT': MYSQL_PORT,
         }
     }
+
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
+            'LOCATION': '127.0.0.1:11211',
+        }
+    }
+    CACHE_MIDDLEWARE_SECONDS = 60
+
+    DEFAULT_FILE_STORAGE = "server.SaeStorage.SaeStorage"
+
+# local development environment
 else:
     DATABASES = {
         'default': {
@@ -86,6 +99,8 @@ else:
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
+
+    CACHE_MIDDLEWARE_SECONDS = 1
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
@@ -109,19 +124,6 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'upload')
 MEDIA_URL = '/upload/'
-
-
-# Cache configuration
-if 'SERVER_SOFTWARE' in os.environ:
-    CACHES = {
-        'default': {
-            'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
-            'LOCATION': '127.0.0.1:11211',
-        }
-    }
-    CACHE_MIDDLEWARE_SECONDS = 60
-else:
-    CACHE_MIDDLEWARE_SECONDS = 1
 
 #CORS configuration
 CORS_ORIGIN_ALLOW_ALL = True
