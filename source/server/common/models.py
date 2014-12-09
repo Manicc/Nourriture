@@ -6,7 +6,7 @@ class Nutrition(models.Model):
     name = models.CharField(max_length=30, unique=True)
     alias = models.CharField(max_length=50, blank=True)
     desc = models.TextField(default='', blank=True)
-    image = models.ImageField()
+    image = models.ImageField(upload_to="image")
 
     def __unicode__(self):
         return self.name
