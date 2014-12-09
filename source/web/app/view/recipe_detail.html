@@ -1,28 +1,28 @@
 <div class="container">
-	<h1>{{recipe.name}}</h1>
+	<h1>{{recipe.fields.name}}</h1>
 	<ul>
 		<li>
-			<p ng-repeat="r in recipe.tags">
+			<p ng-repeat="r in recipe.fields.tags">
 				{{r.name}}
 			</p>
 		</li>
-		<li>{{recipe.gastronomist}}</li>
+		<li>{{recipe.fields.gastronomist}}</li>
 		<li>
-			<p ng-repeat="n in recipe.ingredients">
+			<p ng-repeat="n in recipe.fields.ingredients">
 				{{n.name}}:{{n.name}}
 			</p>
 		</li>
 		<li>{{recipe.processing}}</li>
 		<li>
-			<p ng-repeat="n in recipe.nutrition">
+			<p ng-repeat="n in recipe.fields.nutrition">
 				{{n.name}}:{{n.value}}
 			</p>
 		</li>
-		<li>{{recipe.browse_count}}</li>
-		<li>{{recipe.collect_count}}</li>
-		<li>{{recipe.food_type}}</li>
-		<li>{{recipe.making_time}}</li>
-		<li>{{recipe.making_tip}}</li>
+		<li>{{recipe.fields.browse_count}}</li>
+		<li>{{recipe.fields.collect_count}}</li>
+		<li>{{recipe.fields.food_type}}</li>
+		<li>{{recipe.fields.making_time}}</li>
+		<li>{{recipe.fields.making_tip}}</li>
 		<li>
 			<p ng-repeat="n in recipe.nutrition">
 				{{n.name}}:{{n.value}}

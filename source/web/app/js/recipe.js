@@ -24,6 +24,6 @@ recipe.controller('RecipeListCtrl', ['$scope', '$http', 'CONFIG',
 recipe.controller('RecipeDetailCtrl', ['$scope', '$http', '$routeParams', 'CONFIG',
 	function ($scope, $http, $routeParams, CONFIG) {
 		$http.get(CONFIG.SERVER_ROOT+'/recipe/'+ $routeParams.id).success(function(data){
-  			$scope.recipe = data;
+  			$scope.recipe = data[0];
   		})
 }]);
