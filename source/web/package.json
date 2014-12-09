@@ -1,0 +1,28 @@
+{
+  "name": "nourriture",
+  "version": "0.0.1",
+  "description": "Connect People with Ingredients",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "bower install",
+
+    "prestart": "npm install",
+    "start": "http-server -a 0.0.0.0 -p 8000",
+
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zhenghongzhi/Nourriture"
+  },
+  "author": "Seventeen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zhenghongzhi/Nourriture/issues"
+  },
+  "homepage": "https://github.com/zhenghongzhi/Nourriture",
+  "dependencies": {
+    "bower": "^1.3.12",
+    "http-server": "^0.7.4"
+  }
+}
