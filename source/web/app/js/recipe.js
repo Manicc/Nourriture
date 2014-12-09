@@ -7,6 +7,10 @@ recipe.config(['$routeProvider',
     when('/recipe/', {
       templateUrl: 'view/recipes.html',
       controller: 'RecipeListCtrl'
+    }).
+    when('/recipe/:id', {
+      templateUrl: 'view/recipe_detail.html',
+      controller: 'RecipeDetailCtrl'
     })
 }]);
 
@@ -16,4 +20,10 @@ recipe.controller('RecipeListCtrl', ['$scope', '$http', 'CONFIG',
   $http.get(CONFIG.SERVER_ROOT+'/recipe/').success(function(data){
       $scope.recipes = data;
     })
+}]);
+recipe.controller('RecipeDetailCtrl', ['$scope', '$http', '$routeParams', 'CONFIG',
+	function ($scope, $http, $routeParams, CONFIG) {
+		$http.get(CONFIG.SERVER_ROOT+'/recipe/'+ $routeParams.id).success(function(data){
+  			$scope.recipe = data;
+  		})
 }]);

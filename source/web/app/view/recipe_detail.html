@@ -1,0 +1,33 @@
+<div class="container">
+	<h1>{{recipe.name}}</h1>
+	<ul>
+		<li>
+			<p ng-repeat="r in recipe.tags">
+				{{r.name}}
+			</p>
+		</li>
+		<li>{{recipe.gastronomist}}</li>
+		<li>
+			<p ng-repeat="n in recipe.ingredients">
+				{{n.name}}:{{n.name}}
+			</p>
+		</li>
+		<li>{{recipe.processing}}</li>
+		<li>
+			<p ng-repeat="n in recipe.nutrition">
+				{{n.name}}:{{n.value}}
+			</p>
+		</li>
+		<li>{{recipe.browse_count}}</li>
+		<li>{{recipe.collect_count}}</li>
+		<li>{{recipe.food_type}}</li>
+		<li>{{recipe.making_time}}</li>
+		<li>{{recipe.making_tip}}</li>
+		<li>
+			<p ng-repeat="n in recipe.nutrition">
+				{{n.name}}:{{n.value}}
+			</p>
+		</li>
+		<li>{{recipe.function}}</li>
+	</ul>
+</div>
