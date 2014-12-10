@@ -2,3 +2,4 @@ django==1.7.1
 django-cors-headers==0.13
 djangorestframework==3.0.0
 pillow==2.6.1
+django-oauth-toolkit
