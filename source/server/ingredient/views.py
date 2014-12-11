@@ -1,9 +1,11 @@
 from django.core import serializers
 from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 from common.models import Ingredient
 import json
 
 
+@csrf_exempt
 def _list(request):
     ingredients = Ingredient.objects.all()
     data = serializers.serialize("json", ingredients)
