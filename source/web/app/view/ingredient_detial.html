@@ -2,6 +2,10 @@
 	<h1>{{ingredient.name}}</h1>	
 	<ul>
 		<li>
+			<img ng-if="i.image==null" ng-src="img/placeholder.png">
+			<img ng-if="i.image!=null" ng-src="{{server}}{{i.image}}">
+		</li>
+		<li>
 			<p ng-repeat="t in ingredient.tags">
 				{{t.name}} 
 			</p>

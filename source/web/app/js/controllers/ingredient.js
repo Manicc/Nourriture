@@ -1,7 +1,5 @@
-var ingredient = angular.module('ingredient', ['config']);
-
 //url configuration
-ingredient.config(['$routeProvider',
+app.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
     when('/ingredient/', {
@@ -15,15 +13,19 @@ ingredient.config(['$routeProvider',
 }]);
 
 //controllers
-ingredient.controller('IngredientListCtrl', ['$scope', '$http', 'CONFIG',
+app.controller('IngredientListCtrl', ['$scope', '$http', 'CONFIG',
 	function($scope, $http, CONFIG){
+    $scope.server = CONFIG.SERVER_ROOT;
+
 		$http.get(CONFIG.SERVER_ROOT+'/ingredient/').success(function(data){
 	  		$scope.ingredients = data;
 		})	
 }]);
 
-ingredient.controller('IngredientDetialCtrl', ['$scope', '$http', '$routeParams', 'CONFIG',
+app.controller('IngredientDetialCtrl', ['$scope', '$http', '$routeParams', 'CONFIG',
 	function ($scope, $http, $routeParams, CONFIG) {
+    $scope.server = CONFIG.SERVER_ROOT;
+
 		$http.get(CONFIG.SERVER_ROOT+'/ingredient/'+ $routeParams.id).success(function(data){
   			$scope.ingredient = data;
   		})

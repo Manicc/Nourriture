@@ -1,7 +1,7 @@
 var supplier = angular.module('supplier', ['config'])
 
 //url configuration
-supplier.config(['$routeProvider',
+app.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
     when('/supplier/', {
@@ -15,7 +15,7 @@ supplier.config(['$routeProvider',
 }]);
 
 //controllers
-supplier.controller('supplierListCtrl', ['$scope', '$http', 'CONFIG',
+app.controller('supplierListCtrl', ['$scope', '$http', 'CONFIG',
   function($scope, $http, CONFIG){
       // for test
       $scope.suppliers = [{"fields": {"ingredients": [1, 2], "location": "Beijing", "user": 1, "name": "dashan"}, "model": "common.supplier", "pk": 1}, {"fields": {"ingredients": [2], "location": "Jiangxi", "user": 2, "name": "zhuzi"}, "model": "common.supplier", "pk": 2}]

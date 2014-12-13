@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django import forms
+
 from common.models import *
 
 
@@ -35,7 +35,7 @@ class ProductAdmin(admin.ModelAdmin):
 
 admin.site.register(Nutrition)
 admin.site.register(NutritionValue)
-admin.site.register(Category)
+admin.site.register(IngredientCategory)
 admin.site.register(Tag)
 admin.site.register(Ingredient, IngredientAdmin)
 admin.site.register(Supplier)

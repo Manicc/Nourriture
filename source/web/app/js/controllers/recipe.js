@@ -1,7 +1,7 @@
 var recipe = angular.module('recipe', ['config'])
 
 //url configuration
-recipe.config(['$routeProvider',
+app.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
     when('/recipe/', {
@@ -15,13 +15,13 @@ recipe.config(['$routeProvider',
 }]);
 
 //controllers
-recipe.controller('RecipeListCtrl', ['$scope', '$http', 'CONFIG', 
+app.controller('RecipeListCtrl', ['$scope', '$http', 'CONFIG', 
   function($scope, $http, CONFIG){
   $http.get(CONFIG.SERVER_ROOT+'/recipe/').success(function(data){
       $scope.recipes = data;
     })
 }]);
-recipe.controller('RecipeDetailCtrl', ['$scope', '$http', '$routeParams', 'CONFIG',
+app.controller('RecipeDetailCtrl', ['$scope', '$http', '$routeParams', 'CONFIG',
 	function ($scope, $http, $routeParams, CONFIG) {
 		$http.get(CONFIG.SERVER_ROOT+'/recipe/'+ $routeParams.id).success(function(data){
   			$scope.recipe = data[0];
