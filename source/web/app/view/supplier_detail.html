@@ -1,0 +1,20 @@
+<div class="container">
+	<h1>{{supplier[0].fields.name}}</h1>
+	<ul>
+		<li>
+            Location:
+            {{supplier[0].fields.location}}
+		</li>
+        <li>
+        Ingredients:
+        <ul>
+			<li ng-repeat="ing in supplier[0].fields.ingredients">
+            <a href="#/ingredient/{{ing}}">{{ing}}</a>
+            </li>
+        </ul>
+        </li>
+        <li>
+        ID: {{supplier[0].pk}}
+        </li>
+	</ul>
+</div>
