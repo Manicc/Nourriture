@@ -1,59 +1,78 @@
-from django.core import serializers
-from django.http import HttpResponse
-from common.models import Ingredient
-import json
+from django.http import Http404
+from rest_framework import serializers, permissions, status, views, generics
+from rest_framework.response import Response
+
+from common.models import Ingredient, NutritionValue
 
 
-def _list(request):
-    ingredients = Ingredient.objects.all()
-    data = serializers.serialize("json", ingredients)
-    response_kwargs = dict()
-    response_kwargs['content_type'] = 'application/json'
-    return HttpResponse(data, **response_kwargs)
+class IngredListSerializer(serializers.ModelSerializer):
+    """
+    for get method
+    """
+    class Meta:
+        model = Ingredient
+        fields = ('id', 'name', 'image', 'category')
+        depth = 3
 
 
-def detail(request, id):
-    ingredient = Ingredient.objects.get(id=id)
-    data = dict()
-    data['name'] = ingredient.name
-    data['tags'] = [t.name for t in ingredient.tags.all()]
-    data['alias'] = ingredient.alias
-    data['category'] = ingredient.category.name
-    data['desc'] = ingredient.desc
+class IngredCreateSerializer(serializers.ModelSerializer):
+    """
+    for post method
+    """
+    class Meta:
+        model = Ingredient
 
-    nutrition = []
+    def create(self, validated_attrs):
+        nutritioninfo = validated_attrs.pop('nutrition')
+        taginfo = validated_attrs.pop('tags')
+        # create ingredient
+        ingre = Ingredient.objects.create(**validated_attrs)
 
-    for n in ingredient.nutrition.all():
-        nutrition.append({'name':n.nutrition.name, 'value':n.value})
+        # create nutrition value
+        for item in nutritioninfo:
+            ingre.nutrition.add(NutritionValue.objects.create(**item))
 
-    data['nutrition'] = nutrition
-    data['function'] = ingredient.function
+        ingre.save()
 
-    json_data = json.dumps(data)
-
-    response_kwargs = dict()
-    response_kwargs['content_type'] = 'application/json'
-    return HttpResponse(json_data, **response_kwargs)
+        return ingre
 
 
-def search(request):
-    ingredient = Ingredient.objects.all()
-    ingredient_name = request.GET.get('name','')
-
-    if ingredient_name != '':
-        ingredient_name_list = ingredient_name.split(',')
-        for ingredient_name in ingredient_name_list:
-            ingredient = ingredient.filter(name__contains=ingredient_name)
-
-    ingredient_alias = request.GET.get('name','')
-    if ingredient_alias != '':
-        ingredient_alias_list = ingredient_alias.split(',')
-        for ingredient_alias in ingredient_alias_list:
-            ingredient = ingredient.filter(alias__contains=ingredient_alias)
-
-    data = serializers.serialize("json", ingredient)
-    response_kwargs = dict()
-    response_kwargs['content_type'] = 'application/json'
-    return HttpResponse(data, **response_kwargs)
+class IngredDetialSerializer(serializers.ModelSerializer):
+    """
+    for other method
+    """
+    class Meta:
+        model = Ingredient
+        depth = 3
 
 
+class IngredientList(generics.ListCreateAPIView):
+    queryset = Ingredient.objects.all()
+    permissions = (permissions.IsAuthenticatedOrReadOnly,)
+    serializer_class = IngredListSerializer
+
+    def post(self, request):
+        serializer = IngredCreateSerializer(data=request.data)
+        if serializer.is_valid():
+            ingredient = serializer.save()
+            output = IngredDetialSerializer(ingredient)
+            return Response(output.data, status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
+
+
+class IngredientDetial(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Ingredient.objects.all()
+    permissions = (permissions.IsAuthenticatedOrReadOnly,)
+    serializer_class = IngredDetialSerializer
+
+
+    def put(self, request, pk):
+        obj = self.get_object(pk)
+        serializer = IngredCreateSerializer(obj, data=request.data)
+        if serializer.is_valid():
+            ingredient = serializer.save()
+            output = IngredDetialSerializer(ingredient)
+            return Response(output.data, status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)

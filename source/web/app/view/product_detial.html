@@ -1,0 +1,23 @@
+<div class="container">
+	<h1>{{product.name}}</h1>	
+	<ul>
+		<li>
+			<img ng-if="product.image==null" ng-src="img/placeholder.png">
+			<img ng-if="product.image!=null" ng-src="{{product.image}}">
+		</li>
+		<li>
+			<p ng-repeat="t in product.tags">
+				{{t.name}} 
+			</p>
+		</li>
+		<li>{{product.alias}}</li>
+		<li>{{product.category.name}}</li>
+		<p>{{product.desc}}</p>
+		<li>
+			<p ng-repeat="n in product.nutrition">
+				{{n.nutrition.name}}:{{n.value}} {{n.nutrition.unit}}
+			</p>
+		</li>
+		<p>{{product.function}}</p>
+	</ul>
+</div>

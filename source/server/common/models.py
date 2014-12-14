@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -5,8 +6,8 @@ from django.db import models
 class Nutrition(models.Model):
     name = models.CharField(max_length=30, unique=True)
     alias = models.CharField(max_length=50, blank=True)
+    unit = models.CharField(max_length=2, choices=(('g','g'),('mg','mg'),(u'μg',u'μg')), default='mg')
     desc = models.TextField(default='', blank=True)
-    image = models.ImageField(upload_to="image")
 
     def __unicode__(self):
         return self.name
@@ -20,15 +21,15 @@ class NutritionValue(models.Model):
         return self.nutrition.name + ' ' + str(self.value) + 'mg'
 
 
-class Category(models.Model):
-    name = models.CharField(max_length=20, unique=True)
+class Tag(models.Model):
+    name = models.CharField(max_length=30, unique=True)
 
     def __unicode__(self):
         return self.name
 
 
-class Tag(models.Model):
-    name = models.CharField(max_length=30, unique=True)
+class IngredientCategory(models.Model):
+    name = models.CharField(max_length=20, unique=True)
 
     def __unicode__(self):
         return self.name
@@ -38,12 +39,13 @@ class Ingredient(models.Model):
     name = models.CharField(max_length=30, unique=True)
     alias = models.CharField(max_length=50, blank=True)
     # the category of the ingredient
-    category = models.ForeignKey(Category)
+    category = models.ForeignKey(IngredientCategory)
     # detail description of ingredient
     desc = models.TextField(blank=True)
     function = models.TextField(blank=True)
     nutrition = models.ManyToManyField(NutritionValue, blank=True)
     tags = models.ManyToManyField(Tag, blank=True)
+    image = models.ImageField(upload_to="image/ingredient", blank=True, null=True)
 
     def __unicode__(self):
         return self.name
@@ -76,6 +78,7 @@ class Recipe(models.Model):
     processing = models.TextField()
     nutrition = models.ManyToManyField(NutritionValue, blank=True)
     tags = models.ManyToManyField(Tag, blank=True)
+    image = models.ImageField(upload_to="image/recipe", blank=True, null=True)
 
     # added by linan --10.29
     # how many users have browsed this recipe
@@ -99,6 +102,7 @@ class Product(models.Model):
     ingredients = models.ManyToManyField(Ingredient)
     nutrition = models.ManyToManyField(NutritionValue, blank=True)
     tags = models.ManyToManyField(Tag, blank=True)
+    image = models.ImageField(upload_to="image/product", blank=True, null=True)
 
     def __unicode__(self):
         return self.name
@@ -126,6 +130,7 @@ class Moment(models.Model):
     user = models.ForeignKey(User)
     desc = models.CharField(max_length=200)
     media = models.CharField(max_length=100)
+    image = models.ImageField(upload_to="image/moment", blank=True, null=True)
 
     def __unicode__(self):
         return self.user.username
