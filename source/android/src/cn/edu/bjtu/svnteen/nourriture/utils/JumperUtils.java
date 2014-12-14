@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import cn.edu.bjtu.svnteen.nourriture.fragment.FragmentControl;
 import cn.edu.bjtu.svnteen.nourriture.fragment.MyFirstFragment;
 import cn.edu.bjtu.svnteen.nourriture.fragment.ProductFragment;
+import cn.edu.bjtu.svnteen.nourriture.fragment.TestFragment;
 
 /**
  * @author Tans
@@ -42,6 +43,25 @@ public class JumperUtils {
 			JumpToMain(f, ProductFragment.class.getName());
 		}
 	}
+	
+	
+	
+	// 跳转到ProductFragment
+		public static void JumpToTest() {
+			Fragment topF = FragmentControl.getInstance().getTopFragment();
+			if (topF != null && topF instanceof TestFragment) {
+				return;
+			}
+			if (FragmentControl.getInstance().getFragment(
+					TestFragment.class.getName()) != null) {
+				FragmentControl.getInstance().naviFragment(
+						TestFragment.class.getName());
+			} else {
+				TestFragment f = new TestFragment();
+				JumpToMain(f, TestFragment.class.getName());
+			}
+		}
+
 
 	// 基本方法
 	public static void JumpToMain(final Fragment fragment, final String tag) {
