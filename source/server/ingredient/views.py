@@ -1,5 +1,5 @@
 from django.http import Http404
-from rest_framework import serializers, permissions, status, views
+from rest_framework import serializers, permissions, status, views, generics
 from rest_framework.response import Response
 
 from common.models import Ingredient, NutritionValue
@@ -46,12 +46,10 @@ class IngredDetialSerializer(serializers.ModelSerializer):
         depth = 3
 
 
-class IngredientList(views.APIView):
+class IngredientList(generics.ListCreateAPIView):
+    queryset = Ingredient.objects.all()
     permissions = (permissions.IsAuthenticatedOrReadOnly,)
-
-    def get(self, request):
-        serializer = IngredListSerializer(Ingredient.objects.all(), many=True)
-        return Response(serializer.data)
+    serializer_class = IngredListSerializer
 
     def post(self, request):
         serializer = IngredCreateSerializer(data=request.data)
@@ -63,19 +61,11 @@ class IngredientList(views.APIView):
             return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
 
 
-class IngredientDetial(views.APIView):
+class IngredientDetial(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Ingredient.objects.all()
     permissions = (permissions.IsAuthenticatedOrReadOnly,)
+    serializer_class = IngredDetialSerializer
 
-    def get_object(self, id):
-        try:
-            return Ingredient.objects.get(pk=id)
-        except Ingredient.DoesNotExist:
-            raise Http404
-
-    def get(self, request, pk):
-        ingredient = self.get_object(pk)
-        serializer = IngredDetialSerializer(ingredient)
-        return Response(serializer.data)
 
     def put(self, request, pk):
         obj = self.get_object(pk)
@@ -86,8 +76,3 @@ class IngredientDetial(views.APIView):
             return Response(output.data, status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
-
-    def delete(self, request, pk):
-        obj = self.get_object(id)
-        obj.delete()
-        return Response()

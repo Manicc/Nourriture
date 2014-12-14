@@ -15,8 +15,6 @@ app.config(['$routeProvider',
 //controllers
 app.controller('IngredientListCtrl', ['$scope', '$http', 'CONFIG',
 	function($scope, $http, CONFIG){
-    $scope.server = CONFIG.SERVER_ROOT;
-
 		$http.get(CONFIG.SERVER_ROOT+'/ingredient/').success(function(data){
 	  		$scope.ingredients = data;
 		})	
@@ -24,8 +22,6 @@ app.controller('IngredientListCtrl', ['$scope', '$http', 'CONFIG',
 
 app.controller('IngredientDetialCtrl', ['$scope', '$http', '$routeParams', 'CONFIG',
 	function ($scope, $http, $routeParams, CONFIG) {
-    $scope.server = CONFIG.SERVER_ROOT;
-
 		$http.get(CONFIG.SERVER_ROOT+'/ingredient/'+ $routeParams.id).success(function(data){
   			$scope.ingredient = data;
   		})

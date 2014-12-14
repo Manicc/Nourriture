@@ -2,7 +2,7 @@
 	<ul class="item-list">
 		<li class="col-md-3 col-sm-6" ng-repeat="i in ingredients">
 			<img ng-if="i.image==null" ng-src="img/placeholder.png">
-			<img ng-if="i.image!=null" ng-src="{{server}}{{i.image}}">
+			<img ng-if="i.image!=null" ng-src="{{i.image}}">
 			<h3><a href="#/ingredient/{{i.id}}">{{i.name}}</a></h3>
 		</li>
 	</ul>

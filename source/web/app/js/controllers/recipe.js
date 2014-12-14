@@ -21,9 +21,10 @@ app.controller('RecipeListCtrl', ['$scope', '$http', 'CONFIG',
       $scope.recipes = data;
     })
 }]);
+
 app.controller('RecipeDetailCtrl', ['$scope', '$http', '$routeParams', 'CONFIG',
 	function ($scope, $http, $routeParams, CONFIG) {
 		$http.get(CONFIG.SERVER_ROOT+'/recipe/'+ $routeParams.id).success(function(data){
-  			$scope.recipe = data[0];
+  			$scope.recipe = data;
   		})
 }]);

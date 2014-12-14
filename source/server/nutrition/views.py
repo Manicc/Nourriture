@@ -10,7 +10,7 @@ from common.models import Nutrition, Ingredient, Product, Recipe, NutritionValue
 class NutritionBrief(serializers.ModelSerializer):
     class Meta:
         model = Nutrition
-        fields = ('id', 'name')
+        fields = ('id', 'name', 'unit')
 
 
 class NutritionValueCreate(serializers.ModelSerializer):
@@ -32,7 +32,7 @@ class NutritionValueSerializer(serializers.ModelSerializer):
 class NutritionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Nutrition
-        fields = ('id', 'name', 'alias', 'desc')
+        fields = ('id', 'name', 'unit', 'alias', 'desc')
 
 
 class NutritionList(generics.ListCreateAPIView):
