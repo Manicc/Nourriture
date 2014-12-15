@@ -48,7 +48,7 @@ class IngredDetialSerializer(serializers.ModelSerializer):
 
 class IngredientList(generics.ListCreateAPIView):
     queryset = Ingredient.objects.all()
-    permissions = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     serializer_class = IngredListSerializer
 
     def post(self, request):
@@ -63,7 +63,7 @@ class IngredientList(generics.ListCreateAPIView):
 
 class IngredientDetial(generics.RetrieveUpdateDestroyAPIView):
     queryset = Ingredient.objects.all()
-    permissions = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     serializer_class = IngredDetialSerializer
 
 
