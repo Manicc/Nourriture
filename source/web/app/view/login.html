@@ -1,20 +1,14 @@
-<div class="container" ng-controller="loginctrl" style="padding-top: 10%;padding-left: 30%">
-    <form  role="form">
+<div class="container" style="padding-top: 20px;width:300px;">
+    <h1>Login</h1>
+    <form role="form">
         <p>username</p>
         <div class="form-group">
-            <input  ng-bind="user.username" type="text" style="width: 30%" class="form-control" placeholder="username">
+            <input  data-ng-model="loginData.userName" type="text" class="form-control" placeholder="username">
         </div>
         <p>password</p>
         <div class="form-group">
-            <input  ng-bind="user.password" type="text" style="width: 30%"  class="form-control" placeholder="password">
+            <input  data-ng-model="loginData.password" type="text" class="form-control" placeholder="password">
         </div>
-      <button type="submit" class="btn btn-default" ng-click="login()">submit</button>
+      <button type="submit" class="btn btn-success" ng-click="login()">Login</button>
     </form>
-
 </div>
-
-<script>
-   function loginctrl($scope) {
-        $scope.user =[];
-    }
-</script>

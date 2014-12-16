@@ -1,0 +1,20 @@
+<!--//photo of gastronomist on the top -->
+<div class="container" style=";padding: 0%; background:#FFF;">
+	<img src="gas_pic.jpg">
+</div>
+<div> 
+
+
+<span>Search: </span><input type="text" ng-model="keyword" placeholder="keyword">
+<p>Total number of Favorite Food: {{foods.length}} </p>
+<!--list of foods-->
+  <hr>
+ 	<li ng-repeat="food in foods">
+   		<span>{{food.field.name}}</span>
+    	<p>{{food.snippet}}</p>
+    </li>
+	<li>
+		<span>text</span>
+		<img src="1.pic">
+	</li>
+</div> 

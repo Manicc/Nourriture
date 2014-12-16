@@ -1,7 +1,9 @@
 from django.conf.urls import patterns, url
 
+from ingredient.views import IngredientList, IngredientDetial
+
+
 urlpatterns = patterns('',
-    url(r'^$', 'ingredient.views._list'),
-    url(r'^(?P<id>\d+)$', 'ingredient.views.detail'),
-    url(r'^search$', 'ingredient.views.search'),
+                       url(r'^$', IngredientList.as_view()),
+                       url(r'^(?P<pk>\d+)/$', IngredientDetial.as_view()),
 )

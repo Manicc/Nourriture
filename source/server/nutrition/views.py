@@ -1,27 +1,56 @@
 from django.db.models import Q
 from django.http import HttpResponse
 from rest_framework import serializers
-from common.models import Nutrition, Ingredient, Product, Recipe
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
-from rest_framework import mixins
+from rest_framework import permissions
 from rest_framework import generics
+
+from common.models import Nutrition, Ingredient, Product, Recipe, NutritionValue
+
+
+class NutritionBrief(serializers.ModelSerializer):
+    class Meta:
+        model = Nutrition
+        fields = ('id', 'name', 'unit')
+
+
+class NutritionValueCreate(serializers.ModelSerializer):
+
+    class Meta:
+        model = NutritionValue
+        fields = ('nutrition', 'value')
+
+
+
+class NutritionValueSerializer(serializers.ModelSerializer):
+    nutrition = NutritionBrief()
+
+    class Meta:
+        model = NutritionValue
+        fields = ('nutrition','value')
 
 
 class NutritionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Nutrition
-        fields = ('id', 'name', 'alias', 'desc')
+        fields = ('id', 'name', 'unit', 'alias', 'desc')
 
 
 class NutritionList(generics.ListCreateAPIView):
     queryset = Nutrition.objects.all()
     serializer_class = NutritionSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
 
-class NutritionDetial(generics.RetrieveUpdateDestroyAPIView):
+    def get_serializer_class(self):
+        if self.request.method == 'get':
+            return NutritionBrief
+        return super(NutritionList, self).get_serializer_class()
+
+
+class NutritionDetial(generics.ListCreateAPIView):
     queryset = Nutrition.objects.all()
     serializer_class = NutritionSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
+
 
 
 """

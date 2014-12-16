@@ -1,25 +1,29 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render
-from management.models import Api, ApiGroup
-
-
-def show_urls(urllist, depth=0):
-    for entry in urllist:
-        if entry.regex.pattern == '^admin/':
-            continue
-        print "  " * depth, entry.regex.pattern
-        if hasattr(entry, 'url_patterns'):
-            show_urls(entry.url_patterns, depth + 1)
+from rest_framework import generics, serializers, status
+from rest_framework.response import Response
 
 
 def index(request):
     return render(request, 'index.html')
 
 
-def api(request):
-    group = ApiGroup.objects.all().order_by('id')
-    api_group = list()
-    for item in group:
-        api_group.append((item.name, Api.objects.filter(group=item).order_by('id')))
+class UserCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('username', 'password')
 
-    context = {'api': api_group}
-    return render(request, 'api.html', context)
+    def create(self, validated_attrs):
+        user = User.objects.create_user(**validated_attrs)
+
+        return user
+
+class UserCreate(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserCreateSerializer
+
+
+class UserDetial(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserCreateSerializer
+
