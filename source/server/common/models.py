@@ -45,7 +45,7 @@ class Ingredient(models.Model):
     function = models.TextField(blank=True)
     nutrition = models.ManyToManyField(NutritionValue, blank=True)
     tags = models.ManyToManyField(Tag, blank=True)
-    image = models.ImageField(upload_to="image/ingredient", blank=True, null=True)
+    image = models.ImageField(upload_to="image/ingredient")
 
     def __unicode__(self):
         return self.name
@@ -78,7 +78,7 @@ class Recipe(models.Model):
     processing = models.TextField()
     nutrition = models.ManyToManyField(NutritionValue, blank=True)
     tags = models.ManyToManyField(Tag, blank=True)
-    image = models.ImageField(upload_to="image/recipe", blank=True, null=True)
+    image = models.ImageField(upload_to="image/recipe")
 
     # added by linan --10.29
     # how many users have browsed this recipe
@@ -102,7 +102,7 @@ class Product(models.Model):
     ingredients = models.ManyToManyField(Ingredient)
     nutrition = models.ManyToManyField(NutritionValue, blank=True)
     tags = models.ManyToManyField(Tag, blank=True)
-    image = models.ImageField(upload_to="image/product", blank=True, null=True)
+    image = models.ImageField(upload_to="image/product")
 
     def __unicode__(self):
         return self.name
