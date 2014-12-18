@@ -3,8 +3,8 @@ package cn.edu.bjtu.svnteen.nourriture.utils;
 import android.support.v4.app.Fragment;
 import cn.edu.bjtu.svnteen.nourriture.fragment.FragmentControl;
 import cn.edu.bjtu.svnteen.nourriture.fragment.MyFirstFragment;
-import cn.edu.bjtu.svnteen.nourriture.fragment.ProductFragment;
 import cn.edu.bjtu.svnteen.nourriture.fragment.TestFragment;
+import cn.edu.bjtu.svnteen.nourriture.product.ProductFragment;
 
 /**
  * @author Tans

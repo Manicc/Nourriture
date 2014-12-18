@@ -1,52 +1,84 @@
 package cn.edu.bjtu.svnteen.nourriture.fragment;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
 import cn.edu.bjtu.svnteen.nourriture.R;
-import cn.edu.bjtu.svnteen.nourriture.utils.JumperUtils;
+import cn.edu.bjtu.svnteen.nourriture.activity.MainActivity;
+import cn.edu.bjtu.svnteen.nourriture.home.HomeFragment;
+import cn.edu.bjtu.svnteen.nourriture.ingredient.IngredientFragment;
+import cn.edu.bjtu.svnteen.nourriture.product.ProductFragment;
+import cn.edu.bjtu.svnteen.nourriture.recipes.RecipeFragment;
+import cn.edu.bjtu.svnteen.nourriture.viewpagerindicator.TabPageIndicator;
 
-public class MainFragment extends Fragment implements OnClickListener {
 
-	private Button mButton;
-	private Button mProductButton;
-	private Button mTestBtn;
+/**
+ * MainFragment
+ * @author Tans
+ */
+public class MainFragment extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_main, container,
 				false);
-		mButton = (Button) rootView.findViewById(R.id.button);
-		mTestBtn = (Button) rootView.findViewById(R.id.test);
-		mTestBtn.setOnClickListener(this);
-		mButton.setOnClickListener(this);
-		mProductButton = (Button) rootView.findViewById(R.id.product_button);
-		mProductButton.setOnClickListener(this);
+
+		FragmentPagerAdapter adapter = new NourritureHomeAdapter(MainActivity
+				.getInstance().getSupportFragmentManager());
+		ViewPager pager = (ViewPager) rootView.findViewById(R.id.pager);
+		pager.setAdapter(adapter);
+
+		TabPageIndicator indicator = (TabPageIndicator) rootView
+				.findViewById(R.id.indicator);
+		indicator.setViewPager(pager);
+
 		return rootView;
 	}
 
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.test:
-			JumperUtils.JumpToTest();
-			Toast.makeText(getActivity(), "test", Toast.LENGTH_SHORT).show();
-			break;
-		case R.id.button:
-			JumperUtils.JumpToFirst();
-			break;
-		case R.id.product_button:
-			JumperUtils.JumpToProduct();
-			break;
+	class NourritureHomeAdapter extends FragmentPagerAdapter {
 
-		default:
-			break;
+		private List<Fragment> mList;
+		private final String[] mTab;
+
+		public NourritureHomeAdapter(FragmentManager fm) {
+			super(fm);
+
+			mTab = new String[] { "首页", "食材", "产品", "食谱" };
+			mList = new ArrayList<Fragment>();
+
+			HomeFragment homeFragment = new HomeFragment();
+			IngredientFragment ingredientFragment = new IngredientFragment();
+			ProductFragment productFragment = new ProductFragment();
+			RecipeFragment recipeFragment = new RecipeFragment();
+
+			mList.add(homeFragment);
+			mList.add(ingredientFragment);
+			mList.add(productFragment);
+			mList.add(recipeFragment);
+		}
+
+		@Override
+		public Fragment getItem(int position) {
+			return mList.get(position);
+		}
+
+		@Override
+		public CharSequence getPageTitle(int position) {
+			return mTab[position];
+		}
+
+		@Override
+		public int getCount() {
+			return mTab.length;
 		}
 
 	}
