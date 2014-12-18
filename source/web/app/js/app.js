@@ -1,23 +1,24 @@
 //the main module
 var app = angular.module('app', [
-  'ngRoute',
-  'LocalStorageModule'
+    'ngRoute',
+    'LocalStorageModule',
+    'angularFileUpload'
 ]);
 
 //url configuration
 app.config(['$routeProvider',
-  function($routeProvider) {
-    $routeProvider.
-    when('/', {
-      templateUrl: 'view/root.html'
-    }).
-    otherwise({
-      redirectTo: '/'
-    });
-}]);
+    function ($routeProvider) {
+        $routeProvider.
+            when('/', {
+                templateUrl: 'view/root.html'
+            }).
+            otherwise({
+                redirectTo: '/'
+            });
+    }]);
 
-app.run(['authService', function(authService) {
-    authService.fillAuthData(); 
+app.run(['authService', function (authService) {
+    authService.fillAuthData();
 }]);
 
 app.controller('indexController', ['$scope', '$location', 'authService', function ($scope, $location, authService) {

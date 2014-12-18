@@ -1,7 +1,7 @@
 body
 {
 	background: #f3f0eb;
-	padding-top: 60px;
+	padding-top: 52px;
 }
 
 .navbar-default
@@ -19,6 +19,11 @@ body
 {
 	color: #fff;
 	font-size: 18px;
+}
+
+.navbar-default .navbar-nav .dropdown-menu li a
+{
+	color: #080808;
 }
 
 .item-list
