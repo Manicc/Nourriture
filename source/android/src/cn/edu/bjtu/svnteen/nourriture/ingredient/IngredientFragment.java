@@ -1,13 +1,13 @@
 package cn.edu.bjtu.svnteen.nourriture.ingredient;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import cn.edu.bjtu.svnteen.nourriture.R;
-import cn.edu.bjtu.svnteen.nourriture.fragment.BaseFragment;
 
-public class IngredientFragment extends BaseFragment {
+public class IngredientFragment extends Fragment {
 	
 	private View mRootView;
 

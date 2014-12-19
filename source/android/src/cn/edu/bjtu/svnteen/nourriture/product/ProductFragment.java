@@ -2,6 +2,7 @@ package cn.edu.bjtu.svnteen.nourriture.product;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,11 +10,10 @@ import android.widget.TextView;
 import cn.edu.bjtu.svnteen.nourriture.R;
 import cn.edu.bjtu.svnteen.nourriture.core.MessageID;
 import cn.edu.bjtu.svnteen.nourriture.core.MessageManager;
-import cn.edu.bjtu.svnteen.nourriture.fragment.BaseFragment;
 import cn.edu.bjtu.svnteen.nourriture.observer.IProductJsonObserver;
 import cn.edu.bjtu.svnteen.nourriture.utils.ProductUtils;
 
-public class ProductFragment extends BaseFragment implements
+public class ProductFragment extends Fragment implements
 		IProductJsonObserver {
 
 	private View mRootView;
