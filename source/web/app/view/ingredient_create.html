@@ -1,23 +1,27 @@
 <div class="container">
-    <h1>Create a ingredient</h1>
+    <h1>Create an ingredient</h1>
 
     <form name="myForm">
-        <fieldset>
-            <legend>Upload on form submit</legend>
-            Username: <input type="text" name="userName" ng-model="username" size="48" required>
-            <i ng-show="myForm.userName.$error.required">*required</i><br>
-            Profile Picture: <input type="file" ng-file-select ng-model="picFile" name="file" accept="image/*"
+        <div class="form-group">
+            <label for="Name">Name</label>
+            <input type="text" id="Name" name="userName" ng-model="ingredient.name" required>
+        </div>
+        <div class="form-group">
+            <label for="Category">Category</label>
+            <input type="number" name="category" class="form-control" ng-model="ingredient.category" id="Category" required>
+        </div>
+        <div class="form-group">
+            <label for="Image">Image</label>
+            <input type="file" id="Image" ng-file-select ng-model="picFile" name="file" accept="image/*"
                                     ng-file-change="generateThumb(picFile[0], $files)" required>
-            <i ng-show="myForm.file.$error.required">*required</i>
-            <br/>
+        </div>
+        <button ng-disabled="!myForm.$valid" ng-click="uploadPic(picFile)">Submit</button>
+        <img ng-show="picFile[0].dataUrl != null" ng-src="{{ picFile[0].dataUrl }}" class="thumb">
 
-            <button ng-disabled="!myForm.$valid" ng-click="uploadPic(picFile)">Submit</button>
-            <img ng-show="picFile[0].dataUrl != null" ng-src="{{ picFile[0].dataUrl }}" class="thumb">
-                        <span class="progress" ng-show="picFile[0].progress >= 0">
-                            <div style="width:{{ picFile[0].progress }}%" ng-bind="picFile[0].progress + '%'"></div>
-                        </span>
-            <span ng-show="picFile[0].result">Upload Successful</span>
-        </fieldset>
-        <br/>
+        <div class="progress" ng-show="picFile[0].progress >= 0">
+            <div style="width:{{ picFile[0].progress }}%" ng-bind="picFile[0].progress + '%'"></div>
+        </div>
+        <span ng-show="picFile[0].result">Upload Successful</span>
     </form>
 </div>
+

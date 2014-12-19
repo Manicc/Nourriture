@@ -34,7 +34,8 @@ app.controller('IngredientDetialCtrl', ['$scope', 'dataService', '$routeParams',
     }
 ]);
 
-app.controller('IngredientCreateCtrl', ['$scope', '$http', '$timeout', '$compile', '$upload', function ($scope, $http, $timeout, $compile, $upload) {
+app.controller('IngredientCreateCtrl', ['$scope', '$http', '$timeout', '$location', '$upload', function ($scope, $http, $timeout, $location, $upload) {
+    $scope.ingredient = {};
     $scope.fileReaderSupported = window.FileReader != null && (window.FileAPI == null || FileAPI.html5 != false);
 
     $scope.uploadPic = function (files) {
@@ -44,24 +45,22 @@ app.controller('IngredientCreateCtrl', ['$scope', '$http', '$timeout', '$compile
             $scope.generateThumb(file);
             $scope.errorMsg = null;
 
-            var data = $scope.formUpload ? {
-                username: $scope.username,
-                category: 2
-            } : {};
+            var data = $scope.formUpload ? $scope.ingredient : {};
             //data = $.param(data);
 
             file.upload = $upload.upload({
                 url: 'http://127.0.0.1:8000/ingredient/',
                 method: 'POST',
-                //TODO add auth
                 data: data,
                 file: file,
-                fileFormDataName: 'myFile'
+                fileFormDataName: 'image'
             });
 
             file.upload.then(function (response) {
                 $timeout(function () {
                     file.result = response.data;
+                    var path = '/ingredient/'+response.data.id;
+                    $location.path(path);
                 });
             }, function (response) {
                 if (response.status > 0)

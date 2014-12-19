@@ -6,16 +6,19 @@ var app = angular.module('app', [
 ]);
 
 //url configuration
-app.config(['$routeProvider',
-    function ($routeProvider) {
-        $routeProvider.
-            when('/', {
-                templateUrl: 'view/root.html'
-            }).
-            otherwise({
-                redirectTo: '/'
-            });
-    }]);
+app.config(['$routeProvider', function ($routeProvider) {
+    $routeProvider.
+        when('/', {
+            templateUrl: 'view/root.html'
+        }).
+        otherwise({
+            redirectTo: '/'
+        });
+}]);
+
+app.config(function ($httpProvider) {
+    $httpProvider.interceptors.push('authInterceptorService');
+});
 
 app.run(['authService', function (authService) {
     authService.fillAuthData();
