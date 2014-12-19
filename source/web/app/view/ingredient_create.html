@@ -1,0 +1,27 @@
+<div class="container">
+    <h1>Create an ingredient</h1>
+
+    <form name="myForm">
+        <div class="form-group">
+            <label for="Name">Name</label>
+            <input type="text" id="Name" name="userName" ng-model="ingredient.name" required>
+        </div>
+        <div class="form-group">
+            <label for="Category">Category</label>
+            <input type="number" name="category" class="form-control" ng-model="ingredient.category" id="Category" required>
+        </div>
+        <div class="form-group">
+            <label for="Image">Image</label>
+            <input type="file" id="Image" ng-file-select ng-model="picFile" name="file" accept="image/*"
+                                    ng-file-change="generateThumb(picFile[0], $files)" required>
+        </div>
+        <button ng-disabled="!myForm.$valid" ng-click="uploadPic(picFile)">Submit</button>
+        <img ng-show="picFile[0].dataUrl != null" ng-src="{{ picFile[0].dataUrl }}" class="thumb">
+
+        <div class="progress" ng-show="picFile[0].progress >= 0">
+            <div style="width:{{ picFile[0].progress }}%" ng-bind="picFile[0].progress + '%'"></div>
+        </div>
+        <span ng-show="picFile[0].result">Upload Successful</span>
+    </form>
+</div>
+
