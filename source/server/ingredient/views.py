@@ -3,12 +3,14 @@ from rest_framework import serializers, permissions, status, views, generics
 from rest_framework.response import Response
 
 from common.models import Ingredient, NutritionValue
+from common.models import IngredientCategory
 
 
 class IngredListSerializer(serializers.ModelSerializer):
     """
     for get method
     """
+
     class Meta:
         model = Ingredient
         fields = ('id', 'name', 'image', 'category')
@@ -19,6 +21,7 @@ class IngredCreateSerializer(serializers.ModelSerializer):
     """
     for post method
     """
+
     class Meta:
         model = Ingredient
 
@@ -41,6 +44,7 @@ class IngredDetialSerializer(serializers.ModelSerializer):
     """
     for other method
     """
+
     class Meta:
         model = Ingredient
         depth = 3
@@ -76,3 +80,13 @@ class IngredientDetial(generics.RetrieveUpdateDestroyAPIView):
             return Response(output.data, status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
+
+
+class IngredCatSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = IngredientCategory
+
+class IngredCatList(generics.ListAPIView):
+    queryset = IngredientCategory.objects.all()
+    serializer_class = IngredCatSerializer
+
