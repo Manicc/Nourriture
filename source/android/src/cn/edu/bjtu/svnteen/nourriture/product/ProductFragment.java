@@ -9,13 +9,17 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 import cn.edu.bjtu.svnteen.nourriture.R;
 import cn.edu.bjtu.svnteen.nourriture.adapter.ProductsListViewAdapter;
 import cn.edu.bjtu.svnteen.nourriture.bean.Product;
 import cn.edu.bjtu.svnteen.nourriture.core.MessageID;
 import cn.edu.bjtu.svnteen.nourriture.core.MessageManager;
 import cn.edu.bjtu.svnteen.nourriture.observer.IProductJsonObserver;
+import cn.edu.bjtu.svnteen.nourriture.utils.JumperUtils;
 import cn.edu.bjtu.svnteen.nourriture.utils.ProductUtils;
 
 public class ProductFragment extends Fragment implements IProductJsonObserver {
@@ -55,11 +59,21 @@ public class ProductFragment extends Fragment implements IProductJsonObserver {
 	@Override
 	public void IProductJsonObserver_All(ArrayList<Product> products) {
 		mArrayListProduct = products;
-		mListViewAdapter = new ProductsListViewAdapter(mContext, mArrayListProduct);
+		mListViewAdapter = new ProductsListViewAdapter(mContext,
+				mArrayListProduct);
 		mListView.setAdapter(mListViewAdapter);
 		mListViewAdapter.notifyDataSetChanged();
 		mLoadingView.setVisibility(View.GONE);
 		mListView.setVisibility(View.VISIBLE);
+		mListView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				JumperUtils.JumpToProductDetails(mArrayListProduct
+						.get(position));
+			}
+		});
 	}
 
 	@Override
@@ -69,7 +83,7 @@ public class ProductFragment extends Fragment implements IProductJsonObserver {
 
 	@Override
 	public void IProductJsonObserver_Failed() {
-		
+		Toast.makeText(mContext, "加载失败", Toast.LENGTH_SHORT).show();
 	}
 
 	@Override

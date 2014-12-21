@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.text.TextUtils;
@@ -34,5 +35,19 @@ public class JsonUtils {
 		}
 
 		return productList;
+	}
+
+	public static void getProductDetail(Product product, String json) {
+		if(TextUtils.isEmpty(json)){
+			return;
+		}
+		JSONObject jsonObject;
+		try {
+			jsonObject = new JSONObject(json);
+			String description = jsonObject.getString("desc");
+			product.setDescription(description);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	}
 }

@@ -18,9 +18,61 @@ import cn.edu.bjtu.svnteen.nourriture.utils.StThreadPool.JobType;
 
 /**
  * Product的工具类
+ * 
  * @author Tans
  */
 public class ProductUtils {
+
+	public static void getProductDetail(final Product product) {
+		StThreadPool.runThread(JobType.NET, new Runnable() {
+
+			@Override
+			public void run() {
+				final String result;
+				HttpGet httpGet = new HttpGet(
+						"http://nourriture.sinaapp.com/product/"
+								+ product.getId());
+				HttpClient httpClient = new DefaultHttpClient();
+				try {
+					HttpResponse httpResponse = httpClient.execute(httpGet);
+					if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+						result = EntityUtils.toString(httpResponse.getEntity());
+						JsonUtils.getProductDetail(product,result);
+						MessageManager.getInstance().asyncNotify(
+								MessageID.OBSERVER_PRODUCT_JSON,
+								new Caller<IProductJsonObserver>() {
+									@Override
+									public void call() {
+										ob.IProductJsonObserver_ID(product);
+									}
+
+								});
+					} else {
+						MessageManager.getInstance().asyncNotify(
+								MessageID.OBSERVER_PRODUCT_JSON,
+								new Caller<IProductJsonObserver>() {
+									@Override
+									public void call() {
+										ob.IProductJsonObserver_Failed();
+									}
+
+								});
+					}
+				} catch (Exception e) {
+					MessageManager.getInstance().asyncNotify(
+							MessageID.OBSERVER_PRODUCT_JSON,
+							new Caller<IProductJsonObserver>() {
+								@Override
+								public void call() {
+									ob.IProductJsonObserver_Failed();
+								}
+
+							});
+				}
+
+			}
+		});
+	}
 
 	public static void getAllProducts() {
 		StThreadPool.runThread(JobType.NET, new Runnable() {
@@ -35,7 +87,8 @@ public class ProductUtils {
 					HttpResponse httpResponse = httpClient.execute(httpGet);
 					if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
 						result = EntityUtils.toString(httpResponse.getEntity());
-						final ArrayList<Product> list = JsonUtils.getProducts(result);
+						final ArrayList<Product> list = JsonUtils
+								.getProducts(result);
 						MessageManager.getInstance().asyncNotify(
 								MessageID.OBSERVER_PRODUCT_JSON,
 								new Caller<IProductJsonObserver>() {

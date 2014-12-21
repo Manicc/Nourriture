@@ -1,5 +1,5 @@
 package cn.edu.bjtu.svnteen.nourriture.bean;
 
-public class ProductDetails {
+public class Nutrition {
 
 }
