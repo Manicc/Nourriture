@@ -1,29 +1,76 @@
 <div class="container">
     <h1>Create an ingredient</h1>
 
-    <form name="myForm" role="form">
+    <form class="form-horizontal" name="myForm" role="form">
         <div class="form-group">
-            <label for="Name">Name</label>
-            <input type="text" id="Name" ng-model="ingredient.name" required>
+            <label for="Name" class="col-sm-2 control-label">Name*</label>
+
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="Name" ng-model="ingredient.name" required>
+            </div>
         </div>
         <div class="form-group">
-            <label for="Category">Category</label>
-            <select ng-model="ingredient.category" required>
-                <option ng-repeat="c in category" value="{{ c.id }}">{{ c.name }}</option>
-            </select>
+            <label for="Alias" class="col-sm-2 control-label">Alias</label>
+
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="Alias" ng-model="ingredient.alias" required>
+            </div>
         </div>
         <div class="form-group">
-            <label for="Image">Image</label>
-            <input type="file" id="Image" ng-file-select ng-model="picFile" name="file" accept="image/*"
-                   ng-file-change="generateThumb(picFile[0], $files)" required>
+            <label for="Category" class="col-sm-2 control-label">Category*</label>
+
+            <div class="col-sm-4">
+                <select ng-model="ingredient.category" class="form-control" required>
+                    <option ng-repeat="c in category" value="{{ c.id }}">{{ c.name }}</option>
+                </select>
+            </div>
         </div>
-        <button ng-disabled="!myForm.$valid" ng-click="uploadPic(picFile)">Submit</button>
+        <div class="form-group">
+            <label for="Desc" class="col-sm-2 control-label">Description</label>
+
+            <div class="col-sm-8">
+                <textarea class="form-control" id="Desc" ng-model="ingredient.desc" rows="3" required></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Function" class="col-sm-2 control-label">Function</label>
+
+            <div class="col-sm-8">
+                <textarea class="form-control" id="Function" ng-model="ingredient.function" rows="3"
+                          required></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Tags" class="col-sm-2 control-label">Tags</label>
+
+            <div class="col-sm-8">
+                <js-tag></js-tag>
+
+                <p>Use semi comma to separate tags</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Image" class="col-sm-2 control-label">Image*</label>
+
+            <div class="col-sm-4">
+                <input type="file" class="form-control" id="Image" ng-file-select ng-model="picFile" name="file"
+                       accept="image/*"
+                       ng-file-change="generateThumb(picFile[0], $files)" required>
+            </div>
+        </div>
         <img ng-show="picFile[0].dataUrl != null" ng-src="{{ picFile[0].dataUrl }}" class="thumb">
 
         <div class="progress" ng-show="picFile[0].progress >= 0">
             <div style="width:{{ picFile[0].progress }}%" ng-bind="picFile[0].progress + '%'"></div>
         </div>
         <span ng-show="picFile[0].result">Upload Successful</span>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button ng-disabled="!myForm.$valid" ng-click="uploadPic(picFile)" class="btn btn-default">Submit
+                </button>
+            </div>
+        </div>
     </form>
 </div>
 
