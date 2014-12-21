@@ -15,7 +15,7 @@ public class IngredientFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		mRootView = inflater.inflate(R.layout.home, container, false);
+		mRootView = inflater.inflate(R.layout.ingredient, container, false);
 		return mRootView;
 	}
 }

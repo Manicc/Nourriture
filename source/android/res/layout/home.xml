@@ -4,17 +4,33 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="home"
-        android:textColor="#ff0000"
-        android:textSize="20dp" />
-    
-    <Button 
-        android:id="@+id/button"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/home_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/home_button"
+            android:hint="菜谱名、食材名"
+            android:singleLine="true" />
+
+        <Button
+            android:id="@id/home_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="搜索" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/home_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="test"/>
+        android:divider="@color/white00" />
 
 </LinearLayout>

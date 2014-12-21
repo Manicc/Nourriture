@@ -58,7 +58,7 @@ public class MainActivity extends FragmentActivity implements IAppObserver {
 		mViewPager.setOffscreenPageLimit(4);
 
 		mPageIndicator.setViewPager(mViewPager);
-
+		mPageIndicator.setCurrentItem(2);
 		MessageManager.getInstance()
 				.attachMessage(MessageID.OBSERVER_APP, this);// 例子：怎么使用attachMessage方法
 		Log.d("tanshuai", "MainActivity---> onCreate");

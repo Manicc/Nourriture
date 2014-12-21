@@ -25,7 +25,9 @@
     <color name="vpi__bright_foreground_inverse_holo_light">@color/vpi__bright_foreground_holo_dark</color>
     
     <color name="white">#ffffffff</color>
+    <color name="white00">#00ffffff</color>
     <color name="white80">#cdffffff</color>
     <color name="white90">#e6ffffff</color>
-    <color name="black">#00000000</color>
+    <color name="black">#ff000000</color>
+    <color name="divider">#ff000ddd</color>
 </resources>
