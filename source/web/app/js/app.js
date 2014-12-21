@@ -2,7 +2,8 @@
 var app = angular.module('app', [
     'ngRoute',
     'LocalStorageModule',
-    'angularFileUpload'
+    'angularFileUpload',
+    'jsTag'
 ]);
 
 //url configuration

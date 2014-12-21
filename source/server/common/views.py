@@ -1,7 +1,6 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render
-from rest_framework import generics, serializers, status
-from rest_framework.response import Response
+from rest_framework import generics, serializers
 
 
 def index(request):
@@ -17,6 +16,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
         user = User.objects.create_user(**validated_attrs)
 
         return user
+
 
 class UserCreate(generics.CreateAPIView):
     queryset = User.objects.all()
