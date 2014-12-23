@@ -8,9 +8,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Gallery;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import cn.edu.bjtu.svnteen.nourriture.R;
+import cn.edu.bjtu.svnteen.nourriture.bean.Ingredient;
 import cn.edu.bjtu.svnteen.nourriture.bean.Product;
 import cn.edu.bjtu.svnteen.nourriture.core.MessageID;
 import cn.edu.bjtu.svnteen.nourriture.core.MessageManager;
@@ -18,6 +23,7 @@ import cn.edu.bjtu.svnteen.nourriture.fragment.BaseFragment;
 import cn.edu.bjtu.svnteen.nourriture.observer.IProductJsonObserver;
 import cn.edu.bjtu.svnteen.nourriture.utils.ImageUtils;
 import cn.edu.bjtu.svnteen.nourriture.utils.ProductUtils;
+import cn.edu.bjtu.svnteen.nourriture.utils.ScreenUtils;
 
 public class ProductDetailFragment extends BaseFragment implements
 		IProductJsonObserver {
@@ -27,9 +33,10 @@ public class ProductDetailFragment extends BaseFragment implements
 	private ImageView mImageView;
 	private TextView mNameTextView;
 	private TextView mDescTextView;
+	private TextView mIngredientTextView;
+	private LinearLayout mLinearLayout;
 	public Product mProduct;
 
-	
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
@@ -55,6 +62,10 @@ public class ProductDetailFragment extends BaseFragment implements
 				.findViewById(R.id.product_detail_textview);
 		mDescTextView = (TextView) mRootView
 				.findViewById(R.id.product_detail_desc_textview);
+		mLinearLayout = (LinearLayout) mRootView
+				.findViewById(R.id.linearlayout);
+		mIngredientTextView = (TextView) mRootView
+				.findViewById(R.id.ingredient);
 		if (mProduct != null) {
 			ProductUtils.getProductDetail(mProduct);
 		}
@@ -70,7 +81,6 @@ public class ProductDetailFragment extends BaseFragment implements
 
 	@Override
 	public void IProductJsonObserver_ID(Product product) {
-		mDescTextView.setText(product.getDescription());
 	}
 
 	@Override
@@ -81,6 +91,34 @@ public class ProductDetailFragment extends BaseFragment implements
 
 	@Override
 	public void IProductJsonObserver_Failed() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void IProductJsonObserver_Detail(Product product) {
+		mDescTextView.setText(product.getDescription());
+		ProductUtils.getIngredient(product);
+	}
+
+	@Override
+	public void IProductJsonObserver_Detail_ingredients(Product product) {
+		ArrayList<Ingredient> list = product.getIngredientArrayList();
+		StringBuilder builder = new StringBuilder("成分:  ");
+		for (Ingredient ingredient : list) {
+			builder.append(ingredient.getName());
+			builder.append(" ");
+			ImageView v = new ImageView(mContext);
+			v.setLayoutParams(new LinearLayout.LayoutParams(ScreenUtils.dip2px(
+					mContext, 100), ScreenUtils.dip2px(mContext, 100)));
+			ImageUtils.loadImage(ingredient.getImageURL(), v);
+			mLinearLayout.addView(v);
+		}
+		mIngredientTextView.setText(builder.toString());
+	}
+
+	@Override
+	public void IProductJsonObserver_Detail_nutrition(Product product) {
 		// TODO Auto-generated method stub
 
 	}

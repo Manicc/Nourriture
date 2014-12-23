@@ -91,4 +91,22 @@ public class ProductFragment extends Fragment implements IProductJsonObserver {
 
 	}
 
+	@Override
+	public void IProductJsonObserver_Detail(Product product) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void IProductJsonObserver_Detail_ingredients(Product product) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void IProductJsonObserver_Detail_nutrition(Product product) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

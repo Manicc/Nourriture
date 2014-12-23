@@ -6,7 +6,7 @@ import android.content.Context;
 import android.widget.ImageView;
 
 /**
- * Í¼Æ¬Òì²½¼ÓÔØ¹¤¾ßÀà 
+ * Í¼Æ¬ï¿½ì²½ï¿½ï¿½ï¿½Ø¹ï¿½ï¿½ï¿½ï¿½ï¿½ 
  * @author Tans
  */
 public class ImageUtils {

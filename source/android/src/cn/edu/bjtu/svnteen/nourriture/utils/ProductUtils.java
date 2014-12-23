@@ -9,6 +9,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
+import cn.edu.bjtu.svnteen.nourriture.bean.Ingredient;
 import cn.edu.bjtu.svnteen.nourriture.bean.Product;
 import cn.edu.bjtu.svnteen.nourriture.core.MessageID;
 import cn.edu.bjtu.svnteen.nourriture.core.MessageManager;
@@ -23,27 +24,58 @@ import cn.edu.bjtu.svnteen.nourriture.utils.StThreadPool.JobType;
  */
 public class ProductUtils {
 
+	public static void getIngredient(final Product product) {
+		StThreadPool.runThread(JobType.NET, new Runnable() {
+
+			@Override
+			public void run() {
+				ArrayList<Ingredient> arrayList = IngredientUtils
+						.getIngredients();
+				ArrayList<Ingredient> list = new ArrayList<Ingredient>();
+				if (arrayList != null) {
+					for (Ingredient productIngredient : product
+							.getIngredientArrayList()) {
+						for (Ingredient ingredient : arrayList) {
+							if (productIngredient.getId() == ingredient.getId()) {
+								list.add(ingredient);
+							}
+						}
+					}
+					product.setIngredientArrayList(list);
+					MessageManager.getInstance().asyncNotify(
+							MessageID.OBSERVER_PRODUCT_JSON,
+							new Caller<IProductJsonObserver>() {
+								@Override
+								public void call() {
+									ob.IProductJsonObserver_Detail_ingredients(product);
+								}
+
+							});
+				}
+			}
+		});
+	}
+
 	public static void getProductDetail(final Product product) {
 		StThreadPool.runThread(JobType.NET, new Runnable() {
 
 			@Override
 			public void run() {
 				final String result;
-				HttpGet httpGet = new HttpGet(
-						"http://nourriture.sinaapp.com/product/"
-								+ product.getId());
+				HttpGet httpGet = new HttpGet(UrlManagerUtils
+						.getProductUrl(product.getId()));
 				HttpClient httpClient = new DefaultHttpClient();
 				try {
 					HttpResponse httpResponse = httpClient.execute(httpGet);
 					if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
 						result = EntityUtils.toString(httpResponse.getEntity());
-						JsonUtils.getProductDetail(product,result);
+						JsonUtils.getProductDetail(product, result);
 						MessageManager.getInstance().asyncNotify(
 								MessageID.OBSERVER_PRODUCT_JSON,
 								new Caller<IProductJsonObserver>() {
 									@Override
 									public void call() {
-										ob.IProductJsonObserver_ID(product);
+										ob.IProductJsonObserver_Detail(product);
 									}
 
 								});
@@ -80,8 +112,7 @@ public class ProductUtils {
 			@Override
 			public void run() {
 				final String result;
-				HttpGet httpGet = new HttpGet(
-						"http://nourriture.sinaapp.com/product/");
+				HttpGet httpGet = new HttpGet(UrlManagerUtils.getProductUrl(0));
 				HttpClient httpClient = new DefaultHttpClient();
 				try {
 					HttpResponse httpResponse = httpClient.execute(httpGet);
