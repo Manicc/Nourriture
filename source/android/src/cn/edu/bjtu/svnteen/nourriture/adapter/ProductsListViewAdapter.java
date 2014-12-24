@@ -14,11 +14,11 @@ import cn.edu.bjtu.svnteen.nourriture.adapter.RecipesListViewAdapter.ViewHolder;
 import cn.edu.bjtu.svnteen.nourriture.bean.Product;
 import cn.edu.bjtu.svnteen.nourriture.utils.ImageUtils;
 
-public class ProductsListViewAdapter extends BaseAdapter{
+public class ProductsListViewAdapter extends BaseAdapter {
 	private Context mContext;
 	private ArrayList<Product> mProductList;
-	
-	public ProductsListViewAdapter(Context context, ArrayList<Product> products){
+
+	public ProductsListViewAdapter(Context context, ArrayList<Product> products) {
 		mContext = context;
 		mProductList = products;
 	}
@@ -43,7 +43,7 @@ public class ProductsListViewAdapter extends BaseAdapter{
 		ViewHolder holder;
 		if (convertView == null) {
 			convertView = LayoutInflater.from(mContext).inflate(
-					R.layout.product_listview_item, parent, false);
+					R.layout.product_listview_item, null);
 			holder = new ViewHolder();
 			holder.imageView = (ImageView) convertView
 					.findViewById(R.id.product_item_imageview);
@@ -55,7 +55,8 @@ public class ProductsListViewAdapter extends BaseAdapter{
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		ImageUtils.loadImage(mProductList.get(position).getImageUrl(), holder.imageView);
+		ImageUtils.loadImage(mProductList.get(position).getImageUrl(),
+				holder.imageView);
 		holder.nameTextView.setText(mProductList.get(position).getName());
 
 		return convertView;

@@ -61,14 +61,13 @@ public class ProductUtils {
 
 			@Override
 			public void run() {
-				final String result;
 				HttpGet httpGet = new HttpGet(UrlManagerUtils
 						.getProductUrl(product.getId()));
 				HttpClient httpClient = new DefaultHttpClient();
 				try {
 					HttpResponse httpResponse = httpClient.execute(httpGet);
 					if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-						result = EntityUtils.toString(httpResponse.getEntity());
+						String result = EntityUtils.toString(httpResponse.getEntity());
 						JsonUtils.getProductDetail(product, result);
 						MessageManager.getInstance().asyncNotify(
 								MessageID.OBSERVER_PRODUCT_JSON,
@@ -111,13 +110,12 @@ public class ProductUtils {
 
 			@Override
 			public void run() {
-				final String result;
 				HttpGet httpGet = new HttpGet(UrlManagerUtils.getProductUrl(0));
 				HttpClient httpClient = new DefaultHttpClient();
 				try {
 					HttpResponse httpResponse = httpClient.execute(httpGet);
 					if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-						result = EntityUtils.toString(httpResponse.getEntity());
+						String result = EntityUtils.toString(httpResponse.getEntity());
 						final ArrayList<Product> list = JsonUtils
 								.getProducts(result);
 						MessageManager.getInstance().asyncNotify(

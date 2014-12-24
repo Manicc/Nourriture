@@ -49,7 +49,7 @@ public class ProductFragment extends Fragment implements IProductJsonObserver {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		mContext = getActivity();
-		mRootView = inflater.inflate(R.layout.product, container, false);
+		mRootView = inflater.inflate(R.layout.product, null);
 		mListView = (ListView) mRootView.findViewById(R.id.product_listview);
 		mLoadingView = mRootView.findViewById(R.id.product_progressbar);
 		ProductUtils.getAllProducts();
@@ -94,19 +94,19 @@ public class ProductFragment extends Fragment implements IProductJsonObserver {
 	@Override
 	public void IProductJsonObserver_Detail(Product product) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void IProductJsonObserver_Detail_ingredients(Product product) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void IProductJsonObserver_Detail_nutrition(Product product) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

@@ -24,7 +24,7 @@ public class IngredientUtils {
 			if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
 				String result = EntityUtils.toString(httpResponse.getEntity());
 				ingredientArrayList = JsonUtils.getIngredients(result);
-			}
+			} 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

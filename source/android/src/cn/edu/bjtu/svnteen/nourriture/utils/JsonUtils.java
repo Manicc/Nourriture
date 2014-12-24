@@ -1,22 +1,47 @@
 package cn.edu.bjtu.svnteen.nourriture.utils;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.text.TextUtils;
-
 import cn.edu.bjtu.svnteen.nourriture.bean.Ingredient;
 import cn.edu.bjtu.svnteen.nourriture.bean.Nutrition;
 import cn.edu.bjtu.svnteen.nourriture.bean.Product;
+import cn.edu.bjtu.svnteen.nourriture.bean.Recipe;
 
 public class JsonUtils {
 
+	public static ArrayList<Recipe> getRecipes(String json) {
+		if (TextUtils.isEmpty(json)) {
+			return null;
+		}
+		ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
+		try {
+			JSONArray jsonArray = new JSONArray(json);
+			JSONObject jsonObject;
+			Recipe recipe;
+			for (int i = 0; i < jsonArray.length(); i++) {
+				recipe = new Recipe();
+				jsonObject = jsonArray.getJSONObject(i);
+				recipe.setID(jsonObject.getInt("id"));
+				recipe.setName(jsonObject.getString("name"));
+				recipe.setProcessing(jsonObject.getString("processing"));
+				recipe.setImageUrl(jsonObject.getString("image"));
+				recipe.setFoodType(jsonObject.getString("food_type"));
+				recipeList.add(recipe);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return recipeList;
+	}
+
 	public static ArrayList<Ingredient> getIngredients(String json) {
-		if(TextUtils.isEmpty(json)){
+		if (TextUtils.isEmpty(json)) {
 			return null;
 		}
 		ArrayList<Ingredient> ingredientList = new ArrayList<Ingredient>();

@@ -3,6 +3,7 @@ package cn.edu.bjtu.svnteen.nourriture.core;
 import cn.edu.bjtu.svnteen.nourriture.observer.IAppObserver;
 import cn.edu.bjtu.svnteen.nourriture.observer.IObserverBase;
 import cn.edu.bjtu.svnteen.nourriture.observer.IProductJsonObserver;
+import cn.edu.bjtu.svnteen.nourriture.observer.IRecipeJsonObserver;
 
 /**
  * @warn 禁止修改
@@ -23,6 +24,11 @@ public enum MessageID {
 	OBSERVER_PRODUCT_JSON {
 		public Class<? extends IProductJsonObserver> getObserverClass() {
 			return IProductJsonObserver.class;
+		}
+	},
+	OBSERVER_RECIPE_JSON {
+		public Class<? extends IRecipeJsonObserver> getObserverClass() {
+			return IRecipeJsonObserver.class;
 		}
 	};
 

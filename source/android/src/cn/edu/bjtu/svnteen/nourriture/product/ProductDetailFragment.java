@@ -35,7 +35,7 @@ public class ProductDetailFragment extends BaseFragment implements
 	private TextView mDescTextView;
 	private TextView mIngredientTextView;
 	private LinearLayout mLinearLayout;
-	public Product mProduct;
+	public static Product mProduct;
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -55,7 +55,7 @@ public class ProductDetailFragment extends BaseFragment implements
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		mContext = getActivity();
-		mRootView = inflater.inflate(R.layout.product_detail, null);
+		mRootView = inflater.inflate(R.layout.product_detail, container, false);
 		mImageView = (ImageView) mRootView
 				.findViewById(R.id.product_detail_imageview);
 		mNameTextView = (TextView) mRootView
