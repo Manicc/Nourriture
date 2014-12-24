@@ -1,5 +1,7 @@
 package cn.edu.bjtu.svnteen.nourriture.bean;
 
+import java.util.ArrayList;
+
 public class Recipe {
 
 	private int ID;
@@ -12,8 +14,8 @@ public class Recipe {
 	private long makingTime;
 	private String makingTip;
 	private int gastronomistID;
-	private int[] ingredientsID;
-	private int[] nutritionsID;
+	private ArrayList<Ingredient> ingredientList;
+	private ArrayList<Nutrition> nutritionList;
 	private int[] tagsID;
 
 	public int getID() {
@@ -96,20 +98,20 @@ public class Recipe {
 		this.gastronomistID = gastronomistID;
 	}
 
-	public int[] getIngredientsID() {
-		return ingredientsID;
+	public ArrayList<Ingredient> getIngredientList() {
+		return ingredientList;
 	}
 
-	public void setIngredientsID(int[] ingredientsID) {
-		this.ingredientsID = ingredientsID;
+	public void setIngredientList(ArrayList<Ingredient> ingredientList) {
+		this.ingredientList = ingredientList;
 	}
 
-	public int[] getNutritionsID() {
-		return nutritionsID;
+	public ArrayList<Nutrition> getNutritionList() {
+		return nutritionList;
 	}
 
-	public void setNutritionsID(int[] nutritionsID) {
-		this.nutritionsID = nutritionsID;
+	public void setNutritionList(ArrayList<Nutrition> nutritionList) {
+		this.nutritionList = nutritionList;
 	}
 
 	public int[] getTagsID() {

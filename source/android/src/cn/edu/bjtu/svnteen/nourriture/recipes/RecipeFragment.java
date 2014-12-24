@@ -9,14 +9,16 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
-import android.widget.TabHost;
 import cn.edu.bjtu.svnteen.nourriture.R;
 import cn.edu.bjtu.svnteen.nourriture.adapter.RecipeGridViewAdapter;
 import cn.edu.bjtu.svnteen.nourriture.bean.Recipe;
 import cn.edu.bjtu.svnteen.nourriture.core.MessageID;
 import cn.edu.bjtu.svnteen.nourriture.core.MessageManager;
 import cn.edu.bjtu.svnteen.nourriture.observer.IRecipeJsonObserver;
+import cn.edu.bjtu.svnteen.nourriture.utils.JumperUtils;
 import cn.edu.bjtu.svnteen.nourriture.utils.RecipeUtils;
 
 public class RecipeFragment extends Fragment implements IRecipeJsonObserver {
@@ -47,6 +49,14 @@ public class RecipeFragment extends Fragment implements IRecipeJsonObserver {
 		mContext = getActivity();
 		mRootView = inflater.inflate(R.layout.recipe, null);
 		mGrdiView = (GridView) mRootView.findViewById(R.id.gridview);
+		mGrdiView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				JumperUtils.JumpToRecipeDetail(mRecipeList.get(position));
+			}
+		});
 		RecipeUtils.getRecipes();
 		return mRootView;
 	}
@@ -57,5 +67,10 @@ public class RecipeFragment extends Fragment implements IRecipeJsonObserver {
 		mGridViewAdapter = new RecipeGridViewAdapter(mContext, mRecipeList);
 		mGrdiView.setAdapter(mGridViewAdapter);
 		mGridViewAdapter.notifyDataSetChanged();
+	}
+
+	@Override
+	public void IRecipeJsonObserver_Detail_ingredients(Recipe recipe) {
+		
 	}
 }

@@ -18,12 +18,18 @@ public class JsonUtils {
 		if (TextUtils.isEmpty(json)) {
 			return null;
 		}
+		Ingredient ingredient;
+		ArrayList<Ingredient> ingredientArrayList;
+		Nutrition nutrition;
+		ArrayList<Nutrition> nutritionArrayList;
 		ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
 		try {
 			JSONArray jsonArray = new JSONArray(json);
 			JSONObject jsonObject;
 			Recipe recipe;
 			for (int i = 0; i < jsonArray.length(); i++) {
+				ingredientArrayList = new ArrayList<Ingredient>();
+				nutritionArrayList = new ArrayList<Nutrition>();
 				recipe = new Recipe();
 				jsonObject = jsonArray.getJSONObject(i);
 				recipe.setID(jsonObject.getInt("id"));
@@ -31,6 +37,23 @@ public class JsonUtils {
 				recipe.setProcessing(jsonObject.getString("processing"));
 				recipe.setImageUrl(jsonObject.getString("image"));
 				recipe.setFoodType(jsonObject.getString("food_type"));
+				JSONArray ingredientJsonArray = new JSONArray(
+						jsonObject.getString("ingredients"));
+				for (int j = 0; j < ingredientJsonArray.length(); j++) {
+					ingredient = new Ingredient();
+					ingredient.setId(ingredientJsonArray.getInt(j));
+					ingredientArrayList.add(ingredient);
+				}
+				JSONArray nutritionJsonArray = new JSONArray(
+						jsonObject.getString("nutrition"));
+				recipe.setIngredientList(ingredientArrayList);
+
+				for (int k = 0; k < nutritionJsonArray.length(); k++) {
+					nutrition = new Nutrition();
+					nutrition.setId(nutritionJsonArray.getInt(k));
+					nutritionArrayList.add(nutrition);
+				}
+				recipe.setNutritionList(nutritionArrayList);
 				recipeList.add(recipe);
 			}
 		} catch (Exception e) {

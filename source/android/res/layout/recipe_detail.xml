@@ -13,7 +13,7 @@
             android:layout_height="wrap_content" >
 
             <TextView
-                android:id="@+id/product_detail_textview"
+                android:id="@+id/recipe_detail_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -21,18 +21,18 @@
                 android:textSize="15dp" />
 
             <ImageView
-                android:id="@+id/product_detail_imageview"
+                android:id="@+id/recipe_detail_imageview"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/product_detail_textview"
+                android:layout_height="300dp"
+                android:layout_below="@id/recipe_detail_textview"
                 android:layout_marginTop="5dp"
                 android:scaleType="centerCrop" />
 
             <TextView
-                android:id="@+id/product_detail_desc_textview"
+                android:id="@+id/recipe_process_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/product_detail_imageview"
+                android:layout_below="@id/recipe_detail_imageview"
                 android:layout_margin="10dp"
                 android:textColor="@color/black"
                 android:textSize="15dp" />
@@ -41,23 +41,18 @@
                 android:id="@+id/ingredient"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/product_detail_desc_textview"
+                android:layout_below="@id/recipe_process_textview"
                 android:layout_margin="10dp"
                 android:textColor="@color/black"
                 android:textSize="20dp" />
 
-            <HorizontalScrollView
+            <LinearLayout
+                android:id="@+id/linearlayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/ingredient" >
-
-                <LinearLayout
-                    android:id="@+id/linearlayout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal" >
-                </LinearLayout>
-            </HorizontalScrollView>
+                android:layout_below="@id/ingredient"
+                android:orientation="horizontal" >
+            </LinearLayout>
         </RelativeLayout>
     </ScrollView>
 
