@@ -1,14 +1,14 @@
 package cn.edu.bjtu.svnteen.nourriture.core;
 
 import cn.edu.bjtu.svnteen.nourriture.observer.IAppObserver;
+import cn.edu.bjtu.svnteen.nourriture.observer.IIngredientJsonObserver;
 import cn.edu.bjtu.svnteen.nourriture.observer.IObserverBase;
 import cn.edu.bjtu.svnteen.nourriture.observer.IProductJsonObserver;
 import cn.edu.bjtu.svnteen.nourriture.observer.IRecipeJsonObserver;
 
 /**
  * @warn 禁止修改
- * @author Tans
- * 观察者模式的回调MessageID
+ * @author Tans 观察者模式的回调MessageID
  */
 public enum MessageID {
 	OBSERVER_ID_RESERVE {
@@ -29,6 +29,11 @@ public enum MessageID {
 	OBSERVER_RECIPE_JSON {
 		public Class<? extends IRecipeJsonObserver> getObserverClass() {
 			return IRecipeJsonObserver.class;
+		}
+	},
+	OBSERVER_INGREDIENT_JSON {
+		public Class<? extends IIngredientJsonObserver> getObserverClass() {
+			return IIngredientJsonObserver.class;
 		}
 	};
 

@@ -1,10 +1,19 @@
 package cn.edu.bjtu.svnteen.nourriture.bean;
 
+
 public class Ingredient {
 	
 	private int id;
 	private String name;
 	private String imageURL;
+	private IngredientCategory category;
+	public IngredientCategory getCategory() {
+		return category;
+	}
+
+	public void setCategory(IngredientCategory category) {
+		this.category = category;
+	}
 
 	public String getName() {
 		return name;

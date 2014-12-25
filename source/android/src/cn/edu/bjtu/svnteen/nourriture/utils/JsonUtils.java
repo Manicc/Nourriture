@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import android.text.TextUtils;
 import cn.edu.bjtu.svnteen.nourriture.bean.Ingredient;
+import cn.edu.bjtu.svnteen.nourriture.bean.IngredientCategory;
 import cn.edu.bjtu.svnteen.nourriture.bean.Nutrition;
 import cn.edu.bjtu.svnteen.nourriture.bean.Product;
 import cn.edu.bjtu.svnteen.nourriture.bean.Recipe;
@@ -72,12 +73,18 @@ public class JsonUtils {
 			JSONArray jsonArray = new JSONArray(json);
 			JSONObject jsonObject;
 			Ingredient ingredient;
+			IngredientCategory category;
 			for (int i = 0; i < jsonArray.length(); i++) {
+				category = new IngredientCategory();
 				ingredient = new Ingredient();
 				jsonObject = jsonArray.getJSONObject(i);
 				ingredient.setId(jsonObject.getInt("id"));
 				ingredient.setName(jsonObject.getString("name"));
 				ingredient.setImageURL(jsonObject.getString("image"));
+				JSONObject categoryJson = jsonObject.getJSONObject("category");
+				category.setId(categoryJson.getInt("id"));
+				category.setName(categoryJson.getString("name"));
+				ingredient.setCategory(category);
 				ingredientList.add(ingredient);
 			}
 		} catch (Exception e) {
