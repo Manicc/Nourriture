@@ -45,6 +45,7 @@ public class IngredientListViewAdapter extends BaseAdapter {
 		TextView textView = (TextView) convertView.findViewById(R.id.textview);
 		GridView gridView = (GridView) convertView.findViewById(R.id.gridview);
 		textView.setText(dataModel.getName());
+		gridView.setAdapter(new IngredientGridViewAdapter(mContext, dataModel));
 		return convertView;
 	}
 
