@@ -161,7 +161,7 @@ public class TabPageIndicator extends HorizontalScrollView implements
 		tabView.mIndex = index;
 		tabView.setFocusable(true);
 		tabView.setOnClickListener(mTabClickListener);
-		tabView.setTextSize(15);
+		tabView.setTextSize(14);
 		tabView.setTextColor(Color.BLACK);
 		tabView.setText(text);
 

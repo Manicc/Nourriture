@@ -40,13 +40,28 @@ public class IngredientListViewAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		IngredientDataModel dataModel = mList.get(position);
-		convertView = LayoutInflater.from(mContext).inflate(
-				R.layout.ingredient_listview_item, null);
-		TextView textView = (TextView) convertView.findViewById(R.id.textview);
-		GridView gridView = (GridView) convertView.findViewById(R.id.gridview);
-		textView.setText(dataModel.getName());
-		gridView.setAdapter(new IngredientGridViewAdapter(mContext, dataModel));
+		ViewHolder holder;
+		if (convertView == null) {
+			holder = new ViewHolder();
+			convertView = LayoutInflater.from(mContext).inflate(
+					R.layout.ingredient_listview_item, null);
+			holder.textView = (TextView) convertView
+					.findViewById(R.id.textview);
+			holder.gridView = (GridView) convertView
+					.findViewById(R.id.gridview);
+			convertView.setTag(holder);
+		} else {
+			holder = (ViewHolder) convertView.getTag();
+		}
+		holder.textView.setText(dataModel.getName());
+		holder.gridView.setAdapter(new IngredientGridViewAdapter(mContext,
+				dataModel));
 		return convertView;
+	}
+
+	class ViewHolder {
+		TextView textView;
+		GridView gridView;
 	}
 
 }
