@@ -11,6 +11,13 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
 import cn.edu.bjtu.svnteen.nourriture.bean.Ingredient;
+import cn.edu.bjtu.svnteen.nourriture.bean.IngredientDataModel;
+import cn.edu.bjtu.svnteen.nourriture.core.MessageID;
+import cn.edu.bjtu.svnteen.nourriture.core.MessageManager;
+import cn.edu.bjtu.svnteen.nourriture.core.MessageManager.Caller;
+import cn.edu.bjtu.svnteen.nourriture.observer.IIngredientJsonObserver;
+import cn.edu.bjtu.svnteen.nourriture.observer.IProductJsonObserver;
+import cn.edu.bjtu.svnteen.nourriture.utils.StThreadPool.JobType;
 
 public class IngredientUtils {
 
@@ -24,10 +31,58 @@ public class IngredientUtils {
 			if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
 				String result = EntityUtils.toString(httpResponse.getEntity());
 				ingredientArrayList = JsonUtils.getIngredients(result);
-			} 
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return ingredientArrayList;
+	}
+
+	public static void getIngredientsData() {
+		StThreadPool.runThread(JobType.NET, new Runnable() {
+
+			@Override
+			public void run() {
+				final ArrayList<Ingredient> arrayList = IngredientUtils
+						.getIngredients();
+
+				MessageManager.getInstance().asyncNotify(
+						MessageID.OBSERVER_INGREDIENT_JSON,
+						new Caller<IIngredientJsonObserver>() {
+							@Override
+							public void call() {
+								ob.IIngredientJsonObserver_ALL(arrayList);
+							}
+
+						});
+			}
+		});
+
+	}
+
+	// 把无序的从网上请求下来的ingredient根据category分类
+	public static ArrayList<IngredientDataModel> getConvertedIngredients(
+			ArrayList<Ingredient> list) {
+		boolean hasCategory = false;
+		ArrayList<IngredientDataModel> dstList = new ArrayList<IngredientDataModel>();
+		for (Ingredient ingredient : list) {
+			for (int i = 0; i < dstList.size(); i++) {
+				if (dstList.get(i).getId() == ingredient.getCategory().getId()) {
+					dstList.get(i).getIngredientList().add(ingredient);
+					hasCategory = true;
+					break;
+				}
+			}
+			if (!hasCategory) {
+				IngredientDataModel dataModel = new IngredientDataModel();
+				dataModel.setId(ingredient.getCategory().getId());
+				dataModel.setName(ingredient.getCategory().getName());
+				dataModel.setIngredientList(new ArrayList<Ingredient>());
+				dataModel.getIngredientList().add(ingredient);
+				dstList.add(dataModel);
+			}
+			hasCategory = false;
+		}
+		return dstList;
 	}
 }
