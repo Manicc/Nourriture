@@ -13,7 +13,7 @@
             <label for="Alias" class="col-sm-2 control-label">Alias</label>
 
             <div class="col-sm-4">
-                <input type="text" class="form-control" id="Alias" ng-model="ingredient.alias" required>
+                <input type="text" class="form-control" id="Alias" ng-model="ingredient.alias">
             </div>
         </div>
         <div class="form-group">
@@ -29,22 +29,21 @@
             <label for="Desc" class="col-sm-2 control-label">Description</label>
 
             <div class="col-sm-8">
-                <textarea class="form-control" id="Desc" ng-model="ingredient.desc" rows="3" required></textarea>
+                <textarea class="form-control" id="Desc" ng-model="ingredient.desc" rows="3"></textarea>
             </div>
         </div>
         <div class="form-group">
             <label for="Function" class="col-sm-2 control-label">Function</label>
 
             <div class="col-sm-8">
-                <textarea class="form-control" id="Function" ng-model="ingredient.function" rows="3"
-                          required></textarea>
+                <textarea class="form-control" id="Function" ng-model="ingredient.function" rows="3"></textarea>
             </div>
         </div>
         <div class="form-group">
             <label for="Tags" class="col-sm-2 control-label">Tags</label>
 
             <div class="col-sm-8">
-                <js-tag></js-tag>
+                <input type="text" class="form-control" id="Tags" ng-model="ingredient.tags">
 
                 <p>Use semi comma to separate tags</p>
             </div>
@@ -58,8 +57,9 @@
                        ng-file-change="generateThumb(picFile[0], $files)" required>
             </div>
         </div>
-        <img ng-show="picFile[0].dataUrl != null" ng-src="{{ picFile[0].dataUrl }}" class="thumb">
-
+        <div class="col-sm-offset-2 col-sm-4">
+            <img height="250px" ng-show="picFile[0].dataUrl != null" ng-src="{{ picFile[0].dataUrl }}" class="thumb">
+        </div>
         <div class="progress" ng-show="picFile[0].progress >= 0">
             <div style="width:{{ picFile[0].progress }}%" ng-bind="picFile[0].progress + '%'"></div>
         </div>

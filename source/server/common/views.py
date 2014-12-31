@@ -1,10 +1,19 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render
-from rest_framework import generics, serializers
+from rest_framework import generics, serializers, permissions, status
+from rest_framework.response import Response
+
+from common.models import Comment, COMMENT_TARGET_TYPE
 
 
 def index(request):
     return render(request, 'index.html')
+
+
+class UserBriefSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username')
 
 
 class UserCreateSerializer(serializers.ModelSerializer):
@@ -27,3 +36,32 @@ class UserDetial(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserCreateSerializer
 
+
+class CommentCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = ('content',)
+
+
+class CommentListSerializer(serializers.ModelSerializer):
+    user = UserBriefSerializer()
+    
+    class Meta:
+        model = Comment
+        fields = ('user', 'content', 'time')
+
+
+class CommentList(generics.ListCreateAPIView):
+    queryset = Comment.objects.all()
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    serializer_class = CommentListSerializer
+
+    def create(self, request, type, pk):
+        serializer = CommentCreateSerializer(data=request.data)
+        type_id = COMMENT_TARGET_TYPE.get(type, -1)
+        if serializer.is_valid() and type_id != -1:
+            ingredient = serializer.save(user=request.user, target_type=type_id, target_id=pk)
+            output = CommentListSerializer(ingredient)
+            return Response(output.data, status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)

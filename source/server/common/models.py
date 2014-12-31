@@ -136,14 +136,22 @@ class Moment(models.Model):
         return self.user.username
 
 
+COMMENT_TARGET_TYPE = {
+    'ingredient':0,
+    'product':1,
+    'recipe':2,
+}
+
+
 class Comment(models.Model):
     user = models.ForeignKey(User)
     # the object commented upon
     target_type = models.IntegerField()
     # the object's id commented upon
     target_id = models.IntegerField()
-    replay_comment_id = models.IntegerField()
+    replay_comment_id = models.IntegerField(blank=True, default=0)
     content = models.CharField(max_length=200)
+    time = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
         return self.user.username
