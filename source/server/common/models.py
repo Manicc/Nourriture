@@ -108,9 +108,16 @@ class Product(models.Model):
         return self.name
 
 
+TARGET_TYPE = {
+    'ingredient':0,
+    'product':1,
+    'recipe':2,
+}
+
+
 class Favorite(models.Model):
     user = models.ForeignKey(User)
-    collect_type = models.CharField(max_length=50)
+    target_type = models.IntegerField()
     target_id = models.IntegerField()
 
     def __unicode__(self):
@@ -134,13 +141,6 @@ class Moment(models.Model):
 
     def __unicode__(self):
         return self.user.username
-
-
-COMMENT_TARGET_TYPE = {
-    'ingredient':0,
-    'product':1,
-    'recipe':2,
-}
 
 
 class Comment(models.Model):

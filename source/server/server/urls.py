@@ -2,14 +2,14 @@ from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 
-from common.views import CommentList
+from common.views import CommentList, FavoriteList
 from server import settings
 
 
 urlpatterns = patterns('',
-                       # Examples:
                        url(r'^$', 'common.views.index', name='index'),
                        url(r'^(?P<type>\w+)/(?P<pk>\d+)/comment/', CommentList.as_view()),
+                       url(r'^(?P<type>\w+)/(?P<pk>\d+)/favorite/', FavoriteList.as_view()),
                        url(r'^user/', include('common.urls')),
                        url(r'^ingredient/', include('ingredient.urls')),
                        url(r'^product/', include('product.urls')),

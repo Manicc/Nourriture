@@ -3,7 +3,7 @@ from django.shortcuts import render
 from rest_framework import generics, serializers, permissions, status
 from rest_framework.response import Response
 
-from common.models import Comment, COMMENT_TARGET_TYPE
+from common.models import Comment, TARGET_TYPE, Favorite
 
 
 def index(request):
@@ -58,10 +58,35 @@ class CommentList(generics.ListCreateAPIView):
 
     def create(self, request, type, pk):
         serializer = CommentCreateSerializer(data=request.data)
-        type_id = COMMENT_TARGET_TYPE.get(type, -1)
+        type_id = TARGET_TYPE.get(type, -1)
         if serializer.is_valid() and type_id != -1:
             ingredient = serializer.save(user=request.user, target_type=type_id, target_id=pk)
             output = CommentListSerializer(ingredient)
             return Response(output.data, status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
+
+
+class FavoriteListSerializer(serializers.ModelSerializer):
+    user = UserBriefSerializer()
+
+    class Meta:
+        model = Favorite
+        fields = ('user')
+
+
+class FavoriteList(generics.ListCreateAPIView):
+    queryset = Favorite.objects.all()
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    serializer_class = FavoriteListSerializer
+
+    def create(self, request, type, pk):
+        type_id = TARGET_TYPE.get(type, -1)
+        if type_id != -1:
+            fav_obj = Favorite(user=request.user, target_type=type_id, target_id=pk)
+            fav_obj.save()
+
+            output = FavoriteListSerializer(fav_obj)
+            return Response(output.data, status.HTTP_201_CREATED)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
