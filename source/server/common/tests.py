@@ -17,7 +17,7 @@ def setup_user_token():
 
     token = AccessToken()
     token.user = user
-    token.expires = datetime.now().replace(year=2015)
+    token.expires = datetime.utcnow().replace(year=datetime.utcnow().year + 1)
     token.application = app
     token.token = '987654321'
     token.save()
@@ -44,7 +44,7 @@ class CommentTest(TestCase):
         c.post('/ingredient/1/comment/', {'content': 'this is a test comment!'}, **self.extra)
         response = c.get('/ingredient/1/comment/')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.content)>0, True)
+        self.assertEqual(len(response.content) > 0, True)
 
 
 class FavoriteTest(TestCase):
@@ -53,10 +53,20 @@ class FavoriteTest(TestCase):
             'HTTP_AUTHORIZATION': 'Bearer ' + setup_user_token(),
         }
 
-    def post_favorite(self):
+    def test_post_favorite(self):
         c = Client()
-        c.post('/ingredient/1/favorite/', **self.extra)
+        response = c.post('/ingredient/1/favorite/', **self.extra)
 
-    def post_favorite_no_id(self):
+        self.assertEqual(response.status_code, 201)
+
+    def test_delete_favorite(self):
         c = Client()
-        c.post('/ingredient/219749238/favorite/', **self.extra)
+        response = c.delete('/ingredient/1/favorite/1/', **self.extra)
+
+        self.assertEqual(response.status_code, 200)
+
+    # def test_post_favorite_no_id(self):
+    #     c = Client()
+    #     response = c.post('/ingredient/219749238/favorite/', **self.extra)
+    #
+    #     self.assertEqual(response.status_code, 400)

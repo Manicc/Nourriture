@@ -120,6 +120,9 @@ class Favorite(models.Model):
     target_type = models.IntegerField()
     target_id = models.IntegerField()
 
+    class Meta:
+        unique_together = (('user', 'target_type', 'target_id'),)
+
     def __unicode__(self):
         return self.user.username
 

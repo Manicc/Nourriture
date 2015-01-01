@@ -72,7 +72,7 @@ class FavoriteListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Favorite
-        fields = ('user')
+        fields = ('user',)
 
 
 class FavoriteList(generics.ListCreateAPIView):
@@ -90,3 +90,9 @@ class FavoriteList(generics.ListCreateAPIView):
             return Response(output.data, status.HTTP_201_CREATED)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class FavoriteDelete(generics.DestroyAPIView):
+    queryset = Favorite.objects.all()
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    serializer_class = FavoriteListSerializer
