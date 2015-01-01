@@ -1,9 +1,10 @@
-from datetime import datetime
 from django.contrib.auth.models import User
 from django.test import TestCase, Client
 
 # Create your tests here.
+from django.utils import timezone
 from oauth2_provider.models import Application, AccessToken
+from common.models import Favorite, TARGET_TYPE, Ingredient, IngredientCategory
 
 
 def setup_user_token():
@@ -17,18 +18,19 @@ def setup_user_token():
 
     token = AccessToken()
     token.user = user
-    token.expires = datetime.utcnow().replace(year=datetime.utcnow().year + 1)
+    token.expires = timezone.now().replace(year=timezone.now().year + 1)
     token.application = app
     token.token = '987654321'
     token.save()
 
-    return token.token
+    return user, token.token
 
 
 class CommentTest(TestCase):
     def setUp(self):
+        self.user, self.token = setup_user_token()
         self.extra = {
-            'HTTP_AUTHORIZATION': 'Bearer ' + setup_user_token(),
+            'HTTP_AUTHORIZATION': 'Bearer ' + self.token,
         }
 
         Client().post('/ingredient/1/comment/', {'content': 'this is a test comment!'}, **self.extra)
@@ -47,10 +49,25 @@ class CommentTest(TestCase):
         self.assertEqual(len(response.content) > 0, True)
 
 
+def create_favorite(user):
+    # create category
+    cat = IngredientCategory(name='test')
+    cat.save()
+
+    # create ingredient
+    ingre = Ingredient(name='test', category=cat, image=None)
+    ingre.save()
+
+    fav = Favorite(user=user, target_type=TARGET_TYPE.get('ingredient'), target_id=1)
+    fav.save()
+    return fav
+
+
 class FavoriteTest(TestCase):
     def setUp(self):
+        self.user, self.token = setup_user_token()
         self.extra = {
-            'HTTP_AUTHORIZATION': 'Bearer ' + setup_user_token(),
+            'HTTP_AUTHORIZATION': 'Bearer ' + self.token,
         }
 
     def test_post_favorite(self):
@@ -61,12 +78,24 @@ class FavoriteTest(TestCase):
 
     def test_delete_favorite(self):
         c = Client()
+        # create a favorite
+        c.post('/ingredient/1/favorite/', **self.extra)
+
+        # delete this favorite
         response = c.delete('/ingredient/1/favorite/1/', **self.extra)
 
+        self.assertEqual(response.status_code, 204)
+
+    def test_get_user_favorite_list(self):
+        # create a favorite
+        create_favorite(self.user)
+
+        c = Client()
+        response = c.get('/user/1/favorite/', **self.extra)
+        print response.content
         self.assertEqual(response.status_code, 200)
 
-    # def test_post_favorite_no_id(self):
-    #     c = Client()
-    #     response = c.post('/ingredient/219749238/favorite/', **self.extra)
-    #
-    #     self.assertEqual(response.status_code, 400)
+
+
+
+#

@@ -3,7 +3,7 @@ from django.shortcuts import render
 from rest_framework import generics, serializers, permissions, status
 from rest_framework.response import Response
 
-from common.models import Comment, TARGET_TYPE, Favorite
+from common.models import Comment, TARGET_TYPE, Favorite, Ingredient
 
 
 def index(request):
@@ -37,6 +37,33 @@ class UserDetial(generics.RetrieveAPIView):
     serializer_class = UserCreateSerializer
 
 
+class UserFavoriteListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Favorite
+        fields = ('target_type', 'target_id')
+
+
+class UserFavorite(generics.ListAPIView):
+    serializer_class = UserFavoriteListSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+
+    def list(self, request, id):
+        ret = []
+        fav = Favorite.objects.filter(user_id=id)
+
+        for f in fav:
+            if f.target_type == 0:
+                try:
+                    ingre = Ingredient.objects.get(pk=f.target_id)
+                    single = {'type': 0, 'content': {'id': ingre.pk, 'name': ingre.name}}
+                    ret.append(single)
+                except Ingredient.DoesNotExist:
+                    pass
+
+        return Response(ret, status.HTTP_200_OK)
+
+
 class CommentCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
@@ -45,7 +72,7 @@ class CommentCreateSerializer(serializers.ModelSerializer):
 
 class CommentListSerializer(serializers.ModelSerializer):
     user = UserBriefSerializer()
-    
+
     class Meta:
         model = Comment
         fields = ('user', 'content', 'time')
