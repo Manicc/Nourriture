@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, url
+from recipe import views
 
 urlpatterns = patterns('',
-    url(r'^$', 'recipe.views._list'),
-    url(r'^(?P<id>\d+)$', 'recipe.views.detail'),
-    url(r'search/$','recipe.views.search'),
+    url(r'^$', views.RecipeList.as_view()),
+    url(r'^(?P<pk>\d+)$', views.RecipeDetial.as_view()),
 )

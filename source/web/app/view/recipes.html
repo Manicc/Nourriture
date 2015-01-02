@@ -1,3 +1,9 @@
-<ul>
-	<li ng-repeat="i in recipes">{{i.fields}}</li>
-</ul>
+<div class="container">
+	<ul class="item-list">
+		<li class="col-md-3 col-sm-6" ng-repeat="i in recipes">
+			<img ng-if="i.image==null" ng-src="img/placeholder.png">
+			<img ng-if="i.image!=null" ng-src="{{i.image}}">
+			<h3><a href="#/recipe/{{i.id}}">{{i.name}}</a></h3>
+		</li>
+	</ul>
+</div>
