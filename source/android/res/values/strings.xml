@@ -4,5 +4,29 @@
     <string name="app_name">Nourriture</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+        <!-- 个人中心 -->
+    <string name="personal_title">我的Nourriture</string>
+    <string name="personal_welcome">欢迎来到Nourriture</string>
+    <string name="personal_login">登录</string>
+    <string name="personal_my_focus">我的关注</string>
+    <string name="personal_comment">偏爱种类描述</string>
+    <string name="personal_information">消息中心</string>
+    <string name="personal_account">账户安全</string>
+    <string name="personal_account_center">账户中心</string>
+    <string name="personal_customer_service">客户服务</string>
+    <string name="personal_infomation_service">预约电话服务</string>
+    <string name="personal_quit">退出登录</string>
+    <!-- 个人中心 -->
+    <!-- 登陆界面 -->
+    <string name="login">登录</string>
+    <string name="loginacount">账号名：</string>
+    <string name="loginpassword">密   码：</string>
+    <string name="inputpassword">请输入密码</string>
+    <string name="inputaccount">请输入账号</string>
+    <string name="register">快速注册</string>
+    <string name="search_info">暂无收索历史</string>
+    <string name="login_btn">登   录</string>
+    <string name="registerfree">免费注册</string>
+    <string name="login_loading">正在登錄，請稍候。。</string>
 
 </resources>

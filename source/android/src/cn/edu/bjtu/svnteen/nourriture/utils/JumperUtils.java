@@ -6,6 +6,7 @@ import cn.edu.bjtu.svnteen.nourriture.bean.Recipe;
 import cn.edu.bjtu.svnteen.nourriture.fragment.FragmentControl;
 import cn.edu.bjtu.svnteen.nourriture.fragment.MyFirstFragment;
 import cn.edu.bjtu.svnteen.nourriture.fragment.TestFragment;
+import cn.edu.bjtu.svnteen.nourriture.mine.loginFragment;
 import cn.edu.bjtu.svnteen.nourriture.product.ProductDetailFragment;
 import cn.edu.bjtu.svnteen.nourriture.product.ProductFragment;
 import cn.edu.bjtu.svnteen.nourriture.recipes.RecipeDetailFragment;
@@ -92,6 +93,20 @@ public class JumperUtils {
 			RecipeDetailFragment f = new RecipeDetailFragment();
 			RecipeDetailFragment.mRecipe = recipe;
 			JumpToMain(f, RecipeDetailFragment.class.getName());
+		}
+	}
+	
+	// 跳转到loginFragment
+	public static void JumpToLogin() {
+		Fragment topF = FragmentControl.getInstance().getTopFragment();
+		if(topF!=null&&topF instanceof loginFragment){
+			return;
+		}
+		if(FragmentControl.getInstance().getFragment(loginFragment.class.getName()) !=null){
+			FragmentControl.getInstance().naviFragment(loginFragment.class.getName());
+		}else{
+			loginFragment f = new loginFragment();
+			JumpToMain(f, loginFragment.class.getName());
 		}
 	}
 
