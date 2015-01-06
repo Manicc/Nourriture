@@ -29,6 +29,7 @@
     <color name="white80">#cdffffff</color>
     <color name="white90">#e6ffffff</color>
     <color name="black">#ff000000</color>
+    <color name="black80">#cd000000</color>
     <color name="divider">#ffc0c0c0</color>
     <!-- 自定义颜色 -->
     <color name="transparent">#0000</color>

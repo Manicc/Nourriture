@@ -6,7 +6,7 @@ import cn.edu.bjtu.svnteen.nourriture.bean.Recipe;
 import cn.edu.bjtu.svnteen.nourriture.fragment.FragmentControl;
 import cn.edu.bjtu.svnteen.nourriture.fragment.MyFirstFragment;
 import cn.edu.bjtu.svnteen.nourriture.fragment.TestFragment;
-import cn.edu.bjtu.svnteen.nourriture.mine.loginFragment;
+import cn.edu.bjtu.svnteen.nourriture.mine.LoginFragment;
 import cn.edu.bjtu.svnteen.nourriture.product.ProductDetailFragment;
 import cn.edu.bjtu.svnteen.nourriture.product.ProductFragment;
 import cn.edu.bjtu.svnteen.nourriture.recipes.RecipeDetailFragment;
@@ -96,17 +96,17 @@ public class JumperUtils {
 		}
 	}
 	
-	// 跳转到loginFragment
+	// 跳转到LoginFragment
 	public static void JumpToLogin() {
 		Fragment topF = FragmentControl.getInstance().getTopFragment();
-		if(topF!=null&&topF instanceof loginFragment){
+		if(topF!=null&&topF instanceof LoginFragment){
 			return;
 		}
-		if(FragmentControl.getInstance().getFragment(loginFragment.class.getName()) !=null){
-			FragmentControl.getInstance().naviFragment(loginFragment.class.getName());
+		if(FragmentControl.getInstance().getFragment(LoginFragment.class.getName()) !=null){
+			FragmentControl.getInstance().naviFragment(LoginFragment.class.getName());
 		}else{
-			loginFragment f = new loginFragment();
-			JumpToMain(f, loginFragment.class.getName());
+			LoginFragment f = new LoginFragment();
+			JumpToMain(f, LoginFragment.class.getName());
 		}
 	}
 

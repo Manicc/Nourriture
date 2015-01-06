@@ -1,12 +1,15 @@
 package cn.edu.bjtu.svnteen.nourriture.utils;
 
+import cn.edu.bjtu.svnteen.nourriture.R;
+
 import com.squareup.picasso.Picasso;
 
 import android.content.Context;
 import android.widget.ImageView;
 
 /**
- * ͼƬ�첽���ع����� 
+ * ͼƬ�첽���ع�����
+ * 
  * @author Tans
  */
 public class ImageUtils {
@@ -18,6 +21,7 @@ public class ImageUtils {
 	}
 
 	public static void loadImage(String url, ImageView imageView) {
-		Picasso.with(mContext).load(url).into(imageView);
+		Picasso.with(mContext).load(url).placeholder(R.drawable.default_image)
+				.into(imageView);
 	}
 }
