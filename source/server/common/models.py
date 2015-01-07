@@ -108,10 +108,20 @@ class Product(models.Model):
         return self.name
 
 
+TARGET_TYPE = {
+    'ingredient':0,
+    'product':1,
+    'recipe':2,
+}
+
+
 class Favorite(models.Model):
     user = models.ForeignKey(User)
-    collect_type = models.CharField(max_length=50)
+    target_type = models.IntegerField()
     target_id = models.IntegerField()
+
+    class Meta:
+        unique_together = (('user', 'target_type', 'target_id'),)
 
     def __unicode__(self):
         return self.user.username
@@ -142,8 +152,9 @@ class Comment(models.Model):
     target_type = models.IntegerField()
     # the object's id commented upon
     target_id = models.IntegerField()
-    replay_comment_id = models.IntegerField()
+    replay_comment_id = models.IntegerField(blank=True, default=0)
     content = models.CharField(max_length=200)
+    time = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
         return self.user.username
