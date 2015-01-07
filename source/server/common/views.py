@@ -3,7 +3,7 @@ from django.shortcuts import render
 from rest_framework import generics, serializers, permissions, status
 from rest_framework.response import Response
 
-from common.models import Comment, TARGET_TYPE, Favorite, Ingredient
+from common.models import Comment, TARGET_TYPE, Favorite, Ingredient, Product, Recipe
 
 
 def index(request):
@@ -55,10 +55,24 @@ class UserFavorite(generics.ListAPIView):
         for f in fav:
             if f.target_type == 0:
                 try:
-                    ingre = Ingredient.objects.get(pk=f.target_id)
-                    single = {'type': 0, 'content': {'id': ingre.pk, 'name': ingre.name}}
+                    obj = Ingredient.objects.get(pk=f.target_id)
+                    single = {'type': 0, 'content': {'id': obj.pk, 'name': obj.name}}
                     ret.append(single)
                 except Ingredient.DoesNotExist:
+                    pass
+            elif f.target_type == 1:
+                try:
+                    obj = Product.objects.get(pk=f.target_id)
+                    single = {'type': 1, 'content': {'id': obj.pk, 'name': obj.name}}
+                    ret.append(single)
+                except Product.DoesNotExist:
+                    pass
+            elif f.target_type == 2:
+                try:
+                    obj = Recipe.objects.get(pk=f.target_id)
+                    single = {'type': 2, 'content': {'id': obj.pk, 'name': obj.name}}
+                    ret.append(single)
+                except Recipe.DoesNotExist:
                     pass
 
         return Response(ret, status.HTTP_200_OK)
