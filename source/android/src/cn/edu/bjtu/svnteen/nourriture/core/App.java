@@ -11,6 +11,8 @@ import cn.edu.bjtu.svnteen.nourriture.observer.IAppObserver;
  * 项目的Application类
  */
 public final class App extends Application {
+	
+	private String token;
 
 	public static App getInstance() {
 		return instance;

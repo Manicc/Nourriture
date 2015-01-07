@@ -21,6 +21,7 @@ import cn.edu.bjtu.svnteen.nourriture.product.ProductFragment;
 import cn.edu.bjtu.svnteen.nourriture.recipes.RecipeFragment;
 import cn.edu.bjtu.svnteen.nourriture.utils.DeviceInfo;
 import cn.edu.bjtu.svnteen.nourriture.utils.ImageUtils;
+import cn.edu.bjtu.svnteen.nourriture.utils.PreferenceUtils;
 import cn.edu.bjtu.svnteen.nourriture.viewpagerindicator.TabPageIndicator;
 
 public class MainActivity extends FragmentActivity {
@@ -60,6 +61,7 @@ public class MainActivity extends FragmentActivity {
 	private void init() {
 		DeviceInfo.initScreenInfo(this);
 		ImageUtils.init(instance);
+		PreferenceUtils.init(this);
 	}
 
 	@Override

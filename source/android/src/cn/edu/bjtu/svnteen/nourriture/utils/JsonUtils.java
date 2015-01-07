@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.text.TextUtils;
+import cn.edu.bjtu.svnteen.nourriture.bean.Favorite;
 import cn.edu.bjtu.svnteen.nourriture.bean.Ingredient;
 import cn.edu.bjtu.svnteen.nourriture.bean.IngredientCategory;
 import cn.edu.bjtu.svnteen.nourriture.bean.Nutrition;
@@ -14,6 +15,49 @@ import cn.edu.bjtu.svnteen.nourriture.bean.Product;
 import cn.edu.bjtu.svnteen.nourriture.bean.Recipe;
 
 public class JsonUtils {
+	// [{"content":{"id":3,"name":"\u767d\u83dc"},"type":0},
+	// {"content":{"id":4,"name":"\u867e\u4ec1"},"type":0},{"content":{"id":5,"name":"\u8c46\u8150"},"type":0},{"content":{"id":6,"name":"\u4e94\u82b1\u8089"},"type":0}]
+	public static Favorite getFavorite(String json) {
+		if (TextUtils.isEmpty(json)) {
+			return null;
+		}
+		Favorite favorite = new Favorite();
+		try {
+			JSONArray jsonArray = new JSONArray(json);
+			JSONObject jsonObject;
+			for (int i = 0; i < jsonArray.length(); i++) {
+				jsonObject = jsonArray.getJSONObject(i);
+				int type = jsonObject.getInt("type");
+				String contentStr = jsonObject.getString("content");
+				JSONObject contentJsonObj = new JSONObject(contentStr);
+				int id = contentJsonObj.getInt("id");
+				String name = contentJsonObj.getString("name");
+				switch (type) {
+				case 0:// ingredient
+					Ingredient ingredient = new Ingredient();
+					ingredient.setId(id);
+					ingredient.setName(name);
+					favorite.getIngredientList().add(ingredient);
+					break;
+				case 1:// product
+					Product product = new Product();
+					product.setId(id);
+					product.setName(name);
+					favorite.getProductList().add(product);
+					break;
+				case 2:// recipe
+					Recipe recipe = new Recipe();
+					recipe.setID(id);
+					recipe.setName(name);
+					favorite.getRecipeList().add(recipe);
+					break;
+				}
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return favorite;
+	}
 
 	public static ArrayList<Recipe> getRecipes(String json) {
 		if (TextUtils.isEmpty(json)) {
