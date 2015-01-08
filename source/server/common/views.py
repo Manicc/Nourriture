@@ -107,6 +107,16 @@ class CommentList(generics.ListCreateAPIView):
         else:
             return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
 
+    def list(self, request, type, pk):
+        type_id = TARGET_TYPE.get(type, -1)
+        if type_id != -1:
+            comments = Comment.objects.filter(target_type=type_id, target_id=pk)
+            output = CommentListSerializer(comments, many=True)
+            return Response(output.data, status.HTTP_200_OK)
+        else:
+            return Response([], status.HTTP_200_OK)
+
+
 
 class FavoriteListSerializer(serializers.ModelSerializer):
     user = UserBriefSerializer()
