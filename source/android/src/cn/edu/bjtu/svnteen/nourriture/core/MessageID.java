@@ -1,6 +1,7 @@
 package cn.edu.bjtu.svnteen.nourriture.core;
 
 import cn.edu.bjtu.svnteen.nourriture.observer.IAppObserver;
+import cn.edu.bjtu.svnteen.nourriture.observer.ICommentObserver;
 import cn.edu.bjtu.svnteen.nourriture.observer.IIngredientJsonObserver;
 import cn.edu.bjtu.svnteen.nourriture.observer.ILoginObserver;
 import cn.edu.bjtu.svnteen.nourriture.observer.IObserverBase;
@@ -40,6 +41,11 @@ public enum MessageID {
 	OBSERVER_LOGIN {
 		public Class<? extends ILoginObserver> getObserverClass() {
 			return ILoginObserver.class;
+		}
+	},
+	OBSERVER_COMMENT {
+		public Class<? extends ICommentObserver> getObserverClass() {
+			return ICommentObserver.class;
 		}
 	};
 
