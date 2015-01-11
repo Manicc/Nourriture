@@ -1,9 +1,12 @@
 <div class="container">
-	<ul class="item-list">
-		<li class="col-md-3 col-sm-6" ng-repeat="i in products">
-			<img ng-if="i.image==null" ng-src="img/placeholder.png">
-			<img ng-if="i.image!=null" ng-src="{{i.image}}">
-			<h3><a href="#/product/{{i.id}}">{{i.name}}</a></h3>
-		</li>
-	</ul>
+    <div class="row">
+        <div class="col-md-3 col-sm-6" ng-repeat="i in products">
+            <div class="item-list">
+                <img ng-if="i.image==null" ng-src="img/placeholder.png">
+                <img ng-if="i.image!=null" ng-src="{{ i.image }}">
+
+                <h3><a href="#/product/{{ i.id }}">{{ i.name }}</a></h3>
+            </div>
+        </div>
+    </div>
 </div>

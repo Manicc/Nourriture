@@ -18,7 +18,7 @@ app.config(['$routeProvider',
 app.controller('LoginCtrl', ['$scope', '$location', 'authService', 'CONFIG',
 	function($scope, $location, authService, CONFIG){
     $scope.loginData = {
-      userName: "",
+      username: "",
       password: ""
     };
 

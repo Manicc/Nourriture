@@ -12,7 +12,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'CONFIG', func
 
         var data = {
         	grant_type:'password',
-        	username: loginData.userName,
+        	username: loginData.username,
         	password: loginData.password,
         	client_id: CONFIG.CLIENT_ID,
         	client_secret: CONFIG.CLIENT_SECRET
@@ -22,10 +22,10 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'CONFIG', func
 
         $http.post(serviceBase + '/o/token/', $.param(data), { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
 
-            localStorageService.set('authorizationData', { token: response.access_token, userName: loginData.userName});
+            localStorageService.set('authorizationData', { token: response.access_token, userName: loginData.username});
 
             _authentication.isAuth = true;
-            _authentication.userName = loginData.userName;
+            _authentication.userName = loginData.username;
 
             deferred.resolve(response);
 

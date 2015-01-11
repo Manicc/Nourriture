@@ -1,14 +1,30 @@
-<div class="container" style="padding-top: 20px;width:300px;">
-    <h1>Login</h1>
-    <form role="form">
-        <p>username</p>
-        <div class="form-group">
-            <input  data-ng-model="loginData.userName" type="text" class="form-control" placeholder="username">
+<div class="container" style="padding-top: 20px;width:480px;">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3>Login</h3>
         </div>
-        <p>password</p>
-        <div class="form-group">
-            <input  data-ng-model="loginData.password" type="text" class="form-control" placeholder="password">
+        <div class="panel-body">
+            <div class="panel-body">
+                <form role="form" ng-submit="login()">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+                            <input data-ng-model="loginData.username" type="text" class="form-control"
+                                   placeholder="Enter username"
+                                   required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+                            <input data-ng-model="loginData.password" type="password" class="form-control"
+                                   placeholder="Enter password">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-lg btn-block">Login</button>
+                </form>
+            </div>
         </div>
-      <button type="submit" class="btn btn-success" ng-click="login()">Login</button>
-    </form>
+    </div>
 </div>
