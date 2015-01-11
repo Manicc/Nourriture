@@ -1,11 +1,13 @@
 package cn.edu.bjtu.svnteen.nourriture.utils;
 
 import android.support.v4.app.Fragment;
+import cn.edu.bjtu.svnteen.nourriture.bean.Ingredient;
 import cn.edu.bjtu.svnteen.nourriture.bean.Product;
 import cn.edu.bjtu.svnteen.nourriture.bean.Recipe;
 import cn.edu.bjtu.svnteen.nourriture.fragment.FragmentControl;
 import cn.edu.bjtu.svnteen.nourriture.fragment.MyFirstFragment;
 import cn.edu.bjtu.svnteen.nourriture.fragment.TestFragment;
+import cn.edu.bjtu.svnteen.nourriture.ingredient.IngredientDetailFragment;
 import cn.edu.bjtu.svnteen.nourriture.mine.LoginFragment;
 import cn.edu.bjtu.svnteen.nourriture.product.ProductDetailFragment;
 import cn.edu.bjtu.svnteen.nourriture.product.ProductFragment;
@@ -84,29 +86,50 @@ public class JumperUtils {
 	// 跳转到RecipeDetailFragment
 	public static void JumpToRecipeDetail(Recipe recipe) {
 		Fragment topF = FragmentControl.getInstance().getTopFragment();
-		if(topF!=null&&topF instanceof RecipeDetailFragment){
+		if (topF != null && topF instanceof RecipeDetailFragment) {
 			return;
 		}
-		if(FragmentControl.getInstance().getFragment(RecipeDetailFragment.class.getName()) !=null){
-			FragmentControl.getInstance().naviFragment(RecipeDetailFragment.class.getName());
-		}else{
+		if (FragmentControl.getInstance().getFragment(
+				RecipeDetailFragment.class.getName()) != null) {
+			FragmentControl.getInstance().naviFragment(
+					RecipeDetailFragment.class.getName());
+		} else {
 			RecipeDetailFragment f = new RecipeDetailFragment();
-			RecipeDetailFragment.mRecipe = recipe;
+			f.mRecipe = recipe;
 			JumpToMain(f, RecipeDetailFragment.class.getName());
 		}
 	}
-	
+
 	// 跳转到LoginFragment
 	public static void JumpToLogin() {
 		Fragment topF = FragmentControl.getInstance().getTopFragment();
-		if(topF!=null&&topF instanceof LoginFragment){
+		if (topF != null && topF instanceof LoginFragment) {
 			return;
 		}
-		if(FragmentControl.getInstance().getFragment(LoginFragment.class.getName()) !=null){
-			FragmentControl.getInstance().naviFragment(LoginFragment.class.getName());
-		}else{
+		if (FragmentControl.getInstance().getFragment(
+				LoginFragment.class.getName()) != null) {
+			FragmentControl.getInstance().naviFragment(
+					LoginFragment.class.getName());
+		} else {
 			LoginFragment f = new LoginFragment();
 			JumpToMain(f, LoginFragment.class.getName());
+		}
+	}
+
+	// 跳转到IngredientDetailFragment
+	public static void JumpToIngredientDetail(Ingredient ingredient) {
+		Fragment topF = FragmentControl.getInstance().getTopFragment();
+		if (topF != null && topF instanceof IngredientDetailFragment) {
+			return;
+		}
+		if (FragmentControl.getInstance().getFragment(
+				IngredientDetailFragment.class.getName()) != null) {
+			FragmentControl.getInstance().naviFragment(
+					IngredientDetailFragment.class.getName());
+		} else {
+			IngredientDetailFragment f = new IngredientDetailFragment();
+			f.mIngredient = ingredient;
+			JumpToMain(f, IngredientDetailFragment.class.getName());
 		}
 	}
 

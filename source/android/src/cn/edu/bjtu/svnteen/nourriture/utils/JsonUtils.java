@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.text.TextUtils;
+import cn.edu.bjtu.svnteen.nourriture.bean.Comment;
 import cn.edu.bjtu.svnteen.nourriture.bean.Favorite;
 import cn.edu.bjtu.svnteen.nourriture.bean.Ingredient;
 import cn.edu.bjtu.svnteen.nourriture.bean.IngredientCategory;
@@ -160,6 +161,35 @@ public class JsonUtils {
 		}
 
 		return productList;
+	}
+
+	public static ArrayList<Comment> getCommentArray(String json) {
+		if (TextUtils.isEmpty(json)) {
+			return null;
+		}
+		ArrayList<Comment> commentList = new ArrayList<Comment>();
+		try {
+			JSONArray jsonArray = new JSONArray(json);
+			Comment comment;
+			for (int i = 0; i < jsonArray.length(); i++) {
+				comment = new Comment();
+				JSONObject jsonObject = jsonArray.getJSONObject(i);
+				String content = jsonObject.getString("content");
+				String time = jsonObject.getString("time");
+				String jsonUser = jsonObject.getString("user");
+				JSONObject userObject = new JSONObject(jsonUser);
+				int id = userObject.getInt("id");
+				String username = userObject.getString("username");
+				comment.setId(id);
+				comment.setName(username);
+				comment.setContent(content);
+				comment.setTime(time);
+				commentList.add(comment);
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return commentList;
 	}
 
 	public static void getProductDetail(Product product, String json) {

@@ -32,7 +32,7 @@ public class RecipeDetailFragment extends BaseFragment implements IRecipeJsonObs
 	private TextView mProcessTextView;
 	private TextView mIngredientTextView;
 	private LinearLayout mLinearLayout;
-	public static Recipe mRecipe;
+	public Recipe mRecipe;
 	
 	@Override
 	public void onAttach(Activity activity) {

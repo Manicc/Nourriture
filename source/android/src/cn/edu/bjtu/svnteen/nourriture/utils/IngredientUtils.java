@@ -65,23 +65,26 @@ public class IngredientUtils {
 			ArrayList<Ingredient> list) {
 		boolean hasCategory = false;
 		ArrayList<IngredientDataModel> dstList = new ArrayList<IngredientDataModel>();
-		for (Ingredient ingredient : list) {
-			for (int i = 0; i < dstList.size(); i++) {
-				if (dstList.get(i).getId() == ingredient.getCategory().getId()) {
-					dstList.get(i).getIngredientList().add(ingredient);
-					hasCategory = true;
-					break;
+		if (list != null && list.size() > 0) {
+			for (Ingredient ingredient : list) {
+				for (int i = 0; i < dstList.size(); i++) {
+					if (dstList.get(i).getId() == ingredient.getCategory()
+							.getId()) {
+						dstList.get(i).getIngredientList().add(ingredient);
+						hasCategory = true;
+						break;
+					}
 				}
+				if (!hasCategory) {
+					IngredientDataModel dataModel = new IngredientDataModel();
+					dataModel.setId(ingredient.getCategory().getId());
+					dataModel.setName(ingredient.getCategory().getName());
+					dataModel.setIngredientList(new ArrayList<Ingredient>());
+					dataModel.getIngredientList().add(ingredient);
+					dstList.add(dataModel);
+				}
+				hasCategory = false;
 			}
-			if (!hasCategory) {
-				IngredientDataModel dataModel = new IngredientDataModel();
-				dataModel.setId(ingredient.getCategory().getId());
-				dataModel.setName(ingredient.getCategory().getName());
-				dataModel.setIngredientList(new ArrayList<Ingredient>());
-				dataModel.getIngredientList().add(ingredient);
-				dstList.add(dataModel);
-			}
-			hasCategory = false;
 		}
 		return dstList;
 	}
