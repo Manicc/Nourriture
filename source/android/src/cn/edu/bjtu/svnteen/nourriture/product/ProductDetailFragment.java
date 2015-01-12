@@ -8,13 +8,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Gallery;
+import android.widget.GridView;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SimpleAdapter;
 import android.widget.TableRow;
 import android.widget.TextView;
 import cn.edu.bjtu.svnteen.nourriture.R;
+import cn.edu.bjtu.svnteen.nourriture.adapter.SimpleImageViewAdapter;
 import cn.edu.bjtu.svnteen.nourriture.bean.Ingredient;
 import cn.edu.bjtu.svnteen.nourriture.bean.Product;
 import cn.edu.bjtu.svnteen.nourriture.core.MessageID;
@@ -34,7 +38,8 @@ public class ProductDetailFragment extends BaseFragment implements
 	private TextView mNameTextView;
 	private TextView mDescTextView;
 	private TextView mIngredientTextView;
-	private LinearLayout mLinearLayout;
+	private GridView mGridView;
+	private SimpleImageViewAdapter mAdapter;
 	public static Product mProduct;
 
 	@Override
@@ -62,8 +67,7 @@ public class ProductDetailFragment extends BaseFragment implements
 				.findViewById(R.id.product_detail_textview);
 		mDescTextView = (TextView) mRootView
 				.findViewById(R.id.product_detail_desc_textview);
-		mLinearLayout = (LinearLayout) mRootView
-				.findViewById(R.id.linearlayout);
+		mGridView = (GridView) mRootView.findViewById(R.id.gridview);
 		mIngredientTextView = (TextView) mRootView
 				.findViewById(R.id.ingredient);
 		if (mProduct != null) {
@@ -104,16 +108,15 @@ public class ProductDetailFragment extends BaseFragment implements
 	@Override
 	public void IProductJsonObserver_Detail_ingredients(Product product) {
 		ArrayList<Ingredient> list = product.getIngredientArrayList();
+		ArrayList<String> imageUrlList = new ArrayList<String>();
 		StringBuilder builder = new StringBuilder("成分:  ");
 		for (Ingredient ingredient : list) {
 			builder.append(ingredient.getName());
 			builder.append(" ");
-			ImageView v = new ImageView(mContext);
-			v.setLayoutParams(new LinearLayout.LayoutParams(ScreenUtils.dip2px(
-					mContext, 100), ScreenUtils.dip2px(mContext, 100)));
-			ImageUtils.loadImage(ingredient.getImageURL(), v);
-			mLinearLayout.addView(v);
+			imageUrlList.add(ingredient.getImageURL());
 		}
+		mAdapter = new SimpleImageViewAdapter(mContext, imageUrlList);
+		mGridView.setAdapter(mAdapter);
 		mIngredientTextView.setText(builder.toString());
 	}
 

@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import cn.edu.bjtu.svnteen.nourriture.R;
 import cn.edu.bjtu.svnteen.nourriture.adapter.CommentListViewAdapter;
 import cn.edu.bjtu.svnteen.nourriture.bean.Comment;
@@ -23,10 +24,12 @@ import cn.edu.bjtu.svnteen.nourriture.bean.Ingredient;
 import cn.edu.bjtu.svnteen.nourriture.core.MessageID;
 import cn.edu.bjtu.svnteen.nourriture.core.MessageManager;
 import cn.edu.bjtu.svnteen.nourriture.fragment.BaseFragment;
+import cn.edu.bjtu.svnteen.nourriture.mine.MineFragment;
 import cn.edu.bjtu.svnteen.nourriture.observer.ICommentObserver;
 import cn.edu.bjtu.svnteen.nourriture.utils.CommentUtils;
 import cn.edu.bjtu.svnteen.nourriture.utils.ImageUtils;
 import cn.edu.bjtu.svnteen.nourriture.utils.PreferenceUtils;
+import cn.edu.bjtu.svnteen.nourriture.utils.UIUtils;
 
 public class IngredientDetailFragment extends BaseFragment implements
 		ICommentObserver {
@@ -40,8 +43,10 @@ public class IngredientDetailFragment extends BaseFragment implements
 	private CommentListViewAdapter mAdapter;
 	private EditText mEditText;
 	private Button mButton;
+	private Button mCollectButton;
 
 	public Ingredient mIngredient;
+	private boolean mIsCollected;
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -65,6 +70,7 @@ public class IngredientDetailFragment extends BaseFragment implements
 		mImageView = (ImageView) mRootView.findViewById(R.id.imageView);
 		mTextView = (TextView) mRootView.findViewById(R.id.textview);
 		mListView = (ListView) mRootView.findViewById(R.id.listview);
+		mCollectButton = (Button) mRootView.findViewById(R.id.collectButton);
 		ImageUtils.loadImage(mIngredient.getImageURL(), mImageView);
 		mTextView.setText(mIngredient.getName());
 
@@ -77,15 +83,39 @@ public class IngredientDetailFragment extends BaseFragment implements
 				String content = mEditText.getText().toString();
 				if (!TextUtils.isEmpty(content)) {
 					CommentUtils.sendCommend(mIngredient, content);
-					mButton.setText("提交中");
 					mButton.setClickable(false);
+					mButton.setBackgroundResource(R.drawable.input_send);
 				}
+			}
+		});
+		mCollectButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				String toastMsg;
+				if (mIsCollected) {
+					toastMsg = "取消收藏成功";
+					mCollectButton.setBackgroundResource(R.drawable.sc_icon);
+				} else {
+					toastMsg = "收藏成功";
+					mCollectButton.setBackgroundResource(R.drawable.sced_icon);
+				}
+				Toast.makeText(mContext, toastMsg, Toast.LENGTH_SHORT).show();
+				mIsCollected = !mIsCollected;
 			}
 		});
 
 		if (!PreferenceUtils.getLogin()) {
 			mEditText.setVisibility(View.GONE);// 未登录用户不显示评论框
 			mButton.setVisibility(View.GONE);
+			mCollectButton.setVisibility(View.GONE);
+		} else {
+			for (Ingredient ing : MineFragment.mFavorite.getIngredientList()) {
+				if (mIngredient.getId() == ing.getId()) {
+					mIsCollected = true;
+					mCollectButton.setBackgroundResource(R.drawable.sced_icon);
+				}
+			}
 		}
 		CommentUtils.getComment(mIngredient);
 		return mRootView;
@@ -98,10 +128,11 @@ public class IngredientDetailFragment extends BaseFragment implements
 		}
 		mAdapter = new CommentListViewAdapter(mContext, list);
 		mListView.setAdapter(mAdapter);
+		UIUtils.setListViewHeightBasedOnChildren(mListView);
 		mAdapter.notifyDataSetChanged();
 		mEditText.setText("");
-		mButton.setText("确定");
 		mButton.setClickable(true);
+		mButton.setBackgroundResource(R.drawable.input_send_pressed);
 	}
 
 	@Override
