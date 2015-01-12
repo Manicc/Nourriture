@@ -1,7 +1,7 @@
 <div class="container">
     <h1>Create an ingredient</h1>
 
-    <form class="form-horizontal" name="myForm" role="form">
+    <form class="form-horizontal" name="myForm" role="form"  ng-submit="uploadPic(picFile)">
         <div class="form-group">
             <label for="Name" class="col-sm-2 control-label">Name*</label>
 
@@ -67,7 +67,7 @@
 
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button ng-disabled="!myForm.$valid" ng-click="uploadPic(picFile)" class="btn btn-default">Submit
+                <button ng-disabled="!myForm.$valid" type="submit" class="btn btn-default">Submit
                 </button>
             </div>
         </div>

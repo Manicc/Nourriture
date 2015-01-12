@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-sm-6 col-md-4 col-lg-3" ng-repeat="i in ingredients">
-			<div class="item-list">
+            <div class="item-list">
 				<img ng-if="i.image==null" ng-src="img/placeholder.png">
 				<img ng-if="i.image!=null" ng-src="{{i.image}}">
 				<h3><a href="#/ingredient/{{i.id}}">{{i.name}}</a></h3>

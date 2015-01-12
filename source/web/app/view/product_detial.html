@@ -1,23 +1,26 @@
-<div class="container">
-	<h1>{{product.name}}</h1>	
-	<ul>
-		<li>
-			<img ng-if="product.image==null" ng-src="img/placeholder.png">
-			<img ng-if="product.image!=null" ng-src="{{product.image}}">
-		</li>
-		<li>
-			<p ng-repeat="t in product.tags">
-				{{t.name}} 
-			</p>
-		</li>
-		<li>{{product.alias}}</li>
-		<li>{{product.category.name}}</li>
-		<p>{{product.desc}}</p>
-		<li>
-			<p ng-repeat="n in product.nutrition">
-				{{n.nutrition.name}}:{{n.value}} {{n.nutrition.unit}}
-			</p>
-		</li>
-		<p>{{product.function}}</p>
-	</ul>
+<div class="container detial">
+    <div class="col-md-4">
+        <img ng-if="product.image==null" ng-src="img/placeholder.png">
+        <img ng-if="product.image!=null" ng-src="{{ product.image }}">
+    </div>
+    <div class="col-md-8">
+        <h1>{{ product.name }}</h1>
+
+        <div class="tags">
+            <span class="label label-primary" ng-repeat="t in product.tags">{{ t.name }}</span>
+        </div>
+        <p><span>Alias: </span>{{ product.alias }}</p>
+
+        <p><span>Category: </span>{{ product.category.name }}</p>
+
+        <p>{{ product.desc }}</p>
+
+        <p>
+
+        <p ng-repeat="n in product.nutrition">
+            {{ n.nutrition.name }}:{{ n.value }} {{ n.nutrition.unit }}
+        </p>
+        </p>
+        <p><span>Functions: </span>{{ product.function }}</p>
+    </div>
 </div>
