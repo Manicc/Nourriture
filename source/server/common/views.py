@@ -126,7 +126,7 @@ class FavoriteListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Favorite
-        fields = ('user',)
+        fields = ('id','user',)
 
 
 class FavoriteList(generics.ListCreateAPIView):

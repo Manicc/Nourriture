@@ -26,11 +26,36 @@ app.controller('IngredientListCtrl', ['$scope', 'dataService', 'CONFIG',
     }
 ]);
 
-app.controller('IngredientDetialCtrl', ['$scope', 'dataService', '$routeParams', 'CONFIG',
-    function ($scope, dataService, $routeParams, CONFIG) {
+app.controller('IngredientDetialCtrl', ['$scope', 'dataService', 'authService', '$routeParams', 'CONFIG',
+    function ($scope, dataService, authService, $routeParams, CONFIG) {
+        $scope.liked = false;
+
         dataService.ingredient_detial($routeParams.id).then(function (response) {
             $scope.ingredient = response;
         });
+
+        dataService.get_like('ingredient', $routeParams.id).then(function (response) {
+            for(var item in response) {
+                if(response[item].user.username == authService.authentication.userName){
+                    $scope.liked = true;
+                    $scope.like_id = response[item].id;
+                }
+            }
+        });
+
+        $scope.like = function () {
+            if ($scope.liked) {
+                dataService.delete_like('ingredient', $routeParams.id, $scope.like_id).then(function (response) {
+                    $scope.liked = false;
+                });
+            }
+            else {
+                dataService.add_like('ingredient', $routeParams.id).then(function (response) {
+                    $scope.liked = true;
+                    $scope.like_id = response.id;
+                });
+            }
+        };
     }
 ]);
 

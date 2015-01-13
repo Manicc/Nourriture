@@ -4,7 +4,7 @@
         <img ng-if="ingredient.image!=null" ng-src="{{ ingredient.image }}">
     </div>
     <div class="col-md-8">
-        <h1>{{ ingredient.name }}</h1>
+        <h1>{{ ingredient.name }}<a ng-click="like()"><span ng-class="{'glyphicon-star-empty':!liked,'glyphicon-star':liked}" class="glyphicon"></span></a> </h1>
 
         <div class="tags">
             <span class="label label-primary" ng-repeat="t in ingredient.tags">{{ t.name }}</span>
@@ -22,7 +22,6 @@
         </p>
 
         <p><span>Functions: </span>{{ ingredient.function }}</p>
-        </p>
     </div>
 
 </div>

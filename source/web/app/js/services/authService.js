@@ -20,7 +20,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'CONFIG', func
 
         var deferred = $q.defer();
 
-        $http.post(serviceBase + '/o/token/', $.param(data), { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
+        $http.post(serviceBase + 'o/token/', $.param(data), { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
 
             localStorageService.set('authorizationData', { token: response.access_token, userName: loginData.username});
 
