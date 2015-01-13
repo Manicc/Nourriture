@@ -94,8 +94,3 @@ class FavoriteTest(TestCase):
         response = c.get('/user/1/favorite/', **self.extra)
         print response.content
         self.assertEqual(response.status_code, 200)
-
-
-
-
-#

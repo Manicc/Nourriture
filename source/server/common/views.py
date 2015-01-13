@@ -2,8 +2,12 @@ from django.contrib.auth.models import User
 from django.shortcuts import render
 from rest_framework import generics, serializers, permissions, status
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from common.models import Comment, TARGET_TYPE, Favorite, Ingredient, Product, Recipe
+from ingredient.views import IngredListSerializer
+from product.views import ProductListSerializer
+from recipe.views import RecipeSerializer
 
 
 def index(request):
@@ -117,7 +121,6 @@ class CommentList(generics.ListCreateAPIView):
             return Response([], status.HTTP_200_OK)
 
 
-
 class FavoriteListSerializer(serializers.ModelSerializer):
     user = UserBriefSerializer()
 
@@ -147,3 +150,29 @@ class FavoriteDelete(generics.DestroyAPIView):
     queryset = Favorite.objects.all()
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     serializer_class = FavoriteListSerializer
+
+
+class Search(APIView):
+    def get(self, request):
+        ret = {}
+        key = request.GET.get('key')
+        if key:
+            # ingredient
+            ingre = Ingredient.objects.filter(name__icontains=key)
+            if ingre:
+                ser = IngredListSerializer(ingre, many=True)
+                ret['ingredient'] = ser.data
+
+            # product
+            products = Product.objects.filter(name__icontains=key)
+            if products:
+                ser = ProductListSerializer(products, many=True)
+                ret['product'] = ser.data
+
+            # recipe
+            recipes = Recipe.objects.filter(name__icontains=key)
+            if recipes:
+                ser = RecipeSerializer(recipes, many=True)
+                ret['recipe'] = ser.data
+
+        return Response(ret)
