@@ -37,7 +37,7 @@ public class MineFragment extends Fragment implements ILoginObserver {
 	private TextView mUserNameTextView;
 	private ListView mFavoriteListView;
 	private FavoriteListViewAdapter mFavoriteAdapter;
-	private Favorite mFavorite;
+	public static Favorite mFavorite;
 	private TextView mListHeadView;
 
 	@Override

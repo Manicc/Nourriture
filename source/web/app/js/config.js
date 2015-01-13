@@ -1,5 +1,5 @@
 //set this to true when using the local server
-var LOCALSERVER = true;
+var LOCALSERVER = false;
 
 var config_data;
 if (LOCALSERVER)
@@ -16,7 +16,9 @@ else
 {
 	config_data = {
 		'CONFIG': {
-			'SERVER_ROOT': 'http://nourriture.sinaapp.com'
+			'SERVER_ROOT': 'http://nourriture.sinaapp.com',
+            'CLIENT_ID': 'fLPDC=Nvj8tl0vChOZRx9hvcryBZje@FWfU5PGFP',
+			'CLIENT_SECRET': 'IAHaGKoGc9i:DzJ@-C8yAnhDo-UHkUL?Liw0A5ma15jdSFZYCkuCzghdHW3HRdkA9RqR1P:gQGBZtl4H3qClRxCFLpZKHd3e?We_mMaoOCWQkMB2e@vpXf-NxRR@dyWg'
 		}
 	}
 }

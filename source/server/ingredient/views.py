@@ -1,5 +1,4 @@
-from django.http import Http404
-from rest_framework import serializers, permissions, status, views, generics
+from rest_framework import serializers, permissions, status, generics
 from rest_framework.response import Response
 
 from common.models import Ingredient, NutritionValue, Tag
