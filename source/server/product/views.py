@@ -16,7 +16,6 @@ class ProductListSerializer(serializers.ModelSerializer):
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        depth = 3
 
 
 class ProductList(generics.ListCreateAPIView):
