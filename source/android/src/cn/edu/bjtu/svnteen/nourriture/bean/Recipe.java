@@ -14,8 +14,8 @@ public class Recipe {
 	private long makingTime;
 	private String makingTip;
 	private int gastronomistID;
-	private ArrayList<Ingredient> ingredientList;
-	private ArrayList<Nutrition> nutritionList;
+	private ArrayList<Ingredient> ingredientList = new ArrayList<Ingredient>();
+	private ArrayList<Nutrition> nutritionList = new ArrayList<Nutrition>();
 	private int[] tagsID;
 
 	public int getID() {

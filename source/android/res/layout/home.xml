@@ -6,26 +6,80 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:orientation="horizontal" >
 
         <EditText
             android:id="@+id/home_edittext"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_centerVertical="true"
+            android:layout_margin="5dp"
             android:layout_toLeftOf="@+id/home_button"
+            android:background="@drawable/input_bg"
             android:hint="菜谱名、食材名"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:textSize="15dp" />
 
         <Button
             android:id="@id/home_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="搜索" />
+            android:layout_margin="10dp"
+            android:background="@drawable/action_search" />
     </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone" >
+
+        <Button
+            android:id="@+id/ingbtn"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:text="食材" />
+
+        <Button
+            android:id="@+id/probtn"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:text="产品" />
+
+        <Button
+            android:id="@+id/recbtn"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:text="食谱" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/search_ing_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:cacheColorHint="@color/white"
+        android:visibility="gone" />
+
+    <ListView
+        android:id="@+id/search_pro_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:cacheColorHint="@color/white"
+        android:visibility="gone" />
+
+    <ListView
+        android:id="@+id/search_rec_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:cacheColorHint="@color/white"
+        android:visibility="gone" />
 
     <ListView
         android:id="@+id/home_listview"

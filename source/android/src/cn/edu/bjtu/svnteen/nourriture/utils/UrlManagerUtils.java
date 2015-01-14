@@ -12,6 +12,7 @@ public class UrlManagerUtils {
 	private static final String RECIPE = "recipe/";
 	private static final String FAVORITE = "user/1/favorite/";
 	private static final String COMMENT = "/comment/";
+	private static final String SEARCH = "search/?key=";
 
 	// 参数为0，则获取全部数据
 	public static String getProductUrl(int id) {
@@ -65,6 +66,13 @@ public class UrlManagerUtils {
 	public static String getCommentUrl(Ingredient ingredient) {
 		StringBuilder builder = new StringBuilder(BASEURL);
 		builder.append("ingredient/" + ingredient.getId() + COMMENT);
+		return builder.toString();
+	}
+
+	public static String getSearchUrl(String keyWord) {
+		StringBuilder builder = new StringBuilder(BASEURL);
+		builder.append(SEARCH);
+		builder.append(keyWord);
 		return builder.toString();
 	}
 }

@@ -52,7 +52,8 @@ public class CommentListViewAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		holder.name.setText(comment.getName());
-		holder.time.setText(comment.getTime());
+		holder.time.setText(comment.getTime().replace("T", " ")
+				.replace("Z", " "));
 		holder.content.setText(comment.getContent());
 		return convertView;
 	}

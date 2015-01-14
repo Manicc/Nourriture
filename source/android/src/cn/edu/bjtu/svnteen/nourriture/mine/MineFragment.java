@@ -92,6 +92,7 @@ public class MineFragment extends Fragment implements ILoginObserver {
 				mLoginView.setVisibility(View.VISIBLE);
 				mLogoutButton.setVisibility(View.GONE);
 				mLoginAfterview.setVisibility(View.GONE);
+				mFavoriteListView.setVisibility(View.GONE);
 			}
 		});
 		mLoginButton.setOnClickListener(new OnClickListener() {

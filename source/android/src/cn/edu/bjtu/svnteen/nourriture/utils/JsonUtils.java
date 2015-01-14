@@ -14,8 +14,61 @@ import cn.edu.bjtu.svnteen.nourriture.bean.IngredientCategory;
 import cn.edu.bjtu.svnteen.nourriture.bean.Nutrition;
 import cn.edu.bjtu.svnteen.nourriture.bean.Product;
 import cn.edu.bjtu.svnteen.nourriture.bean.Recipe;
+import cn.edu.bjtu.svnteen.nourriture.bean.Search;
 
 public class JsonUtils {
+
+	public static Search getSearch(String json) {
+		if (TextUtils.isEmpty(json)) {
+			return null;
+		}
+		Search search = new Search();
+		try {
+			JSONObject jsonObject = new JSONObject(json);
+			String recipeJson = jsonObject.getString("recipe");
+			JSONArray recipeArray = new JSONArray(recipeJson);
+			for (int i = 0; i < recipeArray.length(); i++) {
+				JSONObject obj = recipeArray.getJSONObject(i);
+				Recipe recipe = new Recipe();
+				recipe.setID(obj.getInt("id"));
+				recipe.setName(obj.getString("name"));
+				recipe.setProcessing(obj.getString("processing"));
+				recipe.setImageUrl(obj.getString("image"));
+				recipe.setBrowseCount(obj.getInt("browse_count"));
+				recipe.setCollectCount(obj.getInt("collect_count"));
+				recipe.setFoodType(obj.getString("food_type"));
+				JSONArray ingredientArray = obj.getJSONArray("ingredients");
+				for (int j = 0; j < ingredientArray.length(); j++) {
+					Ingredient ing = new Ingredient();
+					ing.setId(ingredientArray.getInt(j));
+					recipe.getIngredientList().add(ing);
+				}
+				JSONArray nutritionArray = obj.getJSONArray("nutrition");
+				for (int j = 0; j < nutritionArray.length(); j++) {
+					Nutrition nut = new Nutrition();
+					nut.setId(nutritionArray.getInt(j));
+					recipe.getNutritionList().add(nut);
+				}
+				search.getRecipeList().add(recipe);
+			}
+
+			String ingredientJson = jsonObject.getString("ingredient");
+			JSONArray ingredientArray = new JSONArray(ingredientJson);
+			for (int i = 0; i < recipeArray.length(); i++) {
+				JSONObject obj = ingredientArray.getJSONObject(i);
+				Ingredient ingredient = new Ingredient();
+				ingredient.setId(obj.getInt("id"));
+				ingredient.setName(obj.getString("name"));
+				ingredient.setImageURL(obj.getString("image"));
+				search.getIngredientList().add(ingredient);
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+		return search;
+	}
+
 	// [{"content":{"id":3,"name":"\u767d\u83dc"},"type":0},
 	// {"content":{"id":4,"name":"\u867e\u4ec1"},"type":0},{"content":{"id":5,"name":"\u8c46\u8150"},"type":0},{"content":{"id":6,"name":"\u4e94\u82b1\u8089"},"type":0}]
 	public static Favorite getFavorite(String json) {
