@@ -43,6 +43,17 @@ app.controller('IngredientDetialCtrl', ['$scope', 'dataService', 'authService', 
             }
         });
 
+        dataService.get_comment('ingredient',  $routeParams.id).then(function(response){
+            $scope.comments = response;
+        });
+
+        $scope.add_comment = function(){
+            dataService.add_comment('ingredient', $routeParams.id,$scope.content).then(function (response) {
+                $scope.comments.splice(0,0, response);
+                $scope.content = '';
+            });
+        };
+
         $scope.like = function () {
             if ($scope.liked) {
                 dataService.delete_like('ingredient', $routeParams.id, $scope.like_id).then(function (response) {

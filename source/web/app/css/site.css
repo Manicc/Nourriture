@@ -73,3 +73,19 @@ body
 .detial .tags span{
     margin-left: 5px;
 }
+
+.comment form{
+    margin: 20px 20px 20px 20px;
+    padding: 20px 20px 20px 20px;
+    border: solid 1px #ebebeb;
+    border-radius: 5px;
+}
+
+.comment form .button{
+    margin-top: 10px;
+    text-align: right;
+}
+
+.comment .list-group{
+    margin: 20px 20px 20px 20px;
+}

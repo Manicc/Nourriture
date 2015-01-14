@@ -162,17 +162,24 @@ class Search(APIView):
             if ingre:
                 ser = IngredListSerializer(ingre, many=True)
                 ret['ingredient'] = ser.data
+            else:
+                ret['ingredient'] = []
+
 
             # product
             products = Product.objects.filter(name__icontains=key)
             if products:
                 ser = ProductListSerializer(products, many=True)
                 ret['product'] = ser.data
+            else:
+                ret['product'] = []
 
             # recipe
             recipes = Recipe.objects.filter(name__icontains=key)
             if recipes:
                 ser = RecipeSerializer(recipes, many=True)
                 ret['recipe'] = ser.data
+            else:
+                ret['recipe'] = []
 
         return Response(ret)

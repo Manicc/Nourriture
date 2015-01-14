@@ -17,14 +17,14 @@ app.config(['$routeProvider',
 //controllers
 app.controller('RecipeListCtrl', ['$scope', '$http', 'CONFIG', 
   function($scope, $http, CONFIG){
-  $http.get(CONFIG.SERVER_ROOT+'/recipe/').success(function(data){
+  $http.get(CONFIG.SERVER_ROOT+'recipe/').success(function(data){
       $scope.recipes = data;
     })
 }]);
 
 app.controller('RecipeDetailCtrl', ['$scope', '$http', '$routeParams', 'CONFIG',
 	function ($scope, $http, $routeParams, CONFIG) {
-		$http.get(CONFIG.SERVER_ROOT+'/recipe/'+ $routeParams.id).success(function(data){
+		$http.get(CONFIG.SERVER_ROOT+'recipe/'+ $routeParams.id).success(function(data){
   			$scope.recipe = data;
   		})
 }]);
