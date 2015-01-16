@@ -47,13 +47,13 @@ public class LoginFragment extends BaseFragment implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.login:
-			String name = mNameEditText.getText().toString();
+			final String name = mNameEditText.getText().toString();
 			if (TextUtils.isEmpty(name)) {
 				Toast.makeText(getActivity(), "用户名不能为空", Toast.LENGTH_SHORT)
 						.show();
 				return;
 			}
-			String password = mPasswordEditText.getText().toString();
+			final String password = mPasswordEditText.getText().toString();
 			if (TextUtils.isEmpty(password)) {
 				Toast.makeText(getActivity(), "密码不能为空", Toast.LENGTH_SHORT)
 						.show();
@@ -64,7 +64,7 @@ public class LoginFragment extends BaseFragment implements OnClickListener {
 
 				@Override
 				public void run() {
-					if (LoginUtils.login("hongzhi", "123456") == 1) {
+					if (LoginUtils.login(name, password) == 1) {
 						MessageManager.getInstance().asyncNotify(
 								MessageID.OBSERVER_LOGIN,
 								new Caller<ILoginObserver>() {

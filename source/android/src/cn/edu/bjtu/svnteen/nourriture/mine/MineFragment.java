@@ -123,6 +123,7 @@ public class MineFragment extends Fragment implements ILoginObserver {
 		mLoginView.setVisibility(View.GONE);
 		mLogoutButton.setVisibility(View.VISIBLE);
 		mLoginAfterview.setVisibility(View.VISIBLE);
+		mFavoriteListView.setVisibility(View.VISIBLE);
 		mUserNameTextView.setText(PreferenceUtils.getUserName());
 		StThreadPool.runThread(JobType.NET, new Runnable() {
 
