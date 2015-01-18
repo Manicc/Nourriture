@@ -2,12 +2,15 @@ package cn.edu.bjtu.svnteen.nourriture.utils;
 
 import java.util.ArrayList;
 
+import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+
+import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import cn.edu.bjtu.svnteen.nourriture.bean.Ingredient;
 import cn.edu.bjtu.svnteen.nourriture.bean.Product;
@@ -57,17 +60,13 @@ public class ProductUtils {
 	}
 
 	public static void getProductDetail(final Product product) {
-		StThreadPool.runThread(JobType.NET, new Runnable() {
 
-			@Override
-			public void run() {
-				HttpGet httpGet = new HttpGet(UrlManagerUtils
-						.getProductUrl(product.getId()));
-				HttpClient httpClient = new DefaultHttpClient();
-				try {
-					HttpResponse httpResponse = httpClient.execute(httpGet);
-					if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-						String result = EntityUtils.toString(httpResponse.getEntity());
+		HttpUtils.get(UrlManagerUtils.getProductUrl(product.getId()),
+				new AsyncHttpResponseHandler() {
+
+					@Override
+					public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+						String result = new String(arg2);
 						JsonUtils.getProductDetail(product, result);
 						MessageManager.getInstance().asyncNotify(
 								MessageID.OBSERVER_PRODUCT_JSON,
@@ -78,7 +77,11 @@ public class ProductUtils {
 									}
 
 								});
-					} else {
+					}
+
+					@Override
+					public void onFailure(int arg0, Header[] arg1, byte[] arg2,
+							Throwable arg3) {
 						MessageManager.getInstance().asyncNotify(
 								MessageID.OBSERVER_PRODUCT_JSON,
 								new Caller<IProductJsonObserver>() {
@@ -89,33 +92,16 @@ public class ProductUtils {
 
 								});
 					}
-				} catch (Exception e) {
-					MessageManager.getInstance().asyncNotify(
-							MessageID.OBSERVER_PRODUCT_JSON,
-							new Caller<IProductJsonObserver>() {
-								@Override
-								public void call() {
-									ob.IProductJsonObserver_Failed();
-								}
-
-							});
-				}
-
-			}
-		});
+				});
 	}
 
 	public static void getAllProducts() {
-		StThreadPool.runThread(JobType.NET, new Runnable() {
+		HttpUtils.get(UrlManagerUtils.getProductUrl(0),
+				new AsyncHttpResponseHandler() {
 
-			@Override
-			public void run() {
-				HttpGet httpGet = new HttpGet(UrlManagerUtils.getProductUrl(0));
-				HttpClient httpClient = new DefaultHttpClient();
-				try {
-					HttpResponse httpResponse = httpClient.execute(httpGet);
-					if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-						String result = EntityUtils.toString(httpResponse.getEntity());
+					@Override
+					public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+						String result = new String(arg2);
 						final ArrayList<Product> list = JsonUtils
 								.getProducts(result);
 						MessageManager.getInstance().asyncNotify(
@@ -127,7 +113,11 @@ public class ProductUtils {
 									}
 
 								});
-					} else {
+					}
+
+					@Override
+					public void onFailure(int arg0, Header[] arg1, byte[] arg2,
+							Throwable arg3) {
 						MessageManager.getInstance().asyncNotify(
 								MessageID.OBSERVER_PRODUCT_JSON,
 								new Caller<IProductJsonObserver>() {
@@ -138,19 +128,6 @@ public class ProductUtils {
 
 								});
 					}
-				} catch (Exception e) {
-					MessageManager.getInstance().asyncNotify(
-							MessageID.OBSERVER_PRODUCT_JSON,
-							new Caller<IProductJsonObserver>() {
-								@Override
-								public void call() {
-									ob.IProductJsonObserver_Failed();
-								}
-
-							});
-				}
-
-			}
-		});
+				});
 	}
 }

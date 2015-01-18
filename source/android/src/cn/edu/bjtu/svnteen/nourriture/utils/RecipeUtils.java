@@ -2,12 +2,15 @@ package cn.edu.bjtu.svnteen.nourriture.utils;
 
 import java.util.ArrayList;
 
+import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+
+import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import cn.edu.bjtu.svnteen.nourriture.bean.Ingredient;
 import cn.edu.bjtu.svnteen.nourriture.bean.Recipe;
@@ -52,17 +55,12 @@ public class RecipeUtils {
 	}
 
 	public static void getRecipes() {
-		StThreadPool.runThread(JobType.NET, new Runnable() {
+		HttpUtils.get(UrlManagerUtils.getRecipeUrl(0),
+				new AsyncHttpResponseHandler() {
 
-			@Override
-			public void run() {
-				HttpGet httpGet = new HttpGet(UrlManagerUtils.getRecipeUrl(0));
-				HttpClient httpClient = new DefaultHttpClient();
-				try {
-					HttpResponse httpResponse = httpClient.execute(httpGet);
-					if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-						String result = EntityUtils.toString(httpResponse
-								.getEntity());
+					@Override
+					public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+						String result = new String(arg2);
 						final ArrayList<Recipe> list = JsonUtils
 								.getRecipes(result);
 						MessageManager.getInstance().asyncNotify(
@@ -74,12 +72,14 @@ public class RecipeUtils {
 									}
 
 								});
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
 
-			}
-		});
+					}
+
+					@Override
+					public void onFailure(int arg0, Header[] arg1, byte[] arg2,
+							Throwable arg3) {
+
+					}
+				});
 	}
 }
