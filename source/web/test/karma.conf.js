@@ -15,10 +15,14 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+        'app/bower_components/jquery/dist/jquery.js',
         'app/bower_components/angular/angular.js',
+        'app/bower_components/angular-route/angular-route.js',
         'app/bower_components/angular-mocks/angular-mocks.js',
-        'test/spec/**/*.js',
-        'test/e2e/**/*.js'
+        'app/bower_components/angular-local-storage/dist/angular-local-storage.js',
+        'app/bower_components/ng-file-upload/angular-file-upload.js',
+        'app/js/**/*.js',
+        'test/spec/**/*.js'
     ],
 
 

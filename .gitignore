@@ -6,3 +6,4 @@
 /source/web/app/bower_components
 /source/web/node_modules
 /source/server/upload
+npm-debug.log

@@ -29,7 +29,7 @@ app.controller('indexController', ['$scope', '$location', 'authService', functio
     $scope.logout = function () {
         authService.logout();
         $location.path('/login/');
-    }
+    };
 
     $scope.authentication = authService.authentication;
 

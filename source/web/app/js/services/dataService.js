@@ -1,5 +1,8 @@
+'use strict';
+
+var app = angular.module('app');
+
 app.factory('dataService', ['$http', '$q', 'CONFIG', function ($http, $q, CONFIG) {
-    var urlroot = CONFIG.SERVER_ROOT;
     var dataServiceFactory = {};
 
     var getdata = function (location) {
@@ -17,6 +20,7 @@ app.factory('dataService', ['$http', '$q', 'CONFIG', function ($http, $q, CONFIG
         return deferred.promise;
     };
 
+    //ingredient
     var _ingredient_list = function () {
         return getdata('ingredient/');
     };
@@ -29,11 +33,29 @@ app.factory('dataService', ['$http', '$q', 'CONFIG', function ($http, $q, CONFIG
         return getdata('ingredient/category/');
     };
 
+    //product
+    dataServiceFactory.product_list = function () {
+        return getdata('product/');
+    };
+
+    dataServiceFactory.product_detial = function (pk) {
+        return getdata('product/' + pk + '/');
+    };
+
+    //recipe
+    dataServiceFactory.recipe_list = function () {
+        return getdata('recipe/');
+    };
+
+    dataServiceFactory.recipe_detial = function (pk) {
+        return getdata('recipe/' + pk + '/');
+    };
+
     // favorite
     var _add_like = function (type, id) {
         var deferred = $q.defer();
 
-        $http.post(CONFIG.SERVER_ROOT + type + '/' + id + '/favorite/').
+        $http.post(CONFIG.SERVER_ROOT + type + '/' + id + '/favorite/', {}).
             success(function (data) {
                 deferred.resolve(data);
             }).
@@ -51,7 +73,7 @@ app.factory('dataService', ['$http', '$q', 'CONFIG', function ($http, $q, CONFIG
     var _delete_like = function (type, id, like_id) {
         var deferred = $q.defer();
 
-        $http.delete(CONFIG.SERVER_ROOT + type + '/' + id + '/favorite/'+like_id+'/').
+        $http.delete(CONFIG.SERVER_ROOT + type + '/' + id + '/favorite/' + like_id + '/').
             success(function (data) {
                 deferred.resolve(data);
             }).
@@ -63,7 +85,7 @@ app.factory('dataService', ['$http', '$q', 'CONFIG', function ($http, $q, CONFIG
     };
 
     //comment
-    var _add_comment = function(type, id, content){
+    var _add_comment = function (type, id, content) {
         var deferred = $q.defer();
 
         var data = {};
@@ -80,8 +102,8 @@ app.factory('dataService', ['$http', '$q', 'CONFIG', function ($http, $q, CONFIG
         return deferred.promise;
     };
 
-    var _get_comment = function(type, id){
-        return getdata(type+'/'+id+'/comment/');
+    var _get_comment = function (type, id) {
+        return getdata(type + '/' + id + '/comment/');
     };
 
     dataServiceFactory.ingredient_list = _ingredient_list;
@@ -96,4 +118,4 @@ app.factory('dataService', ['$http', '$q', 'CONFIG', function ($http, $q, CONFIG
     dataServiceFactory.get_comment = _get_comment;
 
     return dataServiceFactory;
-}])
+}]);

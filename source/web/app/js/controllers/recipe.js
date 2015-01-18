@@ -22,9 +22,45 @@ app.controller('RecipeListCtrl', ['$scope', '$http', 'CONFIG',
     })
 }]);
 
-app.controller('RecipeDetailCtrl', ['$scope', '$http', '$routeParams', 'CONFIG',
-	function ($scope, $http, $routeParams, CONFIG) {
-		$http.get(CONFIG.SERVER_ROOT+'recipe/'+ $routeParams.id).success(function(data){
-  			$scope.recipe = data;
-  		})
+app.controller('RecipeDetailCtrl', ['$scope', 'dataService', 'authService', '$routeParams',
+	function ($scope, dataService, authService, $routeParams) {
+		$scope.liked = false;
+
+        dataService.recipe_detial($routeParams.id).then(function (response) {
+            $scope.recipe = response;
+        });
+
+        dataService.get_like('recipe', $routeParams.id).then(function (response) {
+            for (var item in response) {
+                if (response[item].user.username == authService.authentication.username) {
+                    $scope.liked = true;
+                    $scope.like_id = response[item].id;
+                }
+            }
+        });
+
+        dataService.get_comment('recipe', $routeParams.id).then(function (response) {
+            $scope.comments = response;
+        });
+
+        $scope.add_comment = function () {
+            dataService.add_comment('recipe', $routeParams.id, $scope.content).then(function (response) {
+                $scope.comments.splice(0, 0, response);
+                $scope.content = '';
+            });
+        };
+
+        $scope.like = function () {
+            if ($scope.liked) {
+                dataService.delete_like('recipe', $routeParams.id, $scope.like_id).then(function (response) {
+                    $scope.liked = false;
+                });
+            }
+            else {
+                dataService.add_like('recipe', $routeParams.id).then(function (response) {
+                    $scope.liked = true;
+                    $scope.like_id = response.id;
+                });
+            }
+        };
 }]);

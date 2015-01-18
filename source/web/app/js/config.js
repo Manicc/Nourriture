@@ -1,5 +1,5 @@
 //set this to true when using the local server
-var LOCALSERVER = true;
+var LOCALSERVER = false;
 
 var config_data;
 if (LOCALSERVER)

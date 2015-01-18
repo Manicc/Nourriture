@@ -4,7 +4,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'CONFIG', func
 
     var _authentication = {
         isAuth: false,
-        userName: "",
+        username: "",
         token: ""
     };
 
@@ -16,16 +16,16 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'CONFIG', func
         	password: loginData.password,
         	client_id: CONFIG.CLIENT_ID,
         	client_secret: CONFIG.CLIENT_SECRET
-        }
+        };
 
         var deferred = $q.defer();
 
         $http.post(serviceBase + 'o/token/', $.param(data), { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
 
-            localStorageService.set('authorizationData', { token: response.access_token, userName: loginData.username});
+            localStorageService.set('authorizationData', { token: response.access_token, username: loginData.username});
 
             _authentication.isAuth = true;
-            _authentication.userName = loginData.username;
+            _authentication.username = loginData.username;
 
             deferred.resolve(response);
 
@@ -42,7 +42,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'CONFIG', func
         localStorageService.remove('authorizationData');
 
         _authentication.isAuth = false;
-        _authentication.userName = "";
+        _authentication.username = "";
         _authentication.token = "";
 
     };
@@ -52,7 +52,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'CONFIG', func
         var authData = localStorageService.get('authorizationData');
         if (authData) {
             _authentication.isAuth = true;
-            _authentication.userName = authData.userName;
+            _authentication.username = authData.username;
             _authentication.useRefreshTokens = authData.useRefreshTokens;
         }
 
@@ -64,4 +64,4 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'CONFIG', func
     authServiceFactory.authentication = _authentication;
 
     return authServiceFactory;
-}])
+}]);

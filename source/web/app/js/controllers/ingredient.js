@@ -18,8 +18,8 @@ app.config(['$routeProvider',
 ]);
 
 //controllers
-app.controller('IngredientListCtrl', ['$scope', 'dataService', 'CONFIG',
-    function ($scope, dataService, CONFIG) {
+app.controller('IngredientListCtrl', ['$scope', 'dataService',
+    function ($scope, dataService) {
         dataService.ingredient_list().then(function (response) {
             $scope.ingredients = response;
         });
@@ -27,7 +27,7 @@ app.controller('IngredientListCtrl', ['$scope', 'dataService', 'CONFIG',
 ]);
 
 app.controller('IngredientDetialCtrl', ['$scope', 'dataService', 'authService', '$routeParams', 'CONFIG',
-    function ($scope, dataService, authService, $routeParams, CONFIG) {
+    function ($scope, dataService, authService, $routeParams) {
         $scope.liked = false;
 
         dataService.ingredient_detial($routeParams.id).then(function (response) {
@@ -35,21 +35,21 @@ app.controller('IngredientDetialCtrl', ['$scope', 'dataService', 'authService', 
         });
 
         dataService.get_like('ingredient', $routeParams.id).then(function (response) {
-            for(var item in response) {
-                if(response[item].user.username == authService.authentication.userName){
+            for (var item in response) {
+                if (response[item].user.username == authService.authentication.username) {
                     $scope.liked = true;
                     $scope.like_id = response[item].id;
                 }
             }
         });
 
-        dataService.get_comment('ingredient',  $routeParams.id).then(function(response){
+        dataService.get_comment('ingredient', $routeParams.id).then(function (response) {
             $scope.comments = response;
         });
 
-        $scope.add_comment = function(){
-            dataService.add_comment('ingredient', $routeParams.id,$scope.content).then(function (response) {
-                $scope.comments.splice(0,0, response);
+        $scope.add_comment = function () {
+            dataService.add_comment('ingredient', $routeParams.id, $scope.content).then(function (response) {
+                $scope.comments.splice(0, 0, response);
                 $scope.content = '';
             });
         };

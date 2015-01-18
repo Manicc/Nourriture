@@ -2,40 +2,44 @@
  * Created by Hongzhi on 2014/12/26.
  */
 
-describe("A suite", function () {
-    it("contains spec with an expectation", function () {
-        expect(true).toBe(true);
-    });
-});
+describe('loginController test', function () {
+    beforeEach(module('app'));
 
-describe("A suite is just a function", function () {
-    var a;
+    var loginCtrl;
+    var $scope = {};
+    var $httpBackend;
 
-    it("and so is a spec", function () {
-        a = true;
+    beforeEach(inject(function (_$controller_, _$httpBackend_, _CONFIG_) {
+        // The injector unwraps the underscores (_) from around the parameter names when matching
+        loginCtrl = _$controller_('LoginCtrl', {$scope: $scope});
+        $httpBackend = _$httpBackend_;
 
-        expect(a).toBe(true);
-    });
-});
+        $httpBackend.when('POST', _CONFIG_.SERVER_ROOT + 'o/token/')
+            .respond({access_token: 'dadasdsadas'});
+    }));
 
-describe("A spec using beforeEach and afterEach", function () {
-    var foo = 0;
-
-    beforeEach(function () {
-        foo += 1;
+    it('should have loginCtrl', function () {
+        expect(loginCtrl).toBeDefined();
     });
 
-    afterEach(function () {
-        foo = 0;
+    it('should have function login in scope', function () {
+        expect(typeof $scope.login == 'function').toBeTruthy();
     });
 
-    it("is just a function, so it can contain any code", function () {
-        expect(foo).toEqual(1);
+    it('should have loginData in scope', function () {
+        expect($scope.loginData).toBeDefined();
     });
 
-    it("can have more than one expectation", function () {
-        expect(foo).toEqual(1);
-        expect(true).toEqual(true);
-    });
+    it('should call login func', inject(function (CONFIG, authService) {
+        $scope.loginData.username = 'zhz';
+        $scope.loginData.password = 'zhz';
+        $httpBackend.expectPOST(CONFIG.SERVER_ROOT + 'o/token/');
+
+        $scope.login();
+
+        $httpBackend.flush();
+
+        expect(authService.authentication.isAuth).toBeTruthy();
+    }));
 });
 

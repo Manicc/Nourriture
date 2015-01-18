@@ -1,26 +1,48 @@
 <div class="container detial">
-    <div class="col-md-4">
-        <img ng-if="product.image==null" ng-src="img/placeholder.png">
-        <img ng-if="product.image!=null" ng-src="{{ product.image }}">
-    </div>
-    <div class="col-md-8">
-        <h1>{{ product.name }}</h1>
-
-        <div class="tags">
-            <span class="label label-primary" ng-repeat="t in product.tags">{{ t.name }}</span>
+    <div class="row">
+        <div class="col-md-4">
+            <img ng-if="product.image==null" ng-src="img/placeholder.png">
+            <img ng-if="product.image!=null" ng-src="{{ product.image }}">
         </div>
-        <p><span>Alias: </span>{{ product.alias }}</p>
+        <div class="col-md-8">
+            <h1>{{ product.name }}<a ng-click="like()"><span id="like"
+                    ng-class="{'glyphicon-star-empty':!liked,'glyphicon-star':liked}" class="glyphicon"></span></a></h1>
 
-        <p><span>Category: </span>{{ product.category.name }}</p>
+            <div class="tags">
+                <span class="label label-primary" ng-repeat="t in product.tags">{{ t.name }}</span>
+            </div>
+            <p><span>Alias: </span>{{ product.alias }}</p>
 
-        <p>{{ product.desc }}</p>
+            <p><span>Category: </span>{{ product.category.name }}</p>
 
-        <p>
+            <p>{{ product.desc }}</p>
 
-        <p ng-repeat="n in product.nutrition">
-            {{ n.nutrition.name }}:{{ n.value }} {{ n.nutrition.unit }}
-        </p>
-        </p>
-        <p><span>Functions: </span>{{ product.function }}</p>
+            <p>
+
+            <p ng-repeat="n in product.nutrition">
+                {{ n.nutrition.name }}:{{ n.value }} {{ n.nutrition.unit }}
+            </p>
+
+            <p><span>Functions: </span>{{ product.function }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="panel panel-default comment">
+            <div class="panel-heading">
+                <h3>Comments</h3>
+            </div>
+            <form ng-submit="add_comment()">
+                <textarea ng-model="content" class="form-control" rows="2" required></textarea>
+
+                <div class="button">
+                    <button type="submit" class="btn btn-success">Send</button>
+                </div>
+            </form>
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="c in comments"><p><span class="label label-warning">{{ c.user.username }}</span>{{ c.content }}</p>
+
+                    <p>{{ c.time }}</p></li>
+            </ul>
+        </div>
     </div>
 </div>

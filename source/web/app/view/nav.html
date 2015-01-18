@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Nourriture</a>
+            <a class="navbar-brand" href="#/">Nourriture</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -23,13 +23,9 @@
                   <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-edit"></span></a>
                   <ul class="dropdown-menu" role="menu">
                     <li><a href="#/ingredient_create/">New Ingredient</a></li>
-                    <li><a href="#/add_product/">New Product</a></li>
-                    <li><a href="#/add_recipe/">New Recipe</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Memoment</a></li>
                   </ul>
                 </li>
-                <li><a href="#"><span class="glyphicon glyphicon-user"></span>{{authentication.userName}}</a></li>
+                <li><a href="#/"><span class="glyphicon glyphicon-user"></span>{{authentication.username}}</a></li>
                 <li><a href="" data-ng-click="logout()">Logout</a></li>
             </ul>
             <ul data-ng-hide="authentication.isAuth" class="nav navbar-nav navbar-right">

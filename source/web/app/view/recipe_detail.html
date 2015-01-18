@@ -5,7 +5,7 @@
             <img ng-if="recipe.image!=null" ng-src="{{ recipe.image }}">
         </div>
         <div class="col-md-8">
-            <h1>{{ recipe.name }}<a ng-click="like()"><span
+            <h1>{{ recipe.name }}<a ng-click="like()"><span id="like"
                     ng-class="{'glyphicon-star-empty':!liked,'glyphicon-star':liked}" class="glyphicon"></span></a></h1>
 
             <div class="tags">
